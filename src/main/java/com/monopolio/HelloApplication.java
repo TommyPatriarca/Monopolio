@@ -1,4 +1,4 @@
-package com.example.demosmonopolio;
+package com.monopolio;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package com.example.demosmonopolio;
+package com.monopolio;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
