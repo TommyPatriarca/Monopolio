@@ -6,15 +6,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,16 +109,17 @@ public class SchermataAvvio extends Application {
         // Aggiunta dell'ombra al bottone
         startButton.setEffect(shadow);
 
-        // Aggiungi un listener al pulsante Start per mostrare l'avviso se necessario
-        startButton.setOnAction(event -> {
-            if (validFields.size() >= 2) {
-                if (validFields.size() == 4) {
-                    showConfirmationAlert(primaryStage);
-                } else {
-                    showWarningAlert(primaryStage);
+        // Aggiungi un listener ai campi di testo per controllare se ci sono almeno due campi di testo con testo valido
+        for (TextField textField : playerFields) {
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.isEmpty() && newValue.matches("^[a-zA-Z0-9]*$") && !validFields.contains(textField)) {
+                    validFields.add(textField);
+                } else if (newValue.isEmpty() || !newValue.matches("^[a-zA-Z0-9]*$")) {
+                    validFields.remove(textField);
                 }
-            }
-        });
+                startButton.setDisable(validFields.size() < 2); // Abilita il pulsante Start solo se ci sono almeno due campi di testo validi
+            });
+        }
 
         // Creazione del VBox per contenere i campi di testo e il bottone start
         VBox vbox = new VBox(20); // Spaziatura di 20 tra i nodi
@@ -143,26 +146,102 @@ public class SchermataAvvio extends Application {
         primaryStage.setTitle("Selezione giocatori");
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
+        primaryStage.setMinHeight(800);
+        primaryStage.setMinWidth(800);
         primaryStage.show();
+
+        // Aggiungi un listener ai campi di testo per controllare se ci sono almeno due campi di testo con testo valido
+        for (TextField textField : playerFields) {
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.isEmpty() && newValue.matches("^[a-zA-Z0-9]*$") && !validFields.contains(textField)) {
+                    validFields.add(textField);
+                } else if (newValue.isEmpty() || !newValue.matches("^[a-zA-Z0-9]*$")) {
+                    validFields.remove(textField);
+                }
+                startButton.setDisable(validFields.size() < 2); // Abilita il pulsante Start solo se ci sono almeno due campi di testo validi
+            });
+
+            // Aggiungi un flag per tracciare se il campo di testo è stato modificato
+            boolean[] modified = {false};
+            // Aggiungi un listener per controllare il testo quando il campo di testo perde il focus
+            textField.focusedProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal && textField.getText().isEmpty()) {
+                    if (!modified[0]) {
+                        validFields.add(textField);
+                        startButton.setDisable(validFields.size() < 2); // Abilita il pulsante Start solo se ci sono almeno due campi di testo validi
+                    }
+                }
+            });
+
+            // Aggiungi un listener per tracciare le modifiche al testo del campo di testo
+            textField.textProperty().addListener((obs, oldVal, newVal) -> {
+                if (!oldVal.equals(newVal)) {
+                    modified[0] = true;
+                }
+            });
+        }
+
+        // Aggiungi un listener al pulsante Start per verificare i nomi duplicati
+        startButton.setOnAction(event -> {
+            String[] playerNames = new String[4];
+            for (int i = 0; i < playerFields.length; i++) {
+                playerNames[i] = playerFields[i].getText().trim();
+            }
+            if (hasDuplicateNames(playerNames)) {
+                showAlert(primaryStage);
+            } else {
+                // Avvia la partita
+            }
+        });
     }
 
-    // Mostra un avviso di conferma se tutti i campi sono compilati correttamente
-    private void showConfirmationAlert(Stage primaryStage) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Avviso");
-        alert.setHeaderText("Stai per avviare una nuova partita!");
-        alert.setContentText("Vuoi procedere?");
-        alert.showAndWait();
+    // Metodo per verificare se ci sono nomi duplicati tra i giocatori
+    private boolean hasDuplicateNames(String[] names) {
+        for (int i = 0; i < names.length - 1; i++) {
+            for (int j = i + 1; j < names.length; j++) {
+                if (!names[i].isEmpty() && names[i].equalsIgnoreCase(names[j]) && !names[i].isEmpty()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-    // Mostra un avviso di avvertimento se alcuni campi non sono compilati correttamente
-    private void showWarningAlert(Stage primaryStage) {
+    // Metodo per mostrare un avviso
+    // Mostra un avviso se vengono inseriti nomi duplicati
+    private void showAlert(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Avviso");
-        alert.setHeaderText("Alcuni campi non sono compilati correttamente!");
-        alert.setContentText("Vuoi procedere comunque?");
+        alert.initOwner(primaryStage); // Imposta la finestra genitore
+        alert.setTitle("Attenzione");
+        alert.setHeaderText(null);
+        alert.setContentText("Presenza di nomi duplicati!");
+
+        // Applica lo stile alert personalizzato
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setStyle("-fx-background-color: #001845E0; -fx-border-radius: 10;");
+
+        // Rimuove l'intestazione predefinita
+        dialogPane.setHeader(null);
+
+        // Arrotonda i bordi dell'alert
+        dialogPane.getStyleClass().add("custom-alert");
+        Stage stage = (Stage) dialogPane.getScene().getWindow();
+        stage.initOwner(primaryStage);
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        // Modifica lo stile del contenuto del messaggio
+        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+
+        // Modifica lo stile dei pulsanti dell'alert
+        alert.getButtonTypes().forEach(buttonType -> {
+            Button button = (Button) dialogPane.lookupButton(buttonType);
+            button.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
+        });
+
         alert.showAndWait();
     }
+
+
 
     public static void main(String[] args) {
         launch(args);
