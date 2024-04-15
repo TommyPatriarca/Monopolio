@@ -1,5 +1,6 @@
 package com.monopolio;
 
+import com.monopolio.InterfacciaGioco;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +20,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SchermataAvvio extends Application {
 
@@ -27,6 +30,9 @@ public class SchermataAvvio extends Application {
     private Color backgroundColor = Color.rgb(0, 18, 51);
     private Color monoColor = Color.rgb(255, 255, 255);
     private Color polioColor = Color.rgb(16, 129, 249);
+
+    // Definizione dei colori dei bordi dei text box
+    private Color[] borderColors = {Color.GREEN, Color.YELLOW, Color.LIGHTBLUE, Color.PURPLE};
 
     @Override
     public void start(Stage primaryStage) {
@@ -60,30 +66,31 @@ public class SchermataAvvio extends Application {
         // Creazione dei campi di testo per i giocatori
         TextField[] playerFields = new TextField[4];
         List<TextField> validFields = new ArrayList<>();
+        Set<String> playerNamesSet = new HashSet<>();
         for (int i = 0; i < 4; i++) {
             TextField textField = new TextField();
             textField.setPromptText("Add Player");
             textField.setFont(Font.font("Arial", FontWeight.NORMAL, 30));
-            textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-radius: 10;");
+            textField.setStyle("-fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-radius: 10;");
             textField.setFocusTraversable(true);
 
-            // Aggiungi un ChangeListener per il testo del campo
+            // Imposta il colore del bordo in base all'indice
+            textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-color: " + toHex(borderColors[i]) + "; -fx-border-radius: 10;");
+
+            // Limita la lunghezza massima del testo a 10 caratteri
+            final int index = i; // Indice finale per essere utilizzato nell'espressione lambda
             textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (!newValue.isEmpty() && newValue.matches(".*[^a-zA-Z0-9].*")) {
-                    // Se contiene caratteri speciali e non è vuoto, imposta il bordo rosso
+                if (newValue.length() > 10) {
+                    textField.setText(oldValue);
+                }
+                // Controlla i nomi duplicati e imposta il bordo rosso se necessario
+                if (hasDuplicateNames(playerFields)) {
                     textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-color: red; -fx-border-radius: 10;");
-                    validFields.remove(textField);
                 } else {
-                    // Altrimenti, reimposta lo stile predefinito
-                    textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-radius: 10;");
-                    if (!newValue.isEmpty() && !validFields.contains(textField)) {
-                        // Se il campo non è vuoto e non è già stato aggiunto alla lista dei campi validi, aggiungilo
-                        validFields.add(textField);
-                    }
+                    textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-color: " + toHex(borderColors[index]) + "; -fx-border-radius: 10;");
                 }
             });
 
-            int index = i; // Cattura l'indice corrente per l'utilizzo nell'evento
             textField.setOnMouseClicked(e -> {
                 if (textField.getText().equals("Add Player")) {
                     textField.setText("");
@@ -150,58 +157,56 @@ public class SchermataAvvio extends Application {
         primaryStage.setMinWidth(800);
         primaryStage.show();
 
-        // Aggiungi un listener ai campi di testo per controllare se ci sono almeno due campi di testo con testo valido
-        for (TextField textField : playerFields) {
-            textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (!newValue.isEmpty() && newValue.matches("^[a-zA-Z0-9]*$") && !validFields.contains(textField)) {
-                    validFields.add(textField);
-                } else if (newValue.isEmpty() || !newValue.matches("^[a-zA-Z0-9]*$")) {
-                    validFields.remove(textField);
-                }
-                startButton.setDisable(validFields.size() < 2); // Abilita il pulsante Start solo se ci sono almeno due campi di testo validi
-            });
-
-            // Aggiungi un flag per tracciare se il campo di testo è stato modificato
-            boolean[] modified = {false};
-            // Aggiungi un listener per controllare il testo quando il campo di testo perde il focus
-            textField.focusedProperty().addListener((obs, oldVal, newVal) -> {
-                if (!newVal && textField.getText().isEmpty()) {
-                    if (!modified[0]) {
-                        validFields.add(textField);
-                        startButton.setDisable(validFields.size() < 2); // Abilita il pulsante Start solo se ci sono almeno due campi di testo validi
-                    }
-                }
-            });
-
-            // Aggiungi un listener per tracciare le modifiche al testo del campo di testo
-            textField.textProperty().addListener((obs, oldVal, newVal) -> {
-                if (!oldVal.equals(newVal)) {
-                    modified[0] = true;
-                }
-            });
-        }
-
         // Aggiungi un listener al pulsante Start per verificare i nomi duplicati
         startButton.setOnAction(event -> {
             String[] playerNames = new String[4];
             for (int i = 0; i < playerFields.length; i++) {
                 playerNames[i] = playerFields[i].getText().trim();
             }
-            if (hasDuplicateNames(playerNames)) {
+            if (hasDuplicateNames(playerFields)) {
                 showAlert(primaryStage);
             } else {
-                // Avvia la partita
+                // Creazione della nuova finestra per l'interfaccia del gioco
+                Stage gameStage = new Stage();
+
+                // Copia delle impostazioni della finestra corrente
+                gameStage.setFullScreen(primaryStage.isFullScreen());
+                gameStage.setFullScreenExitHint(primaryStage.getFullScreenExitHint());
+                gameStage.setFullScreenExitKeyCombination(primaryStage.getFullScreenExitKeyCombination());
+                gameStage.setMaximized(primaryStage.isMaximized());
+                gameStage.setWidth(primaryStage.getWidth());
+                gameStage.setHeight(primaryStage.getHeight());
+                gameStage.setX(primaryStage.getX());
+                gameStage.setY(primaryStage.getY());
+
+                // Apertura dell'interfaccia del gioco sulla nuova finestra
+                InterfacciaGioco interfacciaGioco = new InterfacciaGioco();
+                try {
+                    interfacciaGioco.start(gameStage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Chiusura del primaryStage
+                primaryStage.close();
             }
         });
     }
 
-    // Metodo per verificare se ci sono nomi duplicati tra i giocatori
-    private boolean hasDuplicateNames(String[] names) {
-        for (int i = 0; i < names.length - 1; i++) {
-            for (int j = i + 1; j < names.length; j++) {
-                if (!names[i].isEmpty() && names[i].equalsIgnoreCase(names[j]) && !names[i].isEmpty()) {
-                    return true;
-                }
+    // Metodo per convertire un colore in formato esadecimale
+    private String toHex(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
+
+    // Metodo (Spiegato su chatOverflow) per verificare se ci sono nomi duplicati tra i giocatori
+    private boolean hasDuplicateNames(TextField[] fields) {
+        Set<String> uniqueNames = new HashSet<>();
+        for (TextField field : fields) {
+            if (!field.getText().isEmpty() && !uniqueNames.add(field.getText().trim())) {
+                return true;
             }
         }
         return false;
@@ -240,8 +245,6 @@ public class SchermataAvvio extends Application {
 
         alert.showAndWait();
     }
-
-
 
     public static void main(String[] args) {
         launch(args);
