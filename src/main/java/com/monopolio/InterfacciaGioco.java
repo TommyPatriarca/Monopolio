@@ -26,8 +26,8 @@ public class InterfacciaGioco extends Application {
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
+        gridPane.setHgap(5);
+        gridPane.setVgap(5);
 
         // Aggiunta bottoni al perimetro del GridPane
         int count = 1; // Contatore per la numerazione dei bottoni
@@ -44,7 +44,7 @@ public class InterfacciaGioco extends Application {
                     } else {
                         number = 37 - i ;
                     }
-                    Button button = createButton(String.valueOf(number));
+                    Button button = createButton(number);
                     gridPane.add(button, j, i);
                 }
             }
@@ -61,20 +61,75 @@ public class InterfacciaGioco extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    private Button createButton(int number) {
+        String city;
+        switch (number){
+            case 1: city = "VIA"; break;
+            case 2: city = "Delebio"; break;
+            case 3: city = "Mantello"; break;
+            case 4: city = "Traona"; break;
+            case 5: city = "Cosio"; break;
+            case 6: city = "Morbegno"; break;
+            case 7: city = "Albaredo"; break;
+            case 8: city = "Pescegallo"; break;
+            case 9: city = "Talamona"; break;
+            case 10: city = "PRIGIONE"; break;
+            case 11: city = "Ardenno"; break;
+            case 12: city = "Villapinta"; break;
+            case 13: city = "Berbenno"; break;
+            case 14: city = "Castione"; break;
+            case 15: city = "Albosaggia"; break;
+            case 16: city = "Sondrio"; break;
+            case 17: city = "Lanzada"; break;
+            case 18: city = "Chiesa"; break;
+            case 19: city = "PARCHEGGIO\n  GRATUITO"; break;
+            case 20: city = "Pianteda"; break;
+            case 21: city = "Chiuro"; break;
+            case 22: city = "San Giacomo"; break;
+            case 23: city = "Tresenda"; break;
+            case 24: city = "Aprica"; break;
+            case 25: city = "Tirano"; break;
+            case 26: city = "Grosio"; break;
+            case 27: city = "Sondalo"; break;
+            case 28: city = "  VAI IN\nPRIGIONE"; break;
+            case 29: city = "Livigno"; break;
+            case 30: city = "non"; break;
+            case 31: city = "so"; break;
+            case 32: city = "che"; break;
+            case 33: city = "altri"; break;
+            case 34: city = "posti"; break;
+            case 35: city = "mettere"; break;
+            case 36: city = "della"; break;
 
-    private Button createButton(String label) {
-        Button button = new Button(label);
-        button.setPrefSize(70, 70);
+            default: city = "damn";
+        }
+
+        Button button = new Button(city);
+        if(number == 1 || number == 10 || number == 19 || number == 28)
+        {
+            button.setPrefSize(130, 130);
+        }
+        else if(number>1&&number<10 || number>19&&number<28)
+        {
+            button.setPrefSize(90, 130);
+        }else
+        {
+            button.setPrefSize(130, 90);
+        }
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
-        button.setStyle("-fx-border-radius: 10;");
+
+        //TODO creare tutti i gruppi di bottoni di colori diversi e fare le caselle speciali
+
+        button.setStyle("-fx-border-radius: 10; -fx-border-color: black; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
 
         // Aggiungi listener al pulsante
-        button.setOnAction(new ButtonListener(label));
+        button.setOnAction(new ButtonListener(city));
 
         return button;
     }
+
 
     public static void main(String[] args) {
         launch(args);
