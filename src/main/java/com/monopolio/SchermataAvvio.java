@@ -186,6 +186,8 @@ public class SchermataAvvio extends Application {
                 // Apertura dell'interfaccia del gioco sulla nuova finestra
                 InterfacciaGioco interfacciaGioco = new InterfacciaGioco();
                 try {
+                    gameStage.setMinHeight(900);
+                    gameStage.setMinWidth(900);
                     interfacciaGioco.start(gameStage);
                 } catch (Exception e) {
                     e.printStackTrace();

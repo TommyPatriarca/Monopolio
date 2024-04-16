@@ -121,7 +121,7 @@ public class InterfacciaGioco extends Application {
 
         //TODO creare tutti i gruppi di bottoni di colori diversi e fare le caselle speciali
 
-        button.setStyle("-fx-border-radius: 10; -fx-border-color: black; -fx-border-width: 2px; -fx-font-weight: bold;");
+        button.setStyle("-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
 
         // Aggiungi listener al pulsante
