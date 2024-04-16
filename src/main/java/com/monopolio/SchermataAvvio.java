@@ -75,7 +75,7 @@ public class SchermataAvvio extends Application {
             textField.setFocusTraversable(true);
 
             // Imposta il colore del bordo in base all'indice
-            textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-color: " + toHex(borderColors[i]) + "; -fx-border-radius: 10;");
+            textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: " + toHex(borderColors[i]) + "; -fx-border-radius: 10;");
 
             // Limita la lunghezza massima del testo a 10 caratteri
             final int index = i; // Indice finale per essere utilizzato nell'espressione lambda
@@ -85,9 +85,9 @@ public class SchermataAvvio extends Application {
                 }
                 // Controlla i nomi duplicati e imposta il bordo rosso se necessario
                 if (hasDuplicateNames(playerFields)) {
-                    textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-color: red; -fx-border-radius: 10;");
+                    textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: red; -fx-border-radius: 10;");
                 } else {
-                    textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-color: " + toHex(borderColors[index]) + "; -fx-border-radius: 10;");
+                    textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: " + toHex(borderColors[index]) + "; -fx-border-radius: 10;");
                 }
             });
 
@@ -235,7 +235,7 @@ public class SchermataAvvio extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
 
         // Modifica lo stile del contenuto del messaggio
-        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 10;");
 
         // Modifica lo stile dei pulsanti dell'alert
         alert.getButtonTypes().forEach(buttonType -> {
