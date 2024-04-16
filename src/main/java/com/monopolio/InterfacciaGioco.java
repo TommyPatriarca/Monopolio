@@ -32,7 +32,7 @@ public class InterfacciaGioco extends Application {
         VBox playerNamesBox = new VBox();
         playerNamesBox.setAlignment(Pos.TOP_LEFT);
         playerNamesBox.setSpacing(10);
-        playerNamesBox.setPadding(new Insets(10, 0, 0, 10));
+        playerNamesBox.setPadding(new Insets(10, 0, 20, 10));
 
         // Aggiungi i nomi dei giocatori alla VBox
         for (int i=0;i<4;i++) {
@@ -179,10 +179,5 @@ public class InterfacciaGioco extends Application {
         button.setOnAction(new ButtonListener(city));
 
         return button;
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
