@@ -1,6 +1,5 @@
 package com.monopolio;
 
-import com.monopolio.InterfacciaGioco;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,16 +14,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class SchermataAvvio extends Application {
+    // Font
+    InputStream fontStream = getClass().getResourceAsStream("/fonts/LuckiestGuy-Regular.ttf");
+    Font font = Font.loadFont(fontStream, 14); // You can adjust the font size as needed
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -45,14 +47,16 @@ public class SchermataAvvio extends Application {
 
         // Creazione del testo "MONO"
         Text textMono = new Text("MONO");
-        textMono.setFont(Font.font("Luckiest Guy", FontWeight.BOLD, 68));
+        textMono.setFont(font);
+        textMono.setStyle("-fx-font-size: 90px;");
         textMono.setFill(monoColor);
         textMono.setTranslateY(100);
         textMono.setEffect(shadow);
 
         // Creazione del testo "POLIO"
         Text textPolio = new Text("POLIO");
-        textPolio.setFont(Font.font("Luckiest Guy", FontWeight.BOLD, 68));
+        textPolio.setFont(font);
+        textPolio.setStyle("-fx-font-size: 90px;"); // Default font size is 14px
         textPolio.setFill(polioColor);
         textPolio.setTranslateY(100);
         textPolio.setEffect(shadow);
