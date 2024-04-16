@@ -102,7 +102,7 @@ public class SchermataAvvio extends Application {
             });
             textField.focusedProperty().addListener((obs, oldVal, newVal) -> {
                 if (!newVal && textField.getText().isEmpty()) {
-                    textField.setText("Add Player");
+                    textField.setText("");
                 }
             });
             playerFields[i] = textField;
@@ -184,7 +184,7 @@ public class SchermataAvvio extends Application {
                 gameStage.setY(primaryStage.getY());
 
                 // Apertura dell'interfaccia del gioco sulla nuova finestra
-                InterfacciaGioco interfacciaGioco = new InterfacciaGioco();
+                InterfacciaGioco interfacciaGioco = new InterfacciaGioco(playerNames);
                 try {
                     gameStage.setMinHeight(900);
                     gameStage.setMinWidth(900);

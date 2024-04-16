@@ -5,16 +5,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class InterfacciaGioco extends Application {
+    String[] playerNames = new String[4];
+
+    public InterfacciaGioco(String[] playerNames) {
+        this.playerNames = playerNames;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -22,6 +27,52 @@ public class InterfacciaGioco extends Application {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(20));
         root.setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        // Creazione della VBox per i nomi dei giocatori
+        VBox playerNamesBox = new VBox();
+        playerNamesBox.setAlignment(Pos.TOP_LEFT);
+        playerNamesBox.setSpacing(10);
+        playerNamesBox.setPadding(new Insets(10, 0, 0, 10));
+
+        // Aggiungi i nomi dei giocatori alla VBox
+        for (int i=0;i<4;i++) {
+            if(!playerNames[i].equals("")){
+            HBox playerBox = new HBox();
+            playerBox.setAlignment(Pos.CENTER_LEFT);
+            playerBox.setSpacing(5);
+
+            // Aggiungi un pallino colorato
+            Circle circle = new Circle(5);
+            switch (i){
+                case 0 -> {
+                    circle.setFill(Color.RED);
+                }
+                case 1 -> {
+                    circle.setFill(Color.YELLOW);
+                }
+                case 2 -> {
+                    circle.setFill(Color.BLUEVIOLET);
+                }
+                case 3 -> {
+                    circle.setFill(Color.GREEN);
+                }
+            }
+            circle.setStroke(Color.WHITE); //
+
+            // Aggiungi il nome del giocatore
+            Label playerNameLabel = new Label(playerNames[i]);
+            playerNameLabel.setTextFill(Color.WHITE);
+
+            // Aggiungi il pallino e il nome del giocatore all'HBox
+            playerBox.getChildren().addAll(circle, playerNameLabel);
+
+            // Aggiungi l'HBox alla VBox
+            playerNamesBox.getChildren().add(playerBox);
+            }
+        }
+
+        root.setTop(playerNamesBox);
+
 
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
