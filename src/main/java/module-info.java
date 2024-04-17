@@ -4,4 +4,8 @@ module com.example.demosmonopolio {
 
     opens com.monopolio to javafx.fxml;
     exports com.monopolio;
+    exports com.monopolio.ui;
+    opens com.monopolio.ui to javafx.fxml;
+    exports com.monopolio.listeners;
+    opens com.monopolio.listeners to javafx.fxml;
 }

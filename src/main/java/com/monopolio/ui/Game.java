@@ -1,5 +1,6 @@
-package com.monopolio;
+package com.monopolio.ui;
 
+import com.monopolio.listeners.ButtonListener;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,14 +11,12 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class InterfacciaGioco extends Application {
+public class Game extends Application {
     String[] playerNames = new String[4];
 
-    public InterfacciaGioco(String[] playerNames) {
+    public Game(String[] playerNames) {
         this.playerNames = playerNames;
     }
 

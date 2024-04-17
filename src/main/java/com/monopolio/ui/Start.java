@@ -1,4 +1,4 @@
-package com.monopolio;
+package com.monopolio.ui;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -24,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SchermataAvvio extends Application {
+public class Start extends Application {
 
 
     // Font
@@ -187,11 +186,11 @@ public class SchermataAvvio extends Application {
                 gameStage.setY(primaryStage.getY());
 
                 // Apertura dell'interfaccia del gioco sulla nuova finestra
-                InterfacciaGioco interfacciaGioco = new InterfacciaGioco(playerNames);
+                Game game = new Game(playerNames);
                 try {
                     gameStage.setMinHeight(900);
                     gameStage.setMinWidth(900);
-                    interfacciaGioco.start(gameStage);
+                    game.start(gameStage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

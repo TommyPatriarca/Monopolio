@@ -1,4 +1,4 @@
-package com.monopolio;
+package com.monopolio.listeners;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
