@@ -117,9 +117,9 @@ public class InterfacciaGioco extends Application {
         switch (number){
             case 1: city = "VIA"; break;
             case 2: city = "Delebio"; break;
-            case 3: city = "Mantello"; break;
+            case 3: city = "PROBABILITA"; break;
             case 4: city = "Traona"; break;
-            case 5: city = "Cosio"; break;
+            case 5: city = "TASSE"; break;
             case 6: city = "Morbegno"; break;
             case 7: city = "Albaredo"; break;
             case 8: city = "Pescegallo"; break;
@@ -158,14 +158,14 @@ public class InterfacciaGioco extends Application {
         Button button = new Button(city);
         if(number == 1 || number == 10 || number == 19 || number == 28)
         {
-            button.setPrefSize(130, 130);
+            button.setPrefSize(110, 110);
         }
         else if(number>1&&number<10 || number>19&&number<28)
         {
-            button.setPrefSize(90, 130);
+            button.setPrefSize(90, 110);
         }else
         {
-            button.setPrefSize(130, 90);
+            button.setPrefSize(110, 90);
         }
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
