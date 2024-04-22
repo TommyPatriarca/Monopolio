@@ -5,19 +5,16 @@ public class Casella {
     public final int price;
     public final int houseprice;
     public final int hotelprice;
-    public  int houseNumber; //un albergo corrisponde a 5 case
-    public int payment;
+    public  int houseNumber=0; //un albergo corrisponde a 5 case
+    public int payment=0;   //viene calcolato dopo
     public int basePayment;
-    public Player owner;
+    public Player owner;    //inizialmente non è di nessuno
 
-    public Casella(String name, int price, int houseprice, int hotelprice, int houseNumber, int payment, int basePayment, Player owner) {
+    public Casella(String name, int price, int houseprice, int hotelprice, int basePayment) {
         this.name = name;
         this.price = price;
         this.houseprice = houseprice;
         this.hotelprice = hotelprice;
-        this.houseNumber = houseNumber;
-        this.payment = payment;
-        this.owner = owner;
         this.basePayment = basePayment;
     }
 
