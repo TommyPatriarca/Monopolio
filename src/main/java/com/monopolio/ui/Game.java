@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.Player;
 import com.monopolio.listeners.ButtonListener;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,10 +15,18 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class Game extends Application {
-    String[] playerNames = new String[4];
+    Player[] players = new Player[4];
 
     public Game(String[] playerNames) {
-        this.playerNames = playerNames;
+        // Creazione degli oggetti Player basati sui nomi dei giocatori
+        for (int i = 0; i < 4; i++) {
+            String playerName = playerNames[i];
+            if (!playerName.isEmpty()) {
+                players[i] = new Player(playerName);
+            } else {
+                players[i] = new Player("");
+            }
+        }
     }
 
     @Override
@@ -35,7 +44,7 @@ public class Game extends Application {
 
         // Aggiungi i nomi dei giocatori alla VBox
         for (int i=0;i<4;i++) {
-            if(!playerNames[i].equals("")){
+            if(!players[i].getNome().equals("")){
             HBox playerBox = new HBox();
             playerBox.setAlignment(Pos.CENTER_LEFT);
             playerBox.setSpacing(5);
@@ -59,7 +68,7 @@ public class Game extends Application {
             circle.setStroke(Color.WHITE); //
 
             // Aggiungi il nome del giocatore
-            Label playerNameLabel = new Label(playerNames[i]);
+            Label playerNameLabel = new Label(players[i].getNome());
             playerNameLabel.setTextFill(Color.WHITE);
 
             // Aggiungi il pallino e il nome del giocatore all'HBox
