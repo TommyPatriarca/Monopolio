@@ -131,7 +131,7 @@ public class Mode extends Application {
             primaryStage.setY(modeStage.getY());
 
             // Apertura dell'interfaccia del gioco sulla nuova finestra
-            Start start = new Start();
+            StartGUI start = new StartGUI();
             try {
                 primaryStage.setMinHeight(900);
                 primaryStage.setMinWidth(900);
