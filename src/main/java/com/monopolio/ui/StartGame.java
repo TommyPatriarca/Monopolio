@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StartGUI extends Application {
+public class StartGame extends Application {
     // Font
     InputStream fontStream = getClass().getResourceAsStream("/fonts/LuckiestGuy-Regular.ttf");
     Font font = Font.loadFont(fontStream, 14); // You can adjust the font size as needed

@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,13 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class Mode extends Application {
 
@@ -131,7 +123,7 @@ public class Mode extends Application {
             primaryStage.setY(modeStage.getY());
 
             // Apertura dell'interfaccia del gioco sulla nuova finestra
-            StartGUI start = new StartGUI();
+            StartGame start = new StartGame();
             try {
                 primaryStage.setMinHeight(900);
                 primaryStage.setMinWidth(900);
