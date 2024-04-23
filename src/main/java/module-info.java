@@ -12,4 +12,6 @@ module com.example.demosmonopolio {
     opens com.monopolio.player to javafx.fxml;
     exports com.monopolio.board;
     opens com.monopolio.board to javafx.fxml;
+    exports com.monopolio.board.boxes;
+    opens com.monopolio.board.boxes to javafx.fxml;
 }

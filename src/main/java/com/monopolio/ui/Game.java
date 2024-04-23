@@ -1,6 +1,7 @@
 package com.monopolio.ui;
 
-import com.monopolio.board.City;
+import com.monopolio.board.*;
+import com.monopolio.board.boxes.*;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.ButtonListener;
 import javafx.application.Application;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
     Player[] players = new Player[4];
-    City[] cities = new City[36];
+    Board[] cities = new Board[36];
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -105,7 +106,7 @@ public class Game extends Application {
                     } else {
                         number = 37 - i ;
                     }
-                    Button button = createButton(number);
+                    Button button = createButton(number-1);
                     gridPane.add(button, j, i);
                 }
             }
@@ -122,59 +123,138 @@ public class Game extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    /*
+        if (cities[0] instanceof City) {
+            City city = (City) cities[0];
+            city.metodo(); // Chiamata al metodo specifico di MiaClasse
+        } else {
+            System.out.println("L'oggetto non è un'istanza di MiaClasse");
+        }
+    */
+
     private Button createButton(int number) {
-        String city;
         switch (number){
             case 0:
-                city = "VIA";
-                //cities[0] = new City("Via");
+                cities[number] = new Start();
                 break;
-            case 1: city = "Delebio"; break;
-            case 2: city = "PROBABILITA"; break;
-            case 3: city = "Traona"; break;
-            case 4: city = "TASSE"; break;
-            case 5: city = "Morbegno"; break;
-            case 6: city = "Albaredo"; break;
-            case 7: city = "Pescegallo"; break;
-            case 8: city = "Talamona"; break;
-            case 9: city = "PRIGIONE"; break;
-            case 10: city = "Ardenno"; break;
-            case 11: city = "Villapinta"; break;
-            case 12: city = "Berbenno"; break;
-            case 13: city = "Castione"; break;
-            case 14: city = "Albosaggia"; break;
-            case 15: city = "Sondrio"; break;
-            case 16: city = "Lanzada"; break;
-            case 17: city = "Chiesa"; break;
-            case 18: city = "PARCHEGGIO\n  GRATUITO"; break;
-            case 19: city = "Pianteda"; break;
-            case 20: city = "Chiuro"; break;
-            case 21: city = "San Giacomo"; break;
-            case 22: city = "Tresenda"; break;
-            case 23: city = "Aprica"; break;
-            case 24: city = "Tirano"; break;
-            case 25: city = "Grosio"; break;
-            case 26: city = "Sondalo"; break;
-            case 27: city = "  VAI IN\nPRIGIONE"; break;
-            case 28: city = "Livigno"; break;
-            case 29: city = "non"; break;
-            case 30: city = "so"; break;
-            case 31: city = "che"; break;
-            case 32: city = "altri"; break;
-            case 33: city = "posti"; break;
-            case 34: city = "mettere"; break;
-            case 35: city = "della"; break;
+            case 1:
+                cities[number] = new City("Delebio", 100, 50, 200, 10);
+                break;
+            case 2:
+                cities[number] = new Chances();
+                break;
+            case 3:
+                cities[number] = new City("Traona", 100, 50, 200, 10);
+                break;
+            case 4:
+                cities[number] = new Taxes();
+                break;
+            case 5:
+                cities[number] = new City("Morbegno", 100, 50, 200, 10);
+                break;
+            case 6:
+                cities[number] = new City("Albaredo", 100, 50, 200, 10);
+                break;
+            case 7:
+                cities[number] = new City("Pescegallo", 100, 50, 200, 10);
+                break;
+            case 8:
+                cities[number] = new City("Talamona", 100, 50, 200, 10);
+                break;
+            case 9:
+                cities[number] = new Prison();
+                break;
+            case 10:
+                cities[number] = new City("Ardenno", 100, 50, 200, 10);
+                break;
+            case 11:
+                cities[number] = new City("Villapinta", 100, 50, 200, 10);
+                break;
+            case 12:
+                cities[number] = new City("Berbenno", 100, 50, 200, 10);
+                break;
+            case 13:
+                cities[number] = new City("Castione", 100, 50, 200, 10);
+                break;
+            case 14:
+                cities[number] = new City("Albosaggia", 100, 50, 200, 10);
+                break;
+            case 15:
+                cities[number] = new City("Sondrio", 100, 50, 200, 10);
+                break;
+            case 16:
+                cities[number] = new City("Lanzada", 100, 50, 200, 10);
+                break;
+            case 17:
+                cities[number] = new City("Chiesa", 100, 50, 200, 10);
+                break;
+            case 18:
+                cities[number] = new Parking();
+                break;
+            case 19:
+                cities[number] = new City("Pianteda", 100, 50, 200, 10);
+                break;
+            case 20:
+                cities[number] = new City("Chiuro", 100, 50, 200, 10);
+                break;
+            case 21:
+                cities[number] = new City("San Giacomo", 100, 50, 200, 10);
+                break;
+            case 22:
+                cities[number] = new City("Tresenda", 100, 50, 200, 10);
+                break;
+            case 23:
+                cities[number] = new City("Aprica", 100, 50, 200, 10);
+                break;
+            case 24:
+                cities[number] = new City("Tirano", 100, 50, 200, 10);
+                break;
+            case 25:
+                cities[number] = new City("Grosio", 100, 50, 200, 10);
+                break;
+            case 26:
+                cities[number] = new City("Sondalo", 100, 50, 200, 10);
+                break;
+            case 27:
+                cities[number] = new ToPrison();
+                break;
+            case 28:
+                cities[number] = new City("Livigno", 100, 50, 200, 10);
+                break;
+            case 29:
+                cities[number] = new Unexpected();
+                break;
+            case 30:
+                cities[number] = new Stations();
+                break;
+            case 31:
+                cities[number] = new City("che", 100, 50, 200, 10);
+                break;
+            case 32:
+                cities[number] = new City("altri", 100, 50, 200, 10);
+                break;
+            case 33:
+                cities[number] = new City("posti", 100, 50, 200, 10);
+                break;
+            case 34:
+                cities[number] = new City("mettere", 100, 50, 200, 10);
+                break;
+            case 35:
+                cities[number] = new City("della", 100, 50, 200, 10);
+                break;
 
-            default: city = "damn";
+            default:
+                System.out.println("Could not find city....");
         }
 
-        Button button = new Button(city);
+        Button button = new Button(cities[number].getNome());
 
-        if(number == 1 || number == 10 || number == 19 || number == 28)
+        if(number == 0 || number == 9 || number == 18 || number == 27)
         {
             button.setPrefSize(110, 110);
         }
-        else if(number>1&&number<10 || number>19&&number<28)
+        else if(number>0&&number<9 || number>18&&number<27)
         {
             button.setPrefSize(90, 110);
         }else
@@ -191,7 +271,7 @@ public class Game extends Application {
         button.setEffect(new DropShadow(10, Color.BLACK));
 
         // Aggiungi listener al pulsante
-        button.setOnAction(new ButtonListener(city));
+        button.setOnAction(new ButtonListener(cities[number].getNome()));
 
         return button;
     }

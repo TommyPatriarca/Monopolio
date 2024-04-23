@@ -1,5 +1,6 @@
-package com.monopolio.board;
+package com.monopolio.board.boxes;
 
+import com.monopolio.board.Board;
 import com.monopolio.player.Player;
 
 public class City implements Board {
@@ -95,4 +96,8 @@ public class City implements Board {
         }
     }
 
+    @Override
+    public String getNome() {
+        return name;
+    }
 }
