@@ -1,6 +1,8 @@
-package com.monopolio;
+package com.monopolio.city;
 
-public class Casella {
+import com.monopolio.player.Player;
+
+public class City {
     public final String name;
     public final int price;
     public final int houseprice;
@@ -10,7 +12,7 @@ public class Casella {
     public int basePayment;
     public Player owner;    //inizialmente non è di nessuno
 
-    public Casella(String name, int price, int houseprice, int hotelprice, int basePayment) {
+    public City(String name, int price, int houseprice, int hotelprice, int basePayment) {
         this.name = name;
         this.price = price;
         this.houseprice = houseprice;

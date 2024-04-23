@@ -1,6 +1,6 @@
 package com.monopolio.ui;
 
-import com.monopolio.Player;
+import com.monopolio.player.Player;
 import com.monopolio.listeners.ButtonListener;
 import javafx.application.Application;
 import javafx.geometry.Insets;
