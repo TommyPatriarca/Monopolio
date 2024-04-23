@@ -35,11 +35,9 @@ public class Mode extends Application {
     private Color monoColor = Color.rgb(255, 255, 255);
     private Color polioColor = Color.rgb(16, 129, 249);
 
-    // Definizione dei colori dei bordi dei text box
-    private Color[] borderColors = {Color.GREEN, Color.YELLOW, Color.LIGHTBLUE, Color.PURPLE};
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage modeStage) {
 
         // Ombra
         DropShadow shadow = new DropShadow();
@@ -91,14 +89,12 @@ public class Mode extends Application {
         newGameButton.setEffect(shadow);
         loadGameButton.setEffect(shadow);
 
-        
-
         // Creazione del VBox per contenere i bottoni
         VBox vbox = new VBox(20); // Spaziatura di 20 tra i nodi
         vbox.setAlignment(Pos.CENTER); // Centra i suoi figli verticalmente
         
         vbox.getChildren().addAll(newGameButton);
-        vbox.getChildren().addAll(loadGameButton);
+        //vbox.getChildren().addAll(loadGameButton);
 
         // Creazione del BorderPane contenente tutti gli elementi
         BorderPane root = new BorderPane();
@@ -113,15 +109,38 @@ public class Mode extends Application {
         Scene scene = new Scene(root, 800, 600);
 
         // Impostazioni finestra
-        primaryStage.setTitle("Selezione giocatori");
-        primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
-        primaryStage.setMinHeight(800);
-        primaryStage.setMinWidth(800);
-        primaryStage.show();
+        modeStage.setTitle("Selezione giocatori");
+        modeStage.setScene(scene);
+        modeStage.setFullScreen(true);
+        modeStage.setMinHeight(800);
+        modeStage.setMinWidth(800);
+        modeStage.show();
 
         // bottone listener
+
+        Stage primaryStage = new Stage();
         newGameButton.setOnAction(event -> {
+            // Copia delle impostazioni della finestra corrente
+            primaryStage.setFullScreen(modeStage.isFullScreen());
+            primaryStage.setFullScreenExitHint(modeStage.getFullScreenExitHint());
+            primaryStage.setFullScreenExitKeyCombination(modeStage.getFullScreenExitKeyCombination());
+            primaryStage.setMaximized(modeStage.isMaximized());
+            primaryStage.setWidth(modeStage.getWidth());
+            primaryStage.setHeight(modeStage.getHeight());
+            primaryStage.setX(modeStage.getX());
+            primaryStage.setY(modeStage.getY());
+
+            // Apertura dell'interfaccia del gioco sulla nuova finestra
+            Start start = new Start();
+            try {
+                primaryStage.setMinHeight(900);
+                primaryStage.setMinWidth(900);
+                start.start(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            modeStage.close();
             
         });
 
