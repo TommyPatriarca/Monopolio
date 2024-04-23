@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.board.City;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.ButtonListener;
 import javafx.application.Application;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
     Player[] players = new Player[4];
+    City[] cities = new City[36];
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -89,7 +91,7 @@ public class Game extends Application {
         gridPane.setVgap(5);
 
         // Aggiunta bottoni al perimetro del GridPane
-        int count = 1; // Contatore per la numerazione dei bottoni
+        int count = 0; // Contatore per la numerazione dei bottoni
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if (i == 0 || i == 9 || j == 0 || j == 9) {
@@ -123,47 +125,51 @@ public class Game extends Application {
     private Button createButton(int number) {
         String city;
         switch (number){
-            case 1: city = "VIA"; break;
-            case 2: city = "Delebio"; break;
-            case 3: city = "PROBABILITA"; break;
-            case 4: city = "Traona"; break;
-            case 5: city = "TASSE"; break;
-            case 6: city = "Morbegno"; break;
-            case 7: city = "Albaredo"; break;
-            case 8: city = "Pescegallo"; break;
-            case 9: city = "Talamona"; break;
-            case 10: city = "PRIGIONE"; break;
-            case 11: city = "Ardenno"; break;
-            case 12: city = "Villapinta"; break;
-            case 13: city = "Berbenno"; break;
-            case 14: city = "Castione"; break;
-            case 15: city = "Albosaggia"; break;
-            case 16: city = "Sondrio"; break;
-            case 17: city = "Lanzada"; break;
-            case 18: city = "Chiesa"; break;
-            case 19: city = "PARCHEGGIO\n  GRATUITO"; break;
-            case 20: city = "Pianteda"; break;
-            case 21: city = "Chiuro"; break;
-            case 22: city = "San Giacomo"; break;
-            case 23: city = "Tresenda"; break;
-            case 24: city = "Aprica"; break;
-            case 25: city = "Tirano"; break;
-            case 26: city = "Grosio"; break;
-            case 27: city = "Sondalo"; break;
-            case 28: city = "  VAI IN\nPRIGIONE"; break;
-            case 29: city = "Livigno"; break;
-            case 30: city = "non"; break;
-            case 31: city = "so"; break;
-            case 32: city = "che"; break;
-            case 33: city = "altri"; break;
-            case 34: city = "posti"; break;
-            case 35: city = "mettere"; break;
-            case 36: city = "della"; break;
+            case 0:
+                city = "VIA";
+                //cities[0] = new City("Via");
+                break;
+            case 1: city = "Delebio"; break;
+            case 2: city = "PROBABILITA"; break;
+            case 3: city = "Traona"; break;
+            case 4: city = "TASSE"; break;
+            case 5: city = "Morbegno"; break;
+            case 6: city = "Albaredo"; break;
+            case 7: city = "Pescegallo"; break;
+            case 8: city = "Talamona"; break;
+            case 9: city = "PRIGIONE"; break;
+            case 10: city = "Ardenno"; break;
+            case 11: city = "Villapinta"; break;
+            case 12: city = "Berbenno"; break;
+            case 13: city = "Castione"; break;
+            case 14: city = "Albosaggia"; break;
+            case 15: city = "Sondrio"; break;
+            case 16: city = "Lanzada"; break;
+            case 17: city = "Chiesa"; break;
+            case 18: city = "PARCHEGGIO\n  GRATUITO"; break;
+            case 19: city = "Pianteda"; break;
+            case 20: city = "Chiuro"; break;
+            case 21: city = "San Giacomo"; break;
+            case 22: city = "Tresenda"; break;
+            case 23: city = "Aprica"; break;
+            case 24: city = "Tirano"; break;
+            case 25: city = "Grosio"; break;
+            case 26: city = "Sondalo"; break;
+            case 27: city = "  VAI IN\nPRIGIONE"; break;
+            case 28: city = "Livigno"; break;
+            case 29: city = "non"; break;
+            case 30: city = "so"; break;
+            case 31: city = "che"; break;
+            case 32: city = "altri"; break;
+            case 33: city = "posti"; break;
+            case 34: city = "mettere"; break;
+            case 35: city = "della"; break;
 
             default: city = "damn";
         }
 
         Button button = new Button(city);
+
         if(number == 1 || number == 10 || number == 19 || number == 28)
         {
             button.setPrefSize(110, 110);
@@ -175,6 +181,7 @@ public class Game extends Application {
         {
             button.setPrefSize(110, 90);
         }
+
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
 

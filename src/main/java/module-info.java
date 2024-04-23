@@ -10,6 +10,6 @@ module com.example.demosmonopolio {
     opens com.monopolio.listeners to javafx.fxml;
     exports com.monopolio.player;
     opens com.monopolio.player to javafx.fxml;
-    exports com.monopolio.city;
-    opens com.monopolio.city to javafx.fxml;
+    exports com.monopolio.board;
+    opens com.monopolio.board to javafx.fxml;
 }

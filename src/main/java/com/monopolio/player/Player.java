@@ -12,15 +12,15 @@ public class Player {
         return nome;
     }
 
-    public int getSoldi(){
+    public int getMoney(){
         return soldi;
     }
 
-    public void sottraiSoldi(int soldi) {
+    public void removeMoney(int soldi) {
         this.soldi = this.soldi-soldi;
     }
 
-    public void aggiungiSoldi(int soldi) {
+    public void addMoney(int soldi) {
         this.soldi = this.soldi+soldi;
     }
 }

@@ -1,8 +1,8 @@
-package com.monopolio.city;
+package com.monopolio.board;
 
 import com.monopolio.player.Player;
 
-public class City {
+public class City implements Board {
     public final String name;
     public final int price;
     public final int houseprice;
