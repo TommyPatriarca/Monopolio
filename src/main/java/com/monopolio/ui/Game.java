@@ -56,16 +56,16 @@ public class Game extends Application {
             Circle circle = new Circle(5);
             switch (i){
                 case 0 -> {
-                    circle.setFill(Color.RED);
+                    circle.setFill(Color.GREEN);
                 }
                 case 1 -> {
                     circle.setFill(Color.YELLOW);
                 }
                 case 2 -> {
-                    circle.setFill(Color.BLUEVIOLET);
+                    circle.setFill(Color.LIGHTBLUE);
                 }
                 case 3 -> {
-                    circle.setFill(Color.GREEN);
+                    circle.setFill(Color.PURPLE);
                 }
             }
             circle.setStroke(Color.WHITE); //
@@ -74,8 +74,12 @@ public class Game extends Application {
             Label playerNameLabel = new Label(players[i].getNome());
             playerNameLabel.setTextFill(Color.WHITE);
 
+            // Aggiungi contatore soldi dei giocatori
+             Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + players[i].getMoney());
+             playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
+
             // Aggiungi il pallino e il nome del giocatore all'HBox
-            playerBox.getChildren().addAll(circle, playerNameLabel);
+            playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);
 
             // Aggiungi l'HBox alla VBox
             playerNamesBox.getChildren().add(playerBox);
