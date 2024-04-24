@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,11 +17,7 @@ import javafx.stage.Stage;
 import java.io.InputStream;
 
 public class Mode extends Application {
-
-
-    // Font
-    InputStream fontStream = getClass().getResourceAsStream("/fonts/LuckiestGuy-Regular.ttf");
-    Font font = Font.loadFont(fontStream, 14); // You can adjust the font size as needed
+    FontUtils titolo = new FontUtils(14);
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -30,7 +27,6 @@ public class Mode extends Application {
 
     @Override
     public void start(Stage modeStage) {
-
         // Ombra
         DropShadow shadow = new DropShadow();
         shadow.setColor(Color.BLACK);
@@ -39,7 +35,7 @@ public class Mode extends Application {
 
         // Creazione del testo "MONO"
         Text textMono = new Text("MONO");
-        textMono.setFont(font);
+        textMono.setFont(titolo.getFont());
         textMono.setStyle("-fx-font-size: 90px;");
         textMono.setFill(monoColor);
         textMono.setTranslateY(200);
@@ -47,7 +43,7 @@ public class Mode extends Application {
 
         // Creazione del testo "POLIO"
         Text textPolio = new Text("POLIO");
-        textPolio.setFont(font);
+        textPolio.setFont(titolo.getFont());
         textPolio.setStyle("-fx-font-size: 90px;"); // Default font size is 14px
         textPolio.setFill(polioColor);
         textPolio.setTranslateY(200);
@@ -58,8 +54,6 @@ public class Mode extends Application {
         textHBox.getChildren().addAll(textMono, textPolio);
         textHBox.setSpacing(5); // Spaziatura tra i testi
         textHBox.setAlignment(Pos.CENTER); // Centra i testi orizzontalmente
-        
-
 
         // Creazione del bottone newGame
         Button newGameButton = new Button("New game");
@@ -109,7 +103,6 @@ public class Mode extends Application {
         modeStage.show();
 
         // bottone listener
-
         Stage primaryStage = new Stage();
         newGameButton.setOnAction(event -> {
             // Copia delle impostazioni della finestra corrente
@@ -141,8 +134,6 @@ public class Mode extends Application {
 
         });
     }
-
-    
 
     public static void main(String[] args) {
         launch(args);
