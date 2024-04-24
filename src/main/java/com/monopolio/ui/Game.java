@@ -136,7 +136,7 @@ public class Game extends Application {
     private Button createButton(int number) {
         switch (number){
             case 0:
-                cities[number] = new Start();
+                cities[number] = new StartBox();
                 break;
             case 1:
                 cities[number] = new City("Delebio", 100, 50, 200, 10);
