@@ -66,7 +66,7 @@ public class Mode extends Application {
         newGameButton.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         newGameButton.setPrefHeight(50);
         newGameButton.setPrefWidth(230);
-        newGameButton.setTranslateY(100);
+        newGameButton.setTranslateY(10);
         newGameButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
 
         // Creazione del bottone newGame
@@ -74,7 +74,7 @@ public class Mode extends Application {
         loadGameButton.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         loadGameButton.setPrefHeight(50);
         loadGameButton.setPrefWidth(230);
-        loadGameButton.setTranslateY(100);
+        loadGameButton.setTranslateY(10);
         loadGameButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
         
         // Aggiunta dell'ombra al bottone
@@ -82,11 +82,11 @@ public class Mode extends Application {
         loadGameButton.setEffect(shadow);
 
         // Creazione del VBox per contenere i bottoni
-        VBox vbox = new VBox(20); // Spaziatura di 20 tra i nodi
+        VBox vbox = new VBox(40); // Spaziatura di 20 tra i nodi
         vbox.setAlignment(Pos.CENTER); // Centra i suoi figli verticalmente
         
         vbox.getChildren().addAll(newGameButton);
-        //vbox.getChildren().addAll(loadGameButton);
+        vbox.getChildren().addAll(loadGameButton);
 
         // Creazione del BorderPane contenente tutti gli elementi
         BorderPane root = new BorderPane();
