@@ -5,8 +5,8 @@ import javafx.scene.text.Font;
 import java.io.InputStream;
 
 public class FontUtils {
-    InputStream fontStream = getClass().getResourceAsStream("/fonts/LuckiestGuy-Regular.ttf");
-    Font font;
+    private InputStream fontStream = getClass().getResourceAsStream("/fonts/LuckiestGuy-Regular.ttf");
+    private Font font;
 
     public FontUtils(int size) {
         font = Font.loadFont(fontStream, size);

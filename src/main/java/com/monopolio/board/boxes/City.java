@@ -89,7 +89,7 @@ public class City implements Board {
         if(player.equals(owner) && houseNumber==0){
             //puoi vendere una terreno
             //TODO non so come sistemare
-            //owner=NULL;
+            owner = null;
         }
         else{
             //non puoi vendere
