@@ -253,24 +253,24 @@ public class Game extends Application {
 
         Button button = new Button(cities[number].getNome());
 
-        if(number == 0 || number == 9 || number == 18 || number == 27)
-        {
+        // Ruota le scritte dei bottoni negli estremi a sinistra e a destra di 90 gradi
+        if (number == 0 || number == 9 || number == 18 || number == 27) {
             button.setPrefSize(110, 110);
-        }
-        else if(number>0&&number<9 || number>18&&number<27)
-        {
+
+        }else {
             button.setPrefSize(90, 110);
-        }else
-        {
-            button.setPrefSize(110, 90);
+
+            if(number >9 && number <18) {
+                button.setStyle("-fx-rotate: -90;");
+            }
+            else if(number >27){
+                button.setStyle("-fx-rotate: 90;");
+            }
         }
 
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
-
-        //TODO creare tutti i gruppi di bottoni di colori diversi e fare le caselle speciali
-
-        button.setStyle("-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+        button.setStyle(button.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
 
         // Aggiungi listener al pulsante
