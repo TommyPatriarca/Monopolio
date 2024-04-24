@@ -3,7 +3,7 @@ package com.monopolio.ui;
 import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
 import com.monopolio.player.Player;
-import com.monopolio.listeners.ButtonListener;
+import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
     Player[] players = new Player[4];
-    Board[] cities = new Board[36];
+    Box[] cities = new Box[36];
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -82,8 +82,7 @@ public class Game extends Application {
             }
         }
 
-        root.setTop(playerNamesBox);
-
+        root.setLeft(playerNamesBox);
 
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
@@ -148,7 +147,7 @@ public class Game extends Application {
                 cities[number] = new City("Traona", 100, 50, 200, 10);
                 break;
             case 4:
-                cities[number] = new Taxes();
+                cities[number] = new Taxes(50);
                 break;
             case 5:
                 cities[number] = new City("Morbegno", 100, 50, 200, 10);
@@ -223,7 +222,7 @@ public class Game extends Application {
                 cities[number] = new City("Livigno", 100, 50, 200, 10);
                 break;
             case 29:
-                cities[number] = new Unexpected();
+                cities[number] = new Treasures();
                 break;
             case 30:
                 cities[number] = new Stations();
@@ -271,7 +270,7 @@ public class Game extends Application {
         button.setEffect(new DropShadow(10, Color.BLACK));
 
         // Aggiungi listener al pulsante
-        button.setOnAction(new ButtonListener(cities[number].getNome()));
+        button.setOnAction(new BoxListener(cities[number].getNome()));
 
         return button;
     }

@@ -1,5 +1,5 @@
 package com.monopolio.board;
 
-public interface Board {
+public interface Box {
     String getNome();
 }

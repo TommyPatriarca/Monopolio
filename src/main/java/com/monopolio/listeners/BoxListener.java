@@ -3,11 +3,11 @@ package com.monopolio.listeners;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class ButtonListener implements EventHandler<ActionEvent> {
+public class BoxListener implements EventHandler<ActionEvent> {
 
     private String buttonLabel;
 
-    public ButtonListener(String buttonLabel) {
+    public BoxListener(String buttonLabel) {
         this.buttonLabel = buttonLabel;
     }
 

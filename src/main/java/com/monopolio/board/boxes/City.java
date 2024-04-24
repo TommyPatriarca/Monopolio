@@ -1,9 +1,9 @@
 package com.monopolio.board.boxes;
 
-import com.monopolio.board.Board;
+import com.monopolio.board.Box;
 import com.monopolio.player.Player;
 
-public class City implements Board {
+public class City implements Box {
     public final String name;
     public final int price;
     public final int houseprice;

@@ -1,11 +1,12 @@
 package com.monopolio.board.boxes;
 
-import com.monopolio.board.Board;
+import com.monopolio.board.Box;
+import com.monopolio.utils.RandUtils;
 
 import java.util.ArrayList;
 
-public class Chances implements Board {
-    private ArrayList<String> chances;
+public class Chances implements Box {
+    private ArrayList<String> chances = new ArrayList<>();
 
     public Chances() {
         chances.add("(1) Some chance.");
@@ -13,6 +14,14 @@ public class Chances implements Board {
         chances.add("(3) Some chance.");
         chances.add("(4) Some chance.");
         chances.add("(5) Some chance.");
+    }
+
+    private String pick(int index) {
+        return chances.get(index);
+    }
+
+    private String pickRandom() {
+        return chances.get(RandUtils.Integer(0, chances.size()));
     }
 
     @Override

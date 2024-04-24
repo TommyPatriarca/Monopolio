@@ -12,10 +12,6 @@ public class FontUtils {
         font = Font.loadFont(fontStream, size);
     }
 
-    public void setSize(int size) {
-        font = Font.loadFont(fontStream, size);
-    }
-
     public Font getFont() {
         return font;
     }
