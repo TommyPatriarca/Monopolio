@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -18,14 +19,19 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Start extends Application {
-    FontUtils titolo = new FontUtils(14);
+    private SceneManager sceneManager;
+
+    public Start(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
+    }
+
+    FontUtils font = new FontUtils(14);
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -37,7 +43,6 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         // Ombra
         DropShadow shadow = new DropShadow();
         shadow.setColor(Color.BLACK);
@@ -46,7 +51,7 @@ public class Start extends Application {
 
         // Creazione del testo "MONO"
         Text textMono = new Text("MONO");
-        textMono.setFont(titolo.getFont());
+        textMono.setFont(font.getFont());
         textMono.setStyle("-fx-font-size: 90px;");
         textMono.setFill(monoColor);
         textMono.setTranslateY(100);
@@ -54,7 +59,7 @@ public class Start extends Application {
 
         // Creazione del testo "POLIO"
         Text textPolio = new Text("POLIO");
-        textPolio.setFont(titolo.getFont());
+        textPolio.setFont(font.getFont());
         textPolio.setStyle("-fx-font-size: 90px;"); // Default font size is 14px
         textPolio.setFill(polioColor);
         textPolio.setTranslateY(100);
@@ -155,7 +160,6 @@ public class Start extends Application {
         // Impostazioni finestra
         primaryStage.setTitle("Selezione giocatori");
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
         primaryStage.setMinHeight(800);
         primaryStage.setMinWidth(800);
         primaryStage.show();
@@ -169,31 +173,7 @@ public class Start extends Application {
             if (hasDuplicateNames(playerFields)) {
                 showAlert(primaryStage);
             } else {
-                // Creazione della nuova finestra per l'interfaccia del gioco
-                Stage gameStage = new Stage();
-
-                // Copia delle impostazioni della finestra corrente
-                gameStage.setFullScreen(primaryStage.isFullScreen());
-                gameStage.setFullScreenExitHint(primaryStage.getFullScreenExitHint());
-                gameStage.setFullScreenExitKeyCombination(primaryStage.getFullScreenExitKeyCombination());
-                gameStage.setMaximized(primaryStage.isMaximized());
-                gameStage.setWidth(primaryStage.getWidth());
-                gameStage.setHeight(primaryStage.getHeight());
-                gameStage.setX(primaryStage.getX());
-                gameStage.setY(primaryStage.getY());
-
-                // Apertura dell'interfaccia del gioco sulla nuova finestra
-                Game game = new Game(playerNames);
-                try {
-                    gameStage.setMinHeight(900);
-                    gameStage.setMinWidth(900);
-                    game.start(gameStage);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                // Chiusura del primaryStage
-                primaryStage.close();
+                sceneManager.showGameScreen(primaryStage, playerNames); // Mostra la schermata di selezione dei giocatori
             }
         });
     }
