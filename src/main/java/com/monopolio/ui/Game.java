@@ -139,7 +139,7 @@ public class Game extends Application {
     private Button createButton(int number) {
         switch (number){
             case 0:
-                cities[number] = new StartBox();
+                cities[number] = new StartBox(200);
                 break;
             case 1:
                 cities[number] = new City("Delebio", 100, 50, 200, 10);
@@ -229,16 +229,16 @@ public class Game extends Application {
                 cities[number] = new Treasures();
                 break;
             case 30:
-                cities[number] = new Stations();
+                cities[number] = new Stations(Stations.StationTypes.NORD);
                 break;
             case 31:
-                cities[number] = new City("che", 100, 50, 200, 10);
+                cities[number] = new Stations(Stations.StationTypes.EST);
                 break;
             case 32:
-                cities[number] = new City("altri", 100, 50, 200, 10);
+                cities[number] = new Stations(Stations.StationTypes.OVEST);
                 break;
             case 33:
-                cities[number] = new City("posti", 100, 50, 200, 10);
+                cities[number] = new Stations(Stations.StationTypes.SUD);
                 break;
             case 34:
                 cities[number] = new City("mettere", 100, 50, 200, 10);
@@ -258,14 +258,16 @@ public class Game extends Application {
             button.setPrefSize(110, 110);
 
         }else {
-            button.setPrefSize(90, 110);
+            button.setPrefSize(110, 110);
 
+            /*
             if(number >9 && number <18) {
                 button.setStyle("-fx-rotate: -90;");
             }
             else if(number >27){
                 button.setStyle("-fx-rotate: 90;");
             }
+             */
         }
 
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));

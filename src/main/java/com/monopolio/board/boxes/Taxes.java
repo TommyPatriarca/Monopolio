@@ -1,6 +1,7 @@
 package com.monopolio.board.boxes;
 
 import com.monopolio.board.Box;
+import com.monopolio.player.Player;
 
 public class Taxes implements Box {
     private int amountDue;
@@ -9,8 +10,12 @@ public class Taxes implements Box {
         this.amountDue = amountDue;
     }
 
+    public void redeemTaxes(Player player) {
+        player.removeMoney(amountDue);
+    }
+
     @Override
     public String getNome() {
-        return "Tasse\n($" + amountDue + ")";
+        return "Tasse ($" + amountDue + ")";
     }
 }
