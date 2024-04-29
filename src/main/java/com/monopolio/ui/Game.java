@@ -11,14 +11,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Game extends Application {
     Player[] players = new Player[4];
     Box[] cities = new Box[36];
+
+    Dice diceOne = new Dice();
+    Dice diceTwo = new Dice();
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -115,9 +122,8 @@ public class Game extends Application {
             }
         }
 
-        // Aggiunta bottoni dadi
-        Button diceOne = createButton(103);
-        Button diceTwo = createButton(104);
+        gridPane.add(createDice(1), 4, 4);
+        gridPane.add(createDice(2), 5, 5);
 
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);
@@ -139,6 +145,29 @@ public class Game extends Application {
             System.out.println("L'oggetto non è un'istanza di MiaClasse");
         }
     */
+
+    private Button createDice(int number) {
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/dices/dice-fire.png")));
+        ImageView view = new ImageView(img);
+        view.setFitHeight(80);
+        view.setPreserveRatio(true);
+        //Creating a Button
+        Button dice = new Button();
+        //Setting the size of the button
+        dice.setPrefSize(110, 110);
+        //Setting a graphic to the button
+        dice.setGraphic(view);
+
+        dice.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
+        dice.setTextFill(Color.WHITE);
+        dice.setStyle(dice.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+        dice.setEffect(new DropShadow(10, Color.BLACK));
+
+        // Aggiungi listener al pulsante
+        dice.setOnAction(new BoxListener("Dice "+number));
+
+        return dice;
+    }
 
     private Button createButton(int number) {
         switch (number){
@@ -248,13 +277,6 @@ public class Game extends Application {
                 cities[number] = new City("mettere", 100, 50, 200, 10);
                 break;
             case 35:
-                cities[number] = new City("della", 100, 50, 200, 10);
-                break;
-
-            case 103:
-                cities[number] = new City("mettere", 100, 50, 200, 10);
-                break;
-            case 104:
                 cities[number] = new City("della", 100, 50, 200, 10);
                 break;
 

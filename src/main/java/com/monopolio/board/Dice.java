@@ -7,8 +7,8 @@ public class Dice {
     private int value;
 
     public int roll(){
-        status=true;
-        value= RandUtils.Integer(1,6);
+        status = true;
+        value = RandUtils.Integer(1,6);
         return value;
     }
 
