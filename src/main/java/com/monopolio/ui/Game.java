@@ -146,22 +146,19 @@ public class Game extends Application {
         }
     */
 
+    // Crea i bottoni con i dadi
     private Button createDice(int number) {
         Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/dices/dice-fire.png")));
         ImageView view = new ImageView(img);
         view.setFitHeight(80);
         view.setPreserveRatio(true);
-        //Creating a Button
         Button dice = new Button();
-        //Setting the size of the button
         dice.setPrefSize(110, 110);
-        //Setting a graphic to the button
         dice.setGraphic(view);
 
-        dice.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
+        dice.setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         dice.setTextFill(Color.WHITE);
-        dice.setStyle(dice.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
-        dice.setEffect(new DropShadow(10, Color.BLACK));
+        dice.setStyle(dice.getStyle() + "-fx-border-radius: 0; -fx-border-width: 0px; -fx-font-weight: bold;");
 
         // Aggiungi listener al pulsante
         dice.setOnAction(new BoxListener("Dice "+number));
