@@ -115,6 +115,10 @@ public class Game extends Application {
             }
         }
 
+        // Aggiunta bottoni dadi
+        Button diceOne = createButton(103);
+        Button diceTwo = createButton(104);
+
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);
 
@@ -244,6 +248,13 @@ public class Game extends Application {
                 cities[number] = new City("mettere", 100, 50, 200, 10);
                 break;
             case 35:
+                cities[number] = new City("della", 100, 50, 200, 10);
+                break;
+
+            case 103:
+                cities[number] = new City("mettere", 100, 50, 200, 10);
+                break;
+            case 104:
                 cities[number] = new City("della", 100, 50, 200, 10);
                 break;
 
