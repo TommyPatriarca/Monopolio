@@ -16,6 +16,6 @@ public class StartBox implements Box {
 
     @Override
     public String getNome() {
-        return "      VIA\nritirare 200€";
+        return "Via (+"+startMoney+"$)";
     }
 }

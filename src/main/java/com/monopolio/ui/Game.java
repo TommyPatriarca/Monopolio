@@ -2,6 +2,7 @@ package com.monopolio.ui;
 
 import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
+import com.monopolio.listeners.DiceListener;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -23,9 +24,7 @@ import java.util.Objects;
 public class Game extends Application {
     Player[] players = new Player[4];
     Box[] cities = new Box[36];
-
-    Dice diceOne = new Dice();
-    Dice diceTwo = new Dice();
+    Dice[] dices = new Dice[2];
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -122,8 +121,11 @@ public class Game extends Application {
             }
         }
 
-        gridPane.add(createDice(1), 4, 4);
-        gridPane.add(createDice(2), 5, 5);
+        dices[0] = new Dice();
+        dices[1] = new Dice();
+
+        gridPane.add(dices[0], 4, 4);
+        gridPane.add(dices[1], 5, 5);
 
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);
@@ -145,26 +147,6 @@ public class Game extends Application {
             System.out.println("L'oggetto non è un'istanza di MiaClasse");
         }
     */
-
-    // Crea i bottoni con i dadi
-    private Button createDice(int number) {
-        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/dices/rolldice.png")));
-        ImageView view = new ImageView(img);
-        view.setFitHeight(80);
-        view.setPreserveRatio(true);
-        Button dice = new Button();
-        dice.setPrefSize(110, 110);
-        dice.setGraphic(view);
-
-        dice.setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
-        dice.setTextFill(Color.WHITE);
-        dice.setStyle(dice.getStyle() + "-fx-border-radius: 0; -fx-border-width: 0px; -fx-font-weight: bold;");
-
-        // Aggiungi listener al pulsante
-        dice.setOnAction(new BoxListener("Dice "+number));
-
-        return dice;
-    }
 
     private Button createButton(int number) {
         switch (number){

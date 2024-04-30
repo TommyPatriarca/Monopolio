@@ -16,6 +16,6 @@ public class Taxes implements Box {
 
     @Override
     public String getNome() {
-        return "Tasse ($" + amountDue + ")";
+        return "Tasse (-" + amountDue + "$)";
     }
 }
