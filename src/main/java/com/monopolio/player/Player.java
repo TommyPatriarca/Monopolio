@@ -45,4 +45,6 @@ public class Player {
     public void setInPrison(boolean inPrison) {
         this.inPrison = inPrison;
     }
+
+
 }

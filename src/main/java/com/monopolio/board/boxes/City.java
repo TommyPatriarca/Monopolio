@@ -3,15 +3,18 @@ package com.monopolio.board.boxes;
 import com.monopolio.board.Box;
 import com.monopolio.player.Player;
 
+/**
+ * La classe rappresenta una città all'interno del gioco, tutte le operazioni che si possono svolgere e tutti gli attributi che possiede.
+ */
 public class City implements Box {
-    public final String name;
-    public final int price;
-    public final int houseprice;
-    public final int hotelprice;
-    public  int houseNumber=0; //un albergo corrisponde a 5 case
-    public int payment=0;   //viene calcolato dopo
-    public int basePayment;
-    public Player owner;    //inizialmente non è di nessuno
+    private final String name;
+    private final int price;
+    private final int houseprice;
+    private final int hotelprice;
+    private  int houseNumber=0; //un albergo corrisponde a 5 case
+    private int payment=0;   //viene calcolato dopo
+    private int basePayment;
+    private Player owner;    //inizialmente non è di nessuno
 
     public City(String name, int price, int houseprice, int hotelprice, int basePayment) {
         this.name = name;
@@ -21,7 +24,10 @@ public class City implements Box {
         this.basePayment = basePayment;
     }
 
-    //permette di comprare un albergo
+    /**
+     * Una funzione di questo tipo permette al giocatore di comprare un "Hotel" solo dopo aver verificato la sua disponibilità economica.
+     * @param player è il giocatore che vuole comprare l'hotel.
+     */
     public void buyHotel(Player player){
         if(houseNumber==4 && player.soldi>=hotelprice){
             //puoi comprare l'albergo
@@ -34,7 +40,10 @@ public class City implements Box {
         }
     }
 
-    //permette di comprare una casa
+    /**
+     * Permette al giocatore di comprare una "Casa" solo dopo aver verificato la sua disponibilità economica.
+     * @param player è il giocatore che vuole comprare la casa.
+     */
     public void buyHouse(Player player){
         if(player.soldi>=houseprice){
             //puoi comprare una casa
@@ -47,10 +56,12 @@ public class City implements Box {
         }
     }
 
-    //permette di comprare un terreno
+    /**
+     * Permette al giocatore di comprare questa "Proprietà" solo dopo aver verificato la sua disponibilità economica.
+     * @param player è il giocatore che vuole comprare questa proprietà.
+     */
     public void buyPropriety(Player player){
         if(player.soldi>=price){
-            //puoi comprare una terreno
             owner=player;
         }
         else{
@@ -58,7 +69,10 @@ public class City implements Box {
         }
     }
 
-    //permette di vendere un albergo
+    /**
+     * Permette al giocatore di vendere un "Hotel" solo nel caso in cui il giocatore lo possieda.
+     * @param player è il giocatore che vuole vendere un hotel.
+     */
     public void sellHotel(Player player){
         if(player.equals(owner) && houseNumber==5){
             //puoi vendere un albergo
@@ -71,7 +85,10 @@ public class City implements Box {
         }
     }
 
-    //permette di vendere una casa
+    /**
+     * Permette al giocatore di vendere una "Casa" solo nel caso in cui il giocatore la possieda.
+     * @param player è il giocatore che vuole vendere una casa.
+     */
     public void sellHouse(Player player){
         if(player.equals(owner) && houseNumber>0 && houseNumber < 5){
             //puoi vendere una casa
@@ -84,7 +101,10 @@ public class City implements Box {
         }
     }
 
-    //permette di vendere un terreno
+    /**
+     * Permette al giocatore di vendere questa "Proprietà" solo nel caso in cui il giocatore la possieda.
+     * @param player è il giocatore che vuole vendere questa proprietà.
+     */
     public void sellPropriety(Player player){
         if(player.equals(owner) && houseNumber==0){
             //puoi vendere una terreno
@@ -96,6 +116,10 @@ public class City implements Box {
         }
     }
 
+    /**
+     * Serve per visualizzare il nome della città.
+     * @return il nome della città.
+     */
     @Override
     public String getNome() {
         return name;

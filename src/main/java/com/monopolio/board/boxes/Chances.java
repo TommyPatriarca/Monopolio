@@ -5,6 +5,10 @@ import com.monopolio.utils.RandUtils;
 
 import java.util.ArrayList;
 
+
+/**
+ * Rappresenta la casella "Probabilità" che permette di ottenere bonus o malus in base ad una scelta casuale.
+ */
 public class Chances implements Box {
     private ArrayList<String> chances = new ArrayList<>();
 
@@ -16,6 +20,11 @@ public class Chances implements Box {
         chances.add("(5) Some chance.");
     }
 
+    /**
+     *
+     * @param index è la posizione della "Probabilità" all'interno dell'ArrayList.
+     * @return la "Probabilità"
+     */
     private String pick(int index) {
         return chances.get(index);
     }
