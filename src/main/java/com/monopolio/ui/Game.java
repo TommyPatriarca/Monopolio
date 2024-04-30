@@ -148,7 +148,7 @@ public class Game extends Application {
 
     // Crea i bottoni con i dadi
     private Button createDice(int number) {
-        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/dices/dice-fire.png")));
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/dices/rolldice.png")));
         ImageView view = new ImageView(img);
         view.setFitHeight(80);
         view.setPreserveRatio(true);
@@ -172,114 +172,124 @@ public class Game extends Application {
                 cities[number] = new StartBox(200);
                 break;
             case 1:
-                cities[number] = new City("Delebio", 100, 50, 200, 10);
+                cities[number] = new City("Traona", 60, 50, 200, 10);
                 break;
             case 2:
                 cities[number] = new Chances();
                 break;
             case 3:
-                cities[number] = new City("Traona", 100, 50, 200, 10);
+                cities[number] = new City("Andalo", 60, 50, 200, 10);
                 break;
             case 4:
-                cities[number] = new Taxes(50);
+                cities[number] = new Taxes(200);
                 break;
             case 5:
-                cities[number] = new City("Morbegno", 100, 50, 200, 10);
+                cities[number] = new City("Regoledo", 100, 50, 200, 10);
                 break;
             case 6:
-                cities[number] = new City("Albaredo", 100, 50, 200, 10);
+                cities[number] = new Treasures();
                 break;
             case 7:
-                cities[number] = new City("Pescegallo", 100, 50, 200, 10);
+                cities[number] = new City("Morbegno", 100, 50, 200, 10);
                 break;
             case 8:
-                cities[number] = new City("Talamona", 100, 50, 200, 10);
+                cities[number] = new City("Talamona", 120, 50, 200, 10);
                 break;
             case 9:
                 cities[number] = new Prison();
                 break;
             case 10:
-                cities[number] = new City("Ardenno", 100, 50, 200, 10);
+                cities[number] = new City("Ardenno", 140, 50, 200, 10);
                 break;
             case 11:
-                cities[number] = new City("Villapinta", 100, 50, 200, 10);
+                cities[number] = new Stations(Stations.StationTypes.EST);
                 break;
             case 12:
-                cities[number] = new City("Berbenno", 100, 50, 200, 10);
+                cities[number] = new City("Berbenno", 140, 50, 200, 10);
                 break;
             case 13:
-                cities[number] = new City("Castione", 100, 50, 200, 10);
+                cities[number] = new City("Castione", 160, 50, 200, 10);
                 break;
             case 14:
-                cities[number] = new City("Albosaggia", 100, 50, 200, 10);
+                cities[number] = new City("Castiones", 160, 50, 200, 10);
                 break;
             case 15:
-                cities[number] = new City("Sondrio", 100, 50, 200, 10);
+                cities[number] = new Chances();
                 break;
             case 16:
-                cities[number] = new City("Lanzada", 100, 50, 200, 10);
+                cities[number] = new City("Sondrio", 180, 50, 200, 10);
                 break;
             case 17:
-                cities[number] = new City("Chiesa", 100, 50, 200, 10);
+                cities[number] = new City("Chiesa", 180, 50, 200, 10);
                 break;
             case 18:
                 cities[number] = new Parking();
                 break;
             case 19:
-                cities[number] = new City("Pianteda", 100, 50, 200, 10);
+                cities[number] = new City("Piantedo", 220, 50, 200, 10);
                 break;
             case 20:
-                cities[number] = new City("Chiuro", 100, 50, 200, 10);
+                cities[number] = new Treasures();
                 break;
             case 21:
-                cities[number] = new City("San Giacomo", 100, 50, 200, 10);
+                cities[number] = new City("San Giacomo", 220, 50, 200, 10);
                 break;
             case 22:
-                cities[number] = new City("Tresenda", 100, 50, 200, 10);
+                cities[number] = new City("Tresenda", 240, 50, 200, 10);
                 break;
             case 23:
-                cities[number] = new City("Aprica", 100, 50, 200, 10);
+                cities[number] = new Stations(Stations.StationTypes.SUD);
                 break;
             case 24:
-                cities[number] = new City("Tirano", 100, 50, 200, 10);
+                cities[number] = new City("Tirano", 260, 50, 200, 10);
                 break;
             case 25:
-                cities[number] = new City("Grosio", 100, 50, 200, 10);
+                cities[number] = new City("Grosio", 260, 50, 200, 10);
                 break;
             case 26:
-                cities[number] = new City("Sondalo", 100, 50, 200, 10);
+                cities[number] = new City("Sondalo", 280, 50, 200, 10);
                 break;
             case 27:
                 cities[number] = new ToPrison();
                 break;
             case 28:
-                cities[number] = new City("Livigno", 100, 50, 200, 10);
+                cities[number] = new City("Livigno", 300, 50, 200, 10);
                 break;
             case 29:
-                cities[number] = new Treasures();
+                cities[number] = new City("Trepalle", 300, 50, 200, 10);
                 break;
             case 30:
-                cities[number] = new Stations(Stations.StationTypes.NORD);
+                cities[number] = new Chances();
                 break;
             case 31:
-                cities[number] = new Stations(Stations.StationTypes.EST);
+                cities[number] = new City("Bormio", 300, 50, 200, 10);
                 break;
             case 32:
                 cities[number] = new Stations(Stations.StationTypes.OVEST);
                 break;
             case 33:
-                cities[number] = new Stations(Stations.StationTypes.SUD);
+                cities[number] = new Treasures();
                 break;
             case 34:
-                cities[number] = new City("mettere", 100, 50, 200, 10);
+                cities[number] = new City("zio", 350, 50, 200, 10);
                 break;
             case 35:
-                cities[number] = new City("della", 100, 50, 200, 10);
+                cities[number] = new City("pera", 400, 50, 200, 10);
                 break;
 
             default:
                 System.out.println("Could not find city....");
         }
+
+        // Crea un bottone imprevisti
+        //TODO logica
+
+        // Crea un bottone probabilita
+        //TODO logica
+
+
+        // Crea un bottone tasse
+        //TODO logica
 
         Button button = new Button(cities[number].getNome());
 
