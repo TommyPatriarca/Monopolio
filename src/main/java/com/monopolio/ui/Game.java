@@ -42,14 +42,14 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
         // Creazione del layout principale
         BorderPane root = new BorderPane();
-        root.setPadding(new Insets(20));
+        root.setPadding(new Insets(10));
         root.setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         // Creazione della VBox per i nomi dei giocatori
         VBox playerNamesBox = new VBox();
         playerNamesBox.setAlignment(Pos.TOP_LEFT);
         playerNamesBox.setSpacing(10);
-        playerNamesBox.setPadding(new Insets(10, 0, 20, 10));
+        playerNamesBox.setPadding(new Insets(10, 10, 10, 0));
 
         // Aggiungi i nomi dei giocatori alla VBox
         for (int i=0;i<4;i++) {
@@ -113,7 +113,7 @@ public class Game extends Application {
                     } else if (i == 8) {
                         number = 28 - j;
                     } else {
-                        number = 37 - i;
+                        number = 33 - i;
                     }
                     Button button = createButton(number - 1);
                     gridPane.add(button, j, i);
@@ -246,18 +246,6 @@ public class Game extends Application {
                 break;
             case 31:
                 cities[number] = new City("Bormio", 300, 50, 200, 10);
-                break;
-            case 32:
-                cities[number] = new Stations(Stations.StationTypes.OVEST);
-                break;
-            case 33:
-                cities[number] = new Treasures();
-                break;
-            case 34:
-                cities[number] = new City("zio", 350, 50, 200, 10);
-                break;
-            case 35:
-                cities[number] = new City("pera", 400, 50, 200, 10);
                 break;
 
             default:
