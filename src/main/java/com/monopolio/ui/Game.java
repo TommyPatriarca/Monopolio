@@ -102,24 +102,25 @@ public class Game extends Application {
 
         // Aggiunta bottoni al perimetro del GridPane
         int count = 0; // Contatore per la numerazione dei bottoni
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (i == 0 || i == 9 || j == 0 || j == 9) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (i == 0 || i == 8 || j == 0 || j == 8) {
                     int number;
                     if (i == 0) {
                         number = j + 1;
-                    } else if (j == 9) {
+                    } else if (j == 8) {
                         number = 10 + i;
-                    } else if (i == 9) {
+                    } else if (i == 8) {
                         number = 28 - j;
                     } else {
-                        number = 37 - i ;
+                        number = 37 - i;
                     }
-                    Button button = createButton(number-1);
+                    Button button = createButton(number - 1);
                     gridPane.add(button, j, i);
                 }
             }
         }
+
 
         dices[0] = new Dice();
         dices[1] = new Dice();
