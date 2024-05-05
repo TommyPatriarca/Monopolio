@@ -270,15 +270,6 @@ public class Game extends Application {
 
         }else {
             button.setPrefSize(110, 110);
-
-            /*
-            if(number >9 && number <18) {
-                button.setStyle("-fx-rotate: -90;");
-            }
-            else if(number >27){
-                button.setStyle("-fx-rotate: 90;");
-            }
-             */
         }
 
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
