@@ -131,6 +131,15 @@ public class Game extends Application {
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);
 
+        // Creazione di un nuovo HBox per il pulsante MuteButton
+        VBox muteButtonBox = new VBox();
+        muteButtonBox.setAlignment(Pos.TOP_RIGHT);
+        muteButtonBox.setPadding(new Insets(10));
+        MuteButton muteButton = new MuteButton();
+        muteButtonBox.getChildren().add(muteButton);
+        root.setRight(muteButtonBox);
+
+
         // Creazione della scena
         Scene scene = new Scene(root, 800, 600);
 
