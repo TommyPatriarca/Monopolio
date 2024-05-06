@@ -136,9 +136,12 @@ public class Game extends Application {
         // Creazione di un nuovo HBox per il pulsante MuteButton
         VBox muteButtonBox = new VBox();
         muteButtonBox.setAlignment(Pos.TOP_RIGHT);
+        muteButtonBox.setSpacing(10);
         muteButtonBox.setPadding(new Insets(10));
         MuteButton muteButton = new MuteButton();
         muteButtonBox.getChildren().add(muteButton);
+        TradeButton tradeButton = new TradeButton();
+        muteButtonBox.getChildren().add(tradeButton);
         root.setRight(muteButtonBox);
 
 
