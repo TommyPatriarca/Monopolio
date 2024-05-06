@@ -141,8 +141,7 @@ public class Game extends Application {
         TradeButton tradeButton = new TradeButton();
         muteButtonBox.getChildren().add(tradeButton);
         root.setRight(muteButtonBox);
-
-
+        
         // Creazione della scena
         Scene scene = new Scene(root, 800, 600);
 
@@ -235,10 +234,10 @@ public class Game extends Application {
             case 23:
                 cities[number] = new City("Tirano", 260, 50, 200, 10);
                 break;
-             case 24:
-                 cities[number] = new ToPrison();
+            case 24:
+                cities[number] = new ToPrison();
                 break;
-                case 25:
+            case 25:
                 cities[number] = new Stations(Stations.StationTypes.SUD);
                 break;
             case 26:
@@ -263,16 +262,6 @@ public class Game extends Application {
             default:
                 System.out.println("Could not find city....");
         }
-
-        // Crea un bottone imprevisti
-        //TODO logica
-
-        // Crea un bottone probabilita
-        //TODO logica
-
-
-        // Crea un bottone tasse
-        //TODO logica
 
         Button button = new Button(cities[number].getNome());
 
