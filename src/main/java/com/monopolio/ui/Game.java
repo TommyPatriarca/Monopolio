@@ -12,10 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class Game extends Application {
     Player[] players = new Player[4];
@@ -23,6 +27,9 @@ public class Game extends Application {
     DiceButton[] dices = new DiceButton[2];
     ChancesButton chancesButton = new ChancesButton();
     TreasuresButton treasuresButton = new TreasuresButton();
+    private Image img;
+    private ImageView view;
+    private boolean set;
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -264,19 +271,47 @@ public class Game extends Application {
         }
 
         Button button = new Button(cities[number].getNome());
-
-        // Ruota le scritte dei bottoni negli estremi a sinistra e a destra di 90 gradi
-        if (number == 0 || number == 9 || number == 18 || number == 27) {
-            button.setPrefSize(110, 110);
-
-        }else {
-            button.setPrefSize(110, 110);
-        }
-
+        button.setPrefSize(110, 110);
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
         button.setStyle(button.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
+
+        set=true;
+
+        switch (number){
+
+            case 1, 3:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/red.png")));
+                break;
+            case 5, 9, 7:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/yellow.png")));
+                break;
+            case 10, 13, 12:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/orange.png")));
+                break;
+            case 14, 18, 17:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/pink.png")));
+                break;
+            case 19, 22, 21:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/green.png")));
+                break;
+            case 23, 27, 26:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/cyan.png")));
+                break;
+            case 28, 31, 29:
+                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/blue.png")));
+                break;
+
+            default:set=false;
+        }
+        if(set==true){
+                view = new ImageView(img);
+                view.setFitHeight(80);
+                view.setPreserveRatio(true);
+                button.setGraphic(view);
+        }
+
 
         // Aggiungi listener al pulsante
         button.setOnAction(new BoxListener(cities[number].getNome()));
