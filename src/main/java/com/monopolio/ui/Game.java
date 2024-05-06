@@ -2,9 +2,7 @@ package com.monopolio.ui;
 
 import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
-import com.monopolio.board.buttons.ChancesCard;
-import com.monopolio.board.buttons.Dice;
-import com.monopolio.board.buttons.TreasuresCard;
+import com.monopolio.board.buttons.*;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -22,9 +20,9 @@ import javafx.stage.Stage;
 public class Game extends Application {
     Player[] players = new Player[4];
     Box[] cities = new Box[36];
-    Dice[] dices = new Dice[2];
-    ChancesCard chancesCard = new ChancesCard();
-    TreasuresCard treasuresCard = new TreasuresCard();
+    DiceButton[] dices = new DiceButton[2];
+    ChancesButton chancesButton = new ChancesButton();
+    TreasuresButton treasuresButton = new TreasuresButton();
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -121,14 +119,14 @@ public class Game extends Application {
             }
         }
 
-        dices[0] = new Dice();
-        dices[1] = new Dice();
+        dices[0] = new DiceButton();
+        dices[1] = new DiceButton();
 
         gridPane.add(dices[0], 2, 2);
         gridPane.add(dices[1], 3, 2);
 
-        gridPane.add(chancesCard, 5, 2);
-        gridPane.add(treasuresCard, 6, 2);
+        gridPane.add(chancesButton, 5, 2);
+        gridPane.add(treasuresButton, 6, 2);
 
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);

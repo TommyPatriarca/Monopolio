@@ -1,4 +1,4 @@
-package com.monopolio.board;
+package com.monopolio.board.buttons;
 
 import com.monopolio.listeners.MuteListener;
 import javafx.geometry.Insets;
@@ -12,21 +12,21 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-public class MuteButton extends Button {
+public class TradeButton extends Button {
     private boolean muted = false;
     private ImageView playIcon;
     private ImageView muteIcon;
 
-    public MuteButton() {
+    public TradeButton() {
         design();
-        Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/audio/play.png")),50,50,true,true);
+        Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trade.png")),50,50,true,true);
         // Crea le ImageView per le immagini
         playIcon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
         setGraphic(playIcon);
 
         // listener per il pulsante
-        setOnAction(new MuteListener(this));
+        //setOnAction(new MuteListener(this));
     }
 
     public void toggle() {

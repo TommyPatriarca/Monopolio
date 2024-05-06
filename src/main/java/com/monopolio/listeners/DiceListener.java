@@ -1,13 +1,13 @@
 package com.monopolio.listeners;
 
-import com.monopolio.board.buttons.Dice;
+import com.monopolio.board.buttons.DiceButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class DiceListener implements EventHandler<ActionEvent> {
-    Dice dice;
+    DiceButton dice;
 
-    public DiceListener(Dice dice) {
+    public DiceListener(DiceButton dice) {
         this.dice = dice;
     }
 
