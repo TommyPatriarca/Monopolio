@@ -109,9 +109,9 @@ public class Game extends Application {
                     if (i == 0) {
                         number = j + 1;
                     } else if (j == 8) {
-                        number = 10 + i;
+                        number = 9 + i;
                     } else if (i == 8) {
-                        number = 28 - j;
+                        number = 25 - j;
                     } else {
                         number = 33 - i;
                     }
@@ -190,10 +190,10 @@ public class Game extends Application {
                 cities[number] = new City("Morbegno", 100, 50, 200, 10);
                 break;
             case 8:
-                cities[number] = new City("Talamona", 120, 50, 200, 10);
+                cities[number] = new Prison();
                 break;
             case 9:
-                cities[number] = new Prison();
+                cities[number] = new City("Talamona", 120, 50, 200, 10);
                 break;
             case 10:
                 cities[number] = new City("Ardenno", 140, 50, 200, 10);
@@ -214,13 +214,13 @@ public class Game extends Application {
                 cities[number] = new Chances();
                 break;
             case 16:
-                cities[number] = new City("Sondrio", 180, 50, 200, 10);
+                cities[number] = new Parking();
                 break;
             case 17:
-                cities[number] = new City("Chiesa", 180, 50, 200, 10);
+                cities[number] = new City("Sondrio", 180, 50, 200, 10);
                 break;
             case 18:
-                cities[number] = new Parking();
+                cities[number] = new City("Chiesa", 180, 50, 200, 10);
                 break;
             case 19:
                 cities[number] = new City("Piantedo", 220, 50, 200, 10);
@@ -235,19 +235,19 @@ public class Game extends Application {
                 cities[number] = new City("Tresenda", 240, 50, 200, 10);
                 break;
             case 23:
-                cities[number] = new Stations(Stations.StationTypes.SUD);
-                break;
-            case 24:
                 cities[number] = new City("Tirano", 260, 50, 200, 10);
                 break;
-            case 25:
-                cities[number] = new City("Grosio", 260, 50, 200, 10);
+             case 24:
+                 cities[number] = new ToPrison();
+                break;
+                case 25:
+                cities[number] = new Stations(Stations.StationTypes.SUD);
                 break;
             case 26:
                 cities[number] = new City("Sondalo", 280, 50, 200, 10);
                 break;
             case 27:
-                cities[number] = new ToPrison();
+                cities[number] = new City("Grosio", 260, 50, 200, 10);
                 break;
             case 28:
                 cities[number] = new City("Livigno", 300, 50, 200, 10);
