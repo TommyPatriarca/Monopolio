@@ -2,7 +2,9 @@ package com.monopolio.ui;
 
 import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
-import com.monopolio.listeners.DiceListener;
+import com.monopolio.board.buttons.ChancesCard;
+import com.monopolio.board.buttons.Dice;
+import com.monopolio.board.buttons.TreasuresCard;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -12,19 +14,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
 public class Game extends Application {
     Player[] players = new Player[4];
     Box[] cities = new Box[36];
     Dice[] dices = new Dice[2];
+    ChancesCard chancesCard = new ChancesCard();
+    TreasuresCard treasuresCard = new TreasuresCard();
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -121,12 +121,14 @@ public class Game extends Application {
             }
         }
 
-
         dices[0] = new Dice();
         dices[1] = new Dice();
 
-        gridPane.add(dices[0], 4, 4);
-        gridPane.add(dices[1], 5, 5);
+        gridPane.add(dices[0], 2, 2);
+        gridPane.add(dices[1], 3, 2);
+
+        gridPane.add(chancesCard, 5, 2);
+        gridPane.add(treasuresCard, 6, 2);
 
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);

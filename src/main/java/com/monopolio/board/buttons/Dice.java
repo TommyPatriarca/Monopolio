@@ -1,4 +1,4 @@
-package com.monopolio.board;
+package com.monopolio.board.buttons;
 
 import com.monopolio.listeners.DiceListener;
 import com.monopolio.utils.RandUtils;

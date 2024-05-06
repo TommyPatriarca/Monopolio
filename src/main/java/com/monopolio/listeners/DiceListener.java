@@ -1,7 +1,6 @@
 package com.monopolio.listeners;
 
-import com.monopolio.board.Dice;
-import com.monopolio.ui.Game;
+import com.monopolio.board.buttons.Dice;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
