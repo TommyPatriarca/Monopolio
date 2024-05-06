@@ -19,6 +19,8 @@ public class Dice extends Button {
     private ImageView view;
 
     public Dice() {
+        //verde 38b000
+        //rosso dd0426
         setDefault();
         design();
         setOnAction(new DiceListener(this));
@@ -36,7 +38,7 @@ public class Dice extends Button {
         setPrefSize(110, 110);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
-        setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 0; -fx-border-width: 0px; -fx-font-weight: bold;");
+        setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 15; -fx-border-width: 2px; -fx-border-color: #dd0426; -fx-font-weight: bold;");
     }
 
     public int roll() {
