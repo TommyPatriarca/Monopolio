@@ -1,18 +1,19 @@
 package com.monopolio.listeners;
 
+import com.monopolio.board.MuteButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class MuteListener implements EventHandler<ActionEvent> {
-    private boolean muted;
+    private MuteButton muteButton;
 
-    public MuteListener() {
-        this.muted = false;
+    public MuteListener(MuteButton muteButton) {
+        this.muteButton = muteButton;
     }
 
     @Override
     public void handle(ActionEvent event) {
-        muted = !muted;
+        muteButton.toggle();
         //logica per gestire il mute
     }
 }
