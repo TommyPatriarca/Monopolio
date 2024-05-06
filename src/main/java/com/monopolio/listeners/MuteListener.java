@@ -1,6 +1,6 @@
 package com.monopolio.listeners;
 
-import com.monopolio.board.MuteButton;
+import com.monopolio.board.buttons.MuteButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

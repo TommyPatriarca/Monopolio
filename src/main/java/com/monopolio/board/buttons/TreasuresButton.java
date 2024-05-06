@@ -1,6 +1,5 @@
 package com.monopolio.board.buttons;
 
-import com.monopolio.utils.RandUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -12,21 +11,21 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-public class ChancesCard extends Button {
-    // TODO: recode for the chances.
+public class TreasuresButton extends Button {
+    // TODO: recode for the trasures.
 
     private int value;
     private Image img;
     private ImageView view;
 
-    public ChancesCard() {
+    public TreasuresButton() {
         setDefault();
         design();
         //setOnAction(new DiceListener(this));
     }
 
     public void setDefault() {
-        img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/chances.png")));
+        img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/treasures.png")));
         view = new ImageView(img);
         view.setFitHeight(80);
         view.setPreserveRatio(true);
@@ -37,8 +36,9 @@ public class ChancesCard extends Button {
         setPrefSize(110, 110);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
-        setStyle(getStyle() + "-fx-cursor: hand; -fx-background-color: #f77f00; -fx-text-fill: white; -fx-background-radius: 15;");
+        setStyle(getStyle() + "-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 15;");
     }
+
 
 
     public ImageView getView() {

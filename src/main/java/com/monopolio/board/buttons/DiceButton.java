@@ -13,12 +13,12 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-public class Dice extends Button {
+public class DiceButton extends Button {
     private int value;
     private Image img;
     private ImageView view;
 
-    public Dice() {
+    public DiceButton() {
         //verde 38b000
         //rosso dd0426
         setDefault();
@@ -38,7 +38,7 @@ public class Dice extends Button {
         setPrefSize(110, 110);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
-        setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 15; -fx-border-width: 2px; -fx-border-color: #dd0426; -fx-font-weight: bold;");
+        setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 15; -fx-border-width: 2px; -fx-border-color: #38b000; -fx-font-weight: bold;");
     }
 
     public int roll() {
