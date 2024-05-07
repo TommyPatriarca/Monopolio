@@ -15,6 +15,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Rappresenta la schermata successiva alla registrazione, in cui si sceglie con quale modilità giocare.
+ */
 public class Mode extends Application {
     private SceneManager sceneManager;
 
@@ -28,6 +31,11 @@ public class Mode extends Application {
     private Color backgroundColor = Color.rgb(0, 18, 51);
     private Color monoColor = Color.rgb(255, 255, 255);
     private Color polioColor = Color.rgb(16, 129, 249);
+
+    /**
+     * Crea tutto ciò che rappresenta la grafica della parte successiva alla registrazione del gioco, in cui si sceglie con quale modilità giocare(bottoni, colori, testo).
+     * @param modeStage schermata sulla quale viene mostrata la grafica.
+     */
 
     @Override
     public void start(Stage modeStage) {

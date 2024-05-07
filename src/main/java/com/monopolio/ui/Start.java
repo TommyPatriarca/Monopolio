@@ -24,6 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Rappresenta tutto ciò che è presente nella grafica della parte iniziale di registrazione del gioco.
+ */
 public class Start extends Application {
     private SceneManager sceneManager;
 
@@ -41,6 +44,10 @@ public class Start extends Application {
     // Definizione dei colori dei bordi dei text box
     private Color[] borderColors = {Color.GREEN, Color.YELLOW, Color.LIGHTBLUE, Color.PURPLE};
 
+    /**
+     * Crea tutto ciò che rappresenta la grafica della parte di registrazione del gioco (bottoni, colori, testo):
+     * @param primaryStage schermata sulla quale viene mostrata la grafica.
+     */
     @Override
     public void start(Stage primaryStage) {
         // Ombra
@@ -92,7 +99,7 @@ public class Start extends Application {
                     textField.setText(oldValue);
                 }
                 // Controlla i nomi duplicati e imposta il bordo rosso se necessario
-                if (hasDuplicateNames(playerFields)) {
+                if (NotDuplicateNames(playerFields)) {
                     textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: red; -fx-border-radius: 10;");
                 } else {
                     textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: " + toHex(borderColors[index]) + "; -fx-border-radius: 10;");
@@ -170,7 +177,7 @@ public class Start extends Application {
             for (int i = 0; i < playerFields.length; i++) {
                 playerNames[i] = playerFields[i].getText().trim();
             }
-            if (hasDuplicateNames(playerFields)) {
+            if (NotDuplicateNames(playerFields)) {
                 showAlert(primaryStage);
             } else {
                 sceneManager.showGameScreen(primaryStage, playerNames); // Mostra la schermata di selezione dei giocatori
@@ -178,7 +185,11 @@ public class Start extends Application {
         });
     }
 
-    // Metodo per convertire un colore in formato esadecimale
+    /**
+     * Viene utilizzato per convertire un colore in formato esadecimale.
+     * @param color il colore del quale si vuole convertire il formato.
+     * @return il codice del colore.
+     */
     private String toHex(Color color) {
         return String.format("#%02X%02X%02X",
                 (int) (color.getRed() * 255),
@@ -186,8 +197,15 @@ public class Start extends Application {
                 (int) (color.getBlue() * 255));
     }
 
-    // Metodo (Spiegato su chatOverflow) per verificare se ci sono nomi duplicati tra i giocatori
-    private boolean hasDuplicateNames(TextField[] fields) {
+
+    /**
+     * Controlla se ci sono nomi duplicati fra i giocatori.
+     * @param fields array di "TextField" che contiene i nomi dei giocatori(se presenti).
+     * @return "true" se non sono presenti nomi duplicati, "false" se sono presenti.
+     *
+     * !  Questo metodo è stato preso da StackOverflow  !.
+     */
+    private boolean NotDuplicateNames(TextField[] fields) {
         Set<String> uniqueNames = new HashSet<>();
         for (TextField field : fields) {
             if (!field.getText().isEmpty() && !uniqueNames.add(field.getText().trim())) {
@@ -197,8 +215,10 @@ public class Start extends Application {
         return false;
     }
 
-    // Metodo per mostrare un avviso
-    // Mostra un avviso se vengono inseriti nomi duplicati
+    /**
+     * Viene utilizzato per mostrare un messaggio di errore (nomi duplicati).
+     * @param primaryStage schermata sulla quale viene mostrato il messaggio di errore.
+     */
     private void showAlert(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.initOwner(primaryStage); // Imposta la finestra genitore

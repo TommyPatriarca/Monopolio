@@ -24,6 +24,22 @@ import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
+/**
+ * DA FARE PIù AVANTI
+ *
+ *  SERVE PER NON RISCRIVERE TROOPPE VOLTE IL TESTO "MONO" E "POLIO"
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 public class Game extends Application {
     Player[] players = new Player[4];
     Box[] cities = new Box[36];
