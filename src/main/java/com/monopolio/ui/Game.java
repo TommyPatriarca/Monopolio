@@ -3,15 +3,14 @@ package com.monopolio.ui;
 import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
+import com.monopolio.managers.AlertManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -20,7 +19,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
@@ -172,7 +170,7 @@ public class Game extends Application {
         RulesButton rulesButton = new RulesButton(this);
         toolbarBox.getChildren().add(rulesButton);
         rulesButton.setOnAction(event -> {
-            showAlert(primaryStage);
+            AlertManager.showRules(primaryStage);
         });
 
         root.setRight(toolbarBox);
@@ -201,46 +199,46 @@ public class Game extends Application {
                 cities[number] = new StartBox(200);
                 break;
             case 1:
-                cities[number] = new City("Traona", 60, 50, 200, 10);
+                cities[number] = new City(Groups.RED, "Traona", 60, 50, 200, 10);
                 break;
             case 2:
                 cities[number] = new Chances();
                 break;
             case 3:
-                cities[number] = new City("Andalo", 60, 50, 200, 10);
+                cities[number] = new City(Groups.RED,"Andalo", 60, 50, 200, 10);
                 break;
             case 4:
                 cities[number] = new Taxes(200);
                 break;
             case 5:
-                cities[number] = new City("Regoledo", 100, 50, 200, 10);
+                cities[number] = new City(Groups.YELLOW,"Regoledo", 100, 50, 200, 10);
                 break;
             case 6:
                 cities[number] = new Treasures();
                 break;
             case 7:
-                cities[number] = new City("Morbegno", 100, 50, 200, 10);
+                cities[number] = new City(Groups.YELLOW,"Morbegno", 100, 50, 200, 10);
                 break;
             case 8:
                 cities[number] = new Prison();
                 break;
             case 9:
-                cities[number] = new City("Talamona", 120, 50, 200, 10);
+                cities[number] = new City(Groups.YELLOW,"Talamona", 120, 50, 200, 10);
                 break;
             case 10:
-                cities[number] = new City("Ardenno", 140, 50, 200, 10);
+                cities[number] = new City(Groups.ORANGE,"Ardenno", 140, 50, 200, 10);
                 break;
             case 11:
                 cities[number] = new Stations(Stations.StationTypes.EST);
                 break;
             case 12:
-                cities[number] = new City("Berbenno", 140, 50, 200, 10);
+                cities[number] = new City(Groups.ORANGE,"Berbenno", 140, 50, 200, 10);
                 break;
             case 13:
-                cities[number] = new City("Castione", 160, 50, 200, 10);
+                cities[number] = new City(Groups.ORANGE,"Castione", 160, 50, 200, 10);
                 break;
             case 14:
-                cities[number] = new City("Castiones", 160, 50, 200, 10);
+                cities[number] = new City(Groups.PINK,"Castiones", 160, 50, 200, 10);
                 break;
             case 15:
                 cities[number] = new Chances();
@@ -249,25 +247,25 @@ public class Game extends Application {
                 cities[number] = new Parking();
                 break;
             case 17:
-                cities[number] = new City("Sondrio", 180, 50, 200, 10);
+                cities[number] = new City(Groups.PINK,"Sondrio", 180, 50, 200, 10);
                 break;
             case 18:
-                cities[number] = new City("Chiesa", 180, 50, 200, 10);
+                cities[number] = new City(Groups.PINK,"Chiesa", 180, 50, 200, 10);
                 break;
             case 19:
-                cities[number] = new City("Piantedo", 220, 50, 200, 10);
+                cities[number] = new City(Groups.GREEN,"Piantedo", 220, 50, 200, 10);
                 break;
             case 20:
                 cities[number] = new Treasures();
                 break;
             case 21:
-                cities[number] = new City("San Giacomo", 220, 50, 200, 10);
+                cities[number] = new City(Groups.GREEN,"San Giacomo", 220, 50, 200, 10);
                 break;
             case 22:
-                cities[number] = new City("Tresenda", 240, 50, 200, 10);
+                cities[number] = new City(Groups.GREEN,"Tresenda", 240, 50, 200, 10);
                 break;
             case 23:
-                cities[number] = new City("Tirano", 260, 50, 200, 10);
+                cities[number] = new City(Groups.CYAN,"Tirano", 260, 50, 200, 10);
                 break;
             case 24:
                 cities[number] = new ToPrison();
@@ -276,22 +274,22 @@ public class Game extends Application {
                 cities[number] = new Stations(Stations.StationTypes.SUD);
                 break;
             case 26:
-                cities[number] = new City("Sondalo", 280, 50, 200, 10);
+                cities[number] = new City(Groups.CYAN,"Sondalo", 280, 50, 200, 10);
                 break;
             case 27:
-                cities[number] = new City("Grosio", 260, 50, 200, 10);
+                cities[number] = new City(Groups.CYAN,"Grosio", 260, 50, 200, 10);
                 break;
             case 28:
-                cities[number] = new City("Livigno", 300, 50, 200, 10);
+                cities[number] = new City(Groups.BLUE,"Livigno", 300, 50, 200, 10);
                 break;
             case 29:
-                cities[number] = new City("Trepalle", 300, 50, 200, 10);
+                cities[number] = new City(Groups.BLUE,"Trepalle", 300, 50, 200, 10);
                 break;
             case 30:
                 cities[number] = new Chances();
                 break;
             case 31:
-                cities[number] = new City("Bormio", 300, 50, 200, 10);
+                cities[number] = new City(Groups.BLUE,"Bormio", 300, 50, 200, 10);
                 break;
 
             default:
@@ -305,84 +303,21 @@ public class Game extends Application {
         button.setStyle(button.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
 
-        set=true;
-
-        switch (number){
-
-            case 1, 3:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/red.png")));
-                break;
-            case 5, 9, 7:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/yellow.png")));
-                break;
-            case 10, 13, 12:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/orange.png")));
-                break;
-            case 14, 18, 17:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/pink.png")));
-                break;
-            case 19, 22, 21:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/green.png")));
-                break;
-            case 23, 27, 26:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/cyan.png")));
-                break;
-            case 28, 31, 29:
-                img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/blue.png")));
-                break;
-
-            default:set=false;
-        }
-        if(set==true){
-                view = new ImageView(img);
-                view.setFitHeight(20);
-                view.setPreserveRatio(true);
-                button.setGraphic(view);
+        if (cities[number] instanceof City city) {
+            img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(city.getGroup().getPath())));
+            setImage(button);
         }
 
-
-        // Aggiungi listener al pulsante
+        // Aggiungi listener alla casella
         button.setOnAction(new BoxListener(cities[number].getNome()));
 
         return button;
     }
 
-
-
-    private void showAlert(Stage primaryStage) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(primaryStage); // Imposta la finestra genitore
-        alert.setTitle("Regole");
-        alert.setHeaderText(null);
-        alert.setContentText("Obiettivo: Essere l'ultimo giocatore con soldi e proprietà.\n" +
-                "Setup: Ogni giocatore inizia con una quantità di denaro e si muove attorno al tabellone acquistando proprietà e pagando affitti.\n" +
-                "Turno: Lanci il dado e muovi il tuo pezzo. Puoi acquistare proprietà su cui atterri e costruire case o hotel per aumentare l'affitto.\n" +
-                "Affitto: Se atterri su una proprietà di un altro giocatore, devi pagare l'affitto in base alle regole specifiche della proprietà.\n" +
-                "Eventi speciali: Atterra su caselle \"Probabilità\" o \"Imprevisti\" per ricevere una carta che può darti vantaggi o svantaggi.\n" +
-                "Prigione: Puoi finire in prigione per diverse ragioni. Puoi uscire pagando una multa o tentando di tirare un doppio al dado.\n" +
-                "Fallimento: Se non puoi pagare un affitto o una tassa, devi vendere proprietà o dichiararti fallito. L'ultimo giocatore rimasto vince.");
-
-        // Applica lo stile alert personalizzato
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: #001845E0; -fx-border-radius: 10;");
-
-        // Rimuove l'intestazione predefinita
-        dialogPane.setHeader(null);
-
-        dialogPane.getStyleClass().add("custom-alert");
-        Stage stage = (Stage) dialogPane.getScene().getWindow();
-        stage.initOwner(primaryStage);
-        stage.initStyle(StageStyle.TRANSPARENT);
-
-        // Modifica lo stile del contenuto del messaggio
-        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 10;");
-
-        // Modifica lo stile dei pulsanti dell'alert
-        alert.getButtonTypes().forEach(buttonType -> {
-            Button button = (Button) dialogPane.lookupButton(buttonType);
-            button.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
-        });
-
-        alert.showAndWait();
+    private void setImage(Button button) {
+        view = new ImageView(img);
+        view.setFitHeight(20);
+        view.setPreserveRatio(true);
+        button.setGraphic(view);
     }
 }

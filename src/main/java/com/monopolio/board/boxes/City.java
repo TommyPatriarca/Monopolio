@@ -1,12 +1,14 @@
 package com.monopolio.board.boxes;
 
 import com.monopolio.board.Box;
+import com.monopolio.board.Groups;
 import com.monopolio.player.Player;
 
 /**
  * La classe rappresenta una città all'interno del gioco su cui il giocatore può passare.
  */
 public class City implements Box {
+    private final Groups group;
     private final String name;
     private final int price;
     private final int houseprice;
@@ -16,7 +18,8 @@ public class City implements Box {
     private int basePayment;
     private Player owner;    //inizialmente non è di nessuno
 
-    public City(String name, int price, int houseprice, int hotelprice, int basePayment) {
+    public City(Groups group, String name, int price, int houseprice, int hotelprice, int basePayment) {
+        this.group = group;
         this.name = name;
         this.price = price;
         this.houseprice = houseprice;
@@ -123,5 +126,9 @@ public class City implements Box {
     @Override
     public String getNome() {
         return name;
+    }
+
+    public Groups getGroup() {
+        return group;
     }
 }
