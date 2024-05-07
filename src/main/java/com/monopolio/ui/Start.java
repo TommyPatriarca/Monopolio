@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -55,6 +56,9 @@ public class Start extends Application {
         shadow.setColor(Color.BLACK);
         shadow.setRadius(50); // Imposta il blur
         shadow.setSpread(0.1); // Imposta l'intensità
+
+        // Glow bottoni
+        Glow glowEffect = new Glow(0.3); // Imposta il livello di luminosità
 
         // Creazione del testo "MONO"
         Text textMono = new Text("MONO");
@@ -127,6 +131,8 @@ public class Start extends Application {
         startButton.setTranslateY(100);
         startButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
         startButton.setDisable(true);
+        startButton.setOnMouseEntered(e -> startButton.setEffect(glowEffect));
+        startButton.setOnMouseExited(e -> startButton.setEffect(null));
 
         // Aggiunta dell'ombra al bottone
         startButton.setEffect(shadow);

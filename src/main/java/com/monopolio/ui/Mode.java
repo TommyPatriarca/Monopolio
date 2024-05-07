@@ -3,11 +3,13 @@ package com.monopolio.ui;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.scene.effect.Glow;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -15,8 +17,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 /**
- * Rappresenta la schermata successiva alla registrazione, in cui si sceglie con quale modilità giocare.
+ * Rappresenta la schermata successiva alla registrazione, in cui si sceglie con quale modalità giocare.
  */
 public class Mode extends Application {
     private SceneManager sceneManager;
@@ -33,7 +37,7 @@ public class Mode extends Application {
     private Color polioColor = Color.rgb(16, 129, 249);
 
     /**
-     * Crea tutto ciò che rappresenta la grafica della parte successiva alla registrazione del gioco, in cui si sceglie con quale modilità giocare(bottoni, colori, testo).
+     * Crea tutto ciò che rappresenta la grafica della parte successiva alla registrazione del gioco, in cui si sceglie con quale modalità giocare(bottoni, colori, testo).
      * @param modeStage schermata sulla quale viene mostrata la grafica.
      */
 
@@ -67,6 +71,9 @@ public class Mode extends Application {
         textHBox.setSpacing(5); // Spaziatura tra i testi
         textHBox.setAlignment(Pos.CENTER); // Centra i testi orizzontalmente
 
+        // Glow bottoni
+        Glow glowEffect = new Glow(0.3); // Imposta il livello di luminosità
+
         // Creazione del bottone newGame
         Button newGameButton = new Button("New game");
         newGameButton.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -74,16 +81,20 @@ public class Mode extends Application {
         newGameButton.setPrefWidth(230);
         newGameButton.setTranslateY(10);
         newGameButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
+        newGameButton.setOnMouseEntered(e -> newGameButton.setEffect(glowEffect));
+        newGameButton.setOnMouseExited(e -> newGameButton.setEffect(null));
 
-        // Creazione del bottone newGame
+        // Creazione del bottone loadGame
         Button loadGameButton = new Button("Load game");
         loadGameButton.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         loadGameButton.setPrefHeight(50);
         loadGameButton.setPrefWidth(230);
         loadGameButton.setTranslateY(10);
         loadGameButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
+        loadGameButton.setOnMouseEntered(e -> loadGameButton.setEffect(glowEffect));
+        loadGameButton.setOnMouseExited(e -> loadGameButton.setEffect(null));
 
-        // Aggiunta dell'ombra al bottone
+        // Aggiunta dell'ombra ai bottoni
         newGameButton.setEffect(shadow);
         loadGameButton.setEffect(shadow);
 
@@ -91,12 +102,21 @@ public class Mode extends Application {
         VBox vbox = new VBox(40); // Spaziatura di 20 tra i nodi
         vbox.setAlignment(Pos.CENTER); // Centra i suoi figli verticalmente
 
-        vbox.getChildren().addAll(newGameButton);
-        vbox.getChildren().addAll(loadGameButton);
+        vbox.getChildren().addAll(newGameButton, loadGameButton);
 
         // Creazione del BorderPane contenente tutti gli elementi
         BorderPane root = new BorderPane();
-        root.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        // Carica l'immagine di sfondo
+        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/citybkg.png")));
+        ImageView backgroundImageView = new ImageView(backgroundImage);
+
+        // Imposta la larghezza e l'altezza della finestra come dimensioni dell'immagine di sfondo
+        backgroundImageView.fitWidthProperty().bind(modeStage.widthProperty());
+        backgroundImageView.fitHeightProperty().bind(modeStage.heightProperty());
+
+        // Imposta l'immagine di sfondo al BorderPane
+        root.getChildren().add(backgroundImageView);
         root.setTop(textHBox);
 
         // Posizionamento del VBox al centro del BorderPane
@@ -114,12 +134,12 @@ public class Mode extends Application {
         modeStage.setMinWidth(800);
         modeStage.show();
 
-        // bottone listener
+        // bottone listener per il nuovo gioco
         newGameButton.setOnAction(event -> {
             sceneManager.showStartScreen(modeStage);
         });
 
-        // bottone listener
+        // bottone listener per il caricamento del gioco
         loadGameButton.setOnAction(event -> {
 
         });
