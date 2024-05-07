@@ -4,7 +4,7 @@ import com.monopolio.board.Box;
 import com.monopolio.player.Player;
 
 /**
- * La classe rappresenta una città all'interno del gioco, tutte le operazioni che si possono svolgere e tutti gli attributi che possiede.
+ * La classe rappresenta una città all'interno del gioco su cui il giocatore può passare.
  */
 public class City implements Box {
     private final String name;

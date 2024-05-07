@@ -5,8 +5,21 @@ import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 /**
- * Helps generating random numbers.
+ * DA FARE PIù AVANTI
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 public class RandUtils {
     private static final SecureRandom random = new SecureRandom();

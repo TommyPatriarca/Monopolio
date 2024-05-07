@@ -4,7 +4,21 @@ import com.monopolio.board.Box;
 import com.monopolio.utils.RandUtils;
 
 import java.util.ArrayList;
-
+/**
+ * DA FARE PIù AVANTI
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 public class Treasures implements Box {
     private ArrayList<String> treasures = new ArrayList<>();
 
