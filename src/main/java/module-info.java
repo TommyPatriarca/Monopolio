@@ -1,6 +1,7 @@
 module com.example.demosmonopolio {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
     opens com.monopolio to javafx.fxml;
     exports com.monopolio;
