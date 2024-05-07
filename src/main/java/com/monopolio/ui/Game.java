@@ -9,7 +9,9 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -18,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
@@ -138,16 +141,25 @@ public class Game extends Application {
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);
 
-        // Creazione di un nuovo HBox per il pulsante MuteButton
-        VBox muteButtonBox = new VBox();
-        muteButtonBox.setAlignment(Pos.TOP_RIGHT);
-        muteButtonBox.setSpacing(10);
-        muteButtonBox.setPadding(new Insets(10));
+        // Creazione di un nuovo HBox per i pulsanti
+        VBox toolbarBox = new VBox();
+        toolbarBox.setAlignment(Pos.TOP_RIGHT);
+        toolbarBox.setSpacing(10);
+        toolbarBox.setPadding(new Insets(10));
+
         MuteButton muteButton = new MuteButton();
-        muteButtonBox.getChildren().add(muteButton);
+        toolbarBox.getChildren().add(muteButton);
+
         TradeButton tradeButton = new TradeButton();
-        muteButtonBox.getChildren().add(tradeButton);
-        root.setRight(muteButtonBox);
+        toolbarBox.getChildren().add(tradeButton);
+
+        RulesButton rulesButton = new RulesButton(this);
+        toolbarBox.getChildren().add(rulesButton);
+        rulesButton.setOnAction(event -> {
+            showAlert(primaryStage);
+        });
+
+        root.setRight(toolbarBox);
         
         // Creazione della scena
         Scene scene = new Scene(root, 800, 600);
@@ -307,7 +319,7 @@ public class Game extends Application {
         }
         if(set==true){
                 view = new ImageView(img);
-                view.setFitHeight(80);
+                view.setFitHeight(20);
                 view.setPreserveRatio(true);
                 button.setGraphic(view);
         }
@@ -317,5 +329,44 @@ public class Game extends Application {
         button.setOnAction(new BoxListener(cities[number].getNome()));
 
         return button;
+    }
+
+
+
+    private void showAlert(Stage primaryStage) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(primaryStage); // Imposta la finestra genitore
+        alert.setTitle("Regole");
+        alert.setHeaderText(null);
+        alert.setContentText("Obiettivo: Essere l'ultimo giocatore con soldi e proprietà.\n" +
+                "Setup: Ogni giocatore inizia con una quantità di denaro e si muove attorno al tabellone acquistando proprietà e pagando affitti.\n" +
+                "Turno: Lanci il dado e muovi il tuo pezzo. Puoi acquistare proprietà su cui atterri e costruire case o hotel per aumentare l'affitto.\n" +
+                "Affitto: Se atterri su una proprietà di un altro giocatore, devi pagare l'affitto in base alle regole specifiche della proprietà.\n" +
+                "Eventi speciali: Atterra su caselle \"Probabilità\" o \"Imprevisti\" per ricevere una carta che può darti vantaggi o svantaggi.\n" +
+                "Prigione: Puoi finire in prigione per diverse ragioni. Puoi uscire pagando una multa o tentando di tirare un doppio al dado.\n" +
+                "Fallimento: Se non puoi pagare un affitto o una tassa, devi vendere proprietà o dichiararti fallito. L'ultimo giocatore rimasto vince.");
+
+        // Applica lo stile alert personalizzato
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setStyle("-fx-background-color: #001845E0; -fx-border-radius: 10;");
+
+        // Rimuove l'intestazione predefinita
+        dialogPane.setHeader(null);
+
+        dialogPane.getStyleClass().add("custom-alert");
+        Stage stage = (Stage) dialogPane.getScene().getWindow();
+        stage.initOwner(primaryStage);
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        // Modifica lo stile del contenuto del messaggio
+        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 10;");
+
+        // Modifica lo stile dei pulsanti dell'alert
+        alert.getButtonTypes().forEach(buttonType -> {
+            Button button = (Button) dialogPane.lookupButton(buttonType);
+            button.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
+        });
+
+        alert.showAndWait();
     }
 }
