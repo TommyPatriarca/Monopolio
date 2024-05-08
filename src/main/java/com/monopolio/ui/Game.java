@@ -146,6 +146,10 @@ public class Game extends Application {
         dices[0] = new DiceButton();
         dices[1] = new DiceButton();
 
+        //end turn
+        EndTurnButton endTurnButton = new EndTurnButton(this);
+        gridPane.add(endTurnButton,5,7);
+
         gridPane.add(dices[0], 2, 2);
         gridPane.add(dices[1], 3, 2);
 
