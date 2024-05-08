@@ -321,8 +321,8 @@ public class Game extends Application {
         if (gameManager.getCity(number) instanceof City city) {
             img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(city.getGroup().getPath())));
             setImage(button);
-        }else if (gameManager.getCity(number) instanceof Stations stations) {
-            img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/train.png")));
+        } else if (gameManager.getCity(number) instanceof Stations stations) {
+            img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/groups/train.png")));
             setImage(button);
         }
 

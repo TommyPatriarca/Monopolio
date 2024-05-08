@@ -20,7 +20,7 @@ public class MuteButton extends Button {
     private ImageView muteIcon;
 
     // File audioFile = new File("/audio/track.wav");
-    // AudioManager audioManager = new AudioManager(audioFile);
+    AudioManager audioManager = new AudioManager();
 
     public MuteButton() {
        // audioManager.play();
