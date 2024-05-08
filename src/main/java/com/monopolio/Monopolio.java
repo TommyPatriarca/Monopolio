@@ -19,8 +19,8 @@ public class Monopolio extends Application {
         sceneManager.showModeScreen();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
+
 }

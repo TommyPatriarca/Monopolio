@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 /**
- * Rappresenta la schermata successiva alla registrazione, in cui si sceglie con quale modalità giocare.
+ * Rappresenta la prima schermata precedente alla registrazione, in cui si sceglie con quale modalità giocare.
  */
 public class Mode extends Application {
     private SceneManager sceneManager;
@@ -37,7 +37,7 @@ public class Mode extends Application {
     private Color polioColor = Color.rgb(16, 129, 249);
 
     /**
-     * Crea tutto ciò che rappresenta la grafica della parte successiva alla registrazione del gioco, in cui si sceglie con quale modalità giocare(bottoni, colori, testo).
+     * Crea tutto ciò che rappresenta la grafica della parte precedente alla registrazione del gioco, in cui si sceglie con quale modalità giocare(bottoni, colori, testo).
      * @param modeStage schermata sulla quale viene mostrata la grafica.
      */
 
