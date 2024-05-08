@@ -306,6 +306,9 @@ public class Game extends Application {
         if (cities[number] instanceof City city) {
             img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(city.getGroup().getPath())));
             setImage(button);
+        }else if (cities[number] instanceof Stations stations) {
+            img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/train.png")));
+            setImage(button);
         }
 
         // Aggiungi listener alla casella
