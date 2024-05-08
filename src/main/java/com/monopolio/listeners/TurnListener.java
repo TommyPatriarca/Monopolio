@@ -16,15 +16,17 @@ public class TurnListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        for(int i=0; i<4; i++) {
-            if(gameManager.getPlayer(i).isMyTurn()) {
-                gameManager.getPlayer(i).setMyTurn(false);
-                gameManager.getDice(0).enable();
-                gameManager.getDice(1).enable();
-                if(i==3) {
-                    gameManager.getPlayer(0).setMyTurn(true);
-                } else {
-                    gameManager.getPlayer(i+1).setMyTurn(true);
+        if(gameManager.getDice(0).isRolled() && gameManager.getDice(1).isRolled()) {
+            for(int i=0; i<4; i++) {
+                if(gameManager.getPlayer(i).isMyTurn()) {
+                    gameManager.getPlayer(i).setMyTurn(false);
+                    gameManager.getDice(0).enable();
+                    gameManager.getDice(1).enable();
+                    if(i==3) {
+                        gameManager.getPlayer(0).setMyTurn(true);
+                    } else {
+                        gameManager.getPlayer(i+1).setMyTurn(true);
+                    }
                 }
             }
         }

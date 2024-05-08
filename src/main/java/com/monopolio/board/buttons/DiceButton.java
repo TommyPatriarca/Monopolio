@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 public class DiceButton extends Button {
+    private boolean isRolled = false;
     private int value;
     private Image img;
     private ImageView view;
@@ -57,11 +58,13 @@ public class DiceButton extends Button {
 
     public void enable() {
         colorGreen();
+        isRolled = false;
         setDisabled(false);
     }
 
     public void disable() {
         colorRed();
+        isRolled = true;
         setDisabled(true);
     }
 
@@ -95,6 +98,10 @@ public class DiceButton extends Button {
         setGraphic(view);
 
         return value;
+    }
+
+    public boolean isRolled() {
+        return isRolled;
     }
 
     public ImageView getView() {
