@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.managers.ButtonSoundManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
@@ -36,6 +37,9 @@ public class Start extends Application {
     }
 
     FontUtils font = new FontUtils(14);
+
+    //audio bottoni
+    ButtonSoundManager buttonSoundManager = new ButtonSoundManager();
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -103,7 +107,7 @@ public class Start extends Application {
                     textField.setText(oldValue);
                 }
                 // Controlla i nomi duplicati e imposta il bordo rosso se necessario
-                if (NotDuplicateNames(playerFields)) {
+                if (DuplicateNames(playerFields)) {
                     textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: red; -fx-border-radius: 10;");
                 } else {
                     textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: " + toHex(borderColors[index]) + "; -fx-border-radius: 10;");
@@ -183,9 +187,11 @@ public class Start extends Application {
             for (int i = 0; i < playerFields.length; i++) {
                 playerNames[i] = playerFields[i].getText().trim();
             }
-            if (NotDuplicateNames(playerFields)) {
+            if (DuplicateNames(playerFields)) {
+                buttonSoundManager.error();
                 showAlert(primaryStage);
             } else {
+                buttonSoundManager.play();
                 sceneManager.showGameScreen(primaryStage, playerNames); // Mostra la schermata di selezione dei giocatori
             }
         });
@@ -211,7 +217,7 @@ public class Start extends Application {
      *
      * !  Questo metodo è stato preso da StackOverflow  !.
      */
-    private boolean NotDuplicateNames(TextField[] fields) {
+    private boolean DuplicateNames(TextField[] fields) {
         Set<String> uniqueNames = new HashSet<>();
         for (TextField field : fields) {
             if (!field.getText().isEmpty() && !uniqueNames.add(field.getText().trim())) {
