@@ -129,7 +129,7 @@ public class Start extends Application {
         startButton.setPrefHeight(50);
         startButton.setPrefWidth(230);
         startButton.setTranslateY(100);
-        startButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
+        startButton.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
         startButton.setDisable(true);
         startButton.setOnMouseEntered(e -> startButton.setEffect(glowEffect));
         startButton.setOnMouseExited(e -> startButton.setEffect(null));

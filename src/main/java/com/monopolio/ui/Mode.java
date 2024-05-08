@@ -80,7 +80,7 @@ public class Mode extends Application {
         newGameButton.setPrefHeight(50);
         newGameButton.setPrefWidth(230);
         newGameButton.setTranslateY(10);
-        newGameButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
+        newGameButton.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
         newGameButton.setOnMouseEntered(e -> newGameButton.setEffect(glowEffect));
         newGameButton.setOnMouseExited(e -> newGameButton.setEffect(null));
 
@@ -90,7 +90,7 @@ public class Mode extends Application {
         loadGameButton.setPrefHeight(50);
         loadGameButton.setPrefWidth(230);
         loadGameButton.setTranslateY(10);
-        loadGameButton.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
+        loadGameButton.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
         loadGameButton.setOnMouseEntered(e -> loadGameButton.setEffect(glowEffect));
         loadGameButton.setOnMouseExited(e -> loadGameButton.setEffect(null));
 
