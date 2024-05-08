@@ -4,10 +4,11 @@ package com.monopolio.player;
  * Rappresenta il giocatore all' interno del gioco.
  */
 public class Player {
-    public final String nome;
+    private final String nome;
     public int soldi = 1500;
     private int posizione = 0;
     private boolean inPrison = false;
+    private boolean myTurn = false;
 
     public Player(String nome) {
         this.nome = nome;
@@ -74,5 +75,19 @@ public class Player {
         this.inPrison = inPrison;
     }
 
+    /**
+     * Imposta se è il turno del player
+     * @param myTurn boolean che viene assegnato a myTurn della classe
+     */
+    public void setMyTurn(boolean myTurn) {
+        this.myTurn = myTurn;
+    }
 
+    /**
+     * Verifica se è il turno del player
+     * @return "true" se è il turno del player attuale altrimenti ritorna "false"
+     */
+    public boolean isMyTurn() {
+        return myTurn;
+    }
 }

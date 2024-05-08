@@ -38,6 +38,20 @@ public class DiceButton extends Button {
         setPrefSize(110, 110);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
+        setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 15; -fx-border-width: 2px; -fx-border-color: #000000; -fx-font-weight: bold;");
+    }
+
+    public void colorRed() {
+        setPrefSize(110, 110);
+        setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
+        setTextFill(Color.WHITE);
+        setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 15; -fx-border-width: 2px; -fx-border-color: #dd0426; -fx-font-weight: bold;");
+    }
+
+    public void colorGreen() {
+        setPrefSize(110, 110);
+        setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
+        setTextFill(Color.WHITE);
         setStyle(getStyle() + "-fx-cursor: hand; -fx-border-radius: 15; -fx-border-width: 2px; -fx-border-color: #38b000; -fx-font-weight: bold;");
     }
 

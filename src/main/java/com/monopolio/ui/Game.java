@@ -327,4 +327,12 @@ public class Game extends Application {
         view.setPreserveRatio(true);
         button.setGraphic(view);
     }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public DiceButton[] getDices() {
+        return dices;
+    }
 }
