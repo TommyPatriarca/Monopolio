@@ -14,7 +14,5 @@ public class MuteListener implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         muteButton.toggle();
-
-        //logica per gestire il mute
     }
 }
