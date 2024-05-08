@@ -7,6 +7,7 @@ import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
+import com.monopolio.player.PlayerToken;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,7 +27,7 @@ import java.util.Objects;
 /**
  * DA FARE PIù AVANTI
  *
- *  SERVE PER NON RISCRIVERE TROOPPE VOLTE IL TESTO "MONO" E "POLIO"
+ *
  *
  *
  *
@@ -113,6 +114,7 @@ public class Game extends Application {
 
         root.setLeft(playerNamesBox);
 
+
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -142,6 +144,16 @@ public class Game extends Application {
 
         gameManager.setDice(0, new DiceButton());
         gameManager.setDice(1, new DiceButton());
+
+        //pallini
+        PlayerToken[] playerTokens = new PlayerToken[4];
+        for (int i = 0; i < 4; i++) {
+            if (!players[i].getNome().isEmpty()) {
+                PlayerToken token = new PlayerToken(players[i],Color.AQUA);
+                playerTokens[i] = token;
+                gridPane.add(token, 0, 0);
+            }
+        }
 
         //end turn
         EndTurnButton endTurnButton = new EndTurnButton(this);

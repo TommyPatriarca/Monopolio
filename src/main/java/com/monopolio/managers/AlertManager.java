@@ -6,6 +6,9 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Definisce il formato e il testo delle regole riguardanti il gioco.
+ */
 public class AlertManager {
     public static void showRules(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
