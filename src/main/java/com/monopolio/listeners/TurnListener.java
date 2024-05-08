@@ -1,29 +1,31 @@
 package com.monopolio.listeners;
 
 import com.monopolio.board.buttons.DiceButton;
-import com.monopolio.board.buttons.EndTurnButton;
+import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
 public class TurnListener implements EventHandler<ActionEvent> {
-    Player[] players;
-    DiceButton[] diceButtons;
+    private GameManager gameManager;
 
-    public TurnListener(Player[] players, DiceButton[] diceButtons) {
-        this.players = players;
-        this.diceButtons = diceButtons;
+    public TurnListener(GameManager gameManager) {
+        this.gameManager=gameManager;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
         for(int i=0; i<4; i++) {
-            if(players[i].isMyTurn()) {
-                players[i].setMyTurn(false);
-                diceButtons[0].colorGreen();
-                diceButtons[1].colorGreen();
-                players[i+1].setMyTurn(true);
+            if(gameManager.getPlayer(i).isMyTurn()) {
+                gameManager.getPlayer(i).setMyTurn(false);
+                gameManager.getDice(0).enable();
+                gameManager.getDice(1).enable();
+                if(i==3) {
+                    gameManager.getPlayer(0).setMyTurn(true);
+                } else {
+                    gameManager.getPlayer(i+1).setMyTurn(true);
+                }
             }
         }
     }

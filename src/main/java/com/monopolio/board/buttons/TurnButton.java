@@ -1,7 +1,7 @@
 package com.monopolio.board.buttons;
 
-import com.monopolio.listeners.DiceListener;
 import com.monopolio.listeners.TurnListener;
+import com.monopolio.managers.GameManager;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -14,18 +14,18 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-public class EndTurnButton extends Button {
-    private Game game;
+public class TurnButton extends Button {
+    private GameManager gameManager;
 
-    public EndTurnButton(Game game)
+    public TurnButton(GameManager gameManager)
     {
-        this.game=game;
+        this.gameManager=gameManager;
 
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/turn.png")),50,50,true,true);
         ImageView icon = new ImageView(playImage);
         setGraphic(icon);
-        setOnAction(new TurnListener(game.getGameManager().getPlayers(), game.getGameManager().getDices()));
+        setOnAction(new TurnListener(gameManager));
     }
 
 

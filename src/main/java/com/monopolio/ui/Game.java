@@ -148,16 +148,16 @@ public class Game extends Application {
         //pallini
         PlayerToken[] playerTokens = new PlayerToken[4];
         for (int i = 0; i < 4; i++) {
-            if (!players[i].getNome().isEmpty()) {
-                PlayerToken token = new PlayerToken(players[i],Color.AQUA);
+            if (!gameManager.getPlayer(i).getNome().isEmpty()) {
+                PlayerToken token = new PlayerToken(gameManager.getPlayer(i),Color.AQUA);
                 playerTokens[i] = token;
                 gridPane.add(token, 0, 0);
             }
         }
 
         //end turn
-        EndTurnButton endTurnButton = new EndTurnButton(this);
-        gridPane.add(endTurnButton,5,7);
+        TurnButton endTurnButton = new TurnButton(gameManager);
+        gridPane.add(endTurnButton,7,7);
 
         gridPane.add(gameManager.getDice(0), 2, 2);
         gridPane.add(gameManager.getDice(1), 3, 2);
@@ -195,6 +195,8 @@ public class Game extends Application {
         primaryStage.setTitle("Monopolio - Gioco");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        gameManager.startGame();
     }
 
     /*

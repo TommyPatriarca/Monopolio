@@ -15,6 +15,7 @@ public class DiceListener implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         dice.roll();
         dice.colorRed();
+        dice.disable();
         // Alla fine del round -> dice.setDefault();
     }
 }
