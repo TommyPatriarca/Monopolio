@@ -17,7 +17,6 @@ public class TurnListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        System.out.println("test");
         for(int i=0; i<4; i++) {
             if(players[i].isMyTurn()) {
                 players[i].setMyTurn(false);

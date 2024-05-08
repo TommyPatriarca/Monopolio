@@ -4,6 +4,7 @@ import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
 import com.monopolio.managers.AlertManager;
+import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -39,11 +40,7 @@ import java.util.Objects;
  */
 
 public class Game extends Application {
-    Player[] players = new Player[4];
-    Box[] cities = new Box[36];
-    DiceButton[] dices = new DiceButton[2];
-    ChancesButton chancesButton = new ChancesButton();
-    TreasuresButton treasuresButton = new TreasuresButton();
+    private GameManager gameManager = new GameManager();
     private Image img;
     private ImageView view;
     private boolean set;
@@ -53,9 +50,9 @@ public class Game extends Application {
         for (int i = 0; i < 4; i++) {
             String playerName = playerNames[i];
             if (!playerName.isEmpty()) {
-                players[i] = new Player(playerName);
+                gameManager.setPlayer(i, new Player(playerName));
             } else {
-                players[i] = new Player("");
+                gameManager.setPlayer(i, new Player(""));
             }
         }
     }
@@ -75,7 +72,7 @@ public class Game extends Application {
 
         // Aggiungi i nomi dei giocatori alla VBox
         for (int i=0;i<4;i++) {
-            if(!players[i].getNome().equals("")){
+            if(!gameManager.getPlayer(i).getNome().isEmpty()){
             HBox playerBox = new HBox();
             playerBox.setAlignment(Pos.CENTER_LEFT);
             playerBox.setSpacing(5);
@@ -99,11 +96,11 @@ public class Game extends Application {
             circle.setStroke(Color.WHITE); //
 
             // Aggiungi il nome del giocatore
-            Label playerNameLabel = new Label(players[i].getNome());
+            Label playerNameLabel = new Label(gameManager.getPlayer(i).getNome());
             playerNameLabel.setTextFill(Color.WHITE);
 
             // Aggiungi contatore soldi dei giocatori
-             Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + players[i].getMoney());
+             Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
              playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
 
             // Aggiungi il pallino e il nome del giocatore all'HBox
@@ -143,18 +140,18 @@ public class Game extends Application {
             }
         }
 
-        dices[0] = new DiceButton();
-        dices[1] = new DiceButton();
+        gameManager.setDice(0, new DiceButton());
+        gameManager.setDice(1, new DiceButton());
 
         //end turn
         EndTurnButton endTurnButton = new EndTurnButton(this);
         gridPane.add(endTurnButton,5,7);
 
-        gridPane.add(dices[0], 2, 2);
-        gridPane.add(dices[1], 3, 2);
+        gridPane.add(gameManager.getDice(0), 2, 2);
+        gridPane.add(gameManager.getDice(1), 3, 2);
 
-        gridPane.add(chancesButton, 5, 2);
-        gridPane.add(treasuresButton, 6, 2);
+        gridPane.add(gameManager.getChancesButton(), 5, 2);
+        gridPane.add(gameManager.getTreasuresButton(), 6, 2);
 
         // Aggiunta del GridPane al centro del BorderPane
         root.setCenter(gridPane);
@@ -200,123 +197,123 @@ public class Game extends Application {
     private Button createButton(int number) {
         switch (number){
             case 0:
-                cities[number] = new StartBox(200);
+                gameManager.setCity(number, new StartBox(200));
                 break;
             case 1:
-                cities[number] = new City(Groups.RED, "Traona", 60, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.RED, "Traona", 60, 50, 200, 10));
                 break;
             case 2:
-                cities[number] = new Chances();
+                gameManager.setCity(number, new Chances());
                 break;
             case 3:
-                cities[number] = new City(Groups.RED,"Andalo", 60, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.RED,"Andalo", 60, 50, 200, 10));
                 break;
             case 4:
-                cities[number] = new Taxes(200);
+                gameManager.setCity(number, new Taxes(200));
                 break;
             case 5:
-                cities[number] = new City(Groups.YELLOW,"Regoledo", 100, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.YELLOW,"Regoledo", 100, 50, 200, 10));
                 break;
             case 6:
-                cities[number] = new Treasures();
+                gameManager.setCity(number, new Treasures());
                 break;
             case 7:
-                cities[number] = new City(Groups.YELLOW,"Morbegno", 100, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.YELLOW,"Morbegno", 100, 50, 200, 10));
                 break;
             case 8:
-                cities[number] = new Prison();
+                gameManager.setCity(number, new Prison());
                 break;
             case 9:
-                cities[number] = new City(Groups.YELLOW,"Talamona", 120, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.YELLOW,"Talamona", 120, 50, 200, 10));
                 break;
             case 10:
-                cities[number] = new City(Groups.ORANGE,"Ardenno", 140, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.ORANGE,"Ardenno", 140, 50, 200, 10));
                 break;
             case 11:
-                cities[number] = new Stations(Stations.StationTypes.EST);
+                gameManager.setCity(number, new Stations(Stations.StationTypes.EST));
                 break;
             case 12:
-                cities[number] = new City(Groups.ORANGE,"Berbenno", 140, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.ORANGE,"Berbenno", 140, 50, 200, 10));
                 break;
             case 13:
-                cities[number] = new City(Groups.ORANGE,"Castione", 160, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.ORANGE,"Castione", 160, 50, 200, 10));
                 break;
             case 14:
-                cities[number] = new City(Groups.PINK,"Castiones", 160, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.PINK,"Castiones", 160, 50, 200, 10));
                 break;
             case 15:
-                cities[number] = new Chances();
+                gameManager.setCity(number, new Chances());
                 break;
             case 16:
-                cities[number] = new Parking();
+                gameManager.setCity(number, new Parking());
                 break;
             case 17:
-                cities[number] = new City(Groups.PINK,"Sondrio", 180, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.PINK,"Sondrio", 180, 50, 200, 10));
                 break;
             case 18:
-                cities[number] = new City(Groups.PINK,"Chiesa", 180, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.PINK,"Chiesa", 180, 50, 200, 10));
                 break;
             case 19:
-                cities[number] = new City(Groups.GREEN,"Piantedo", 220, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.GREEN,"Piantedo", 220, 50, 200, 10));
                 break;
             case 20:
-                cities[number] = new Treasures();
+                gameManager.setCity(number, new Treasures());
                 break;
             case 21:
-                cities[number] = new City(Groups.GREEN,"San Giacomo", 220, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.GREEN,"San Giacomo", 220, 50, 200, 10));
                 break;
             case 22:
-                cities[number] = new City(Groups.GREEN,"Tresenda", 240, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.GREEN,"Tresenda", 240, 50, 200, 10));
                 break;
             case 23:
-                cities[number] = new City(Groups.CYAN,"Tirano", 260, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.CYAN,"Tirano", 260, 50, 200, 10));
                 break;
             case 24:
-                cities[number] = new ToPrison();
+                gameManager.setCity(number, new ToPrison());
                 break;
             case 25:
-                cities[number] = new Stations(Stations.StationTypes.SUD);
+                gameManager.setCity(number, new Stations(Stations.StationTypes.SUD));
                 break;
             case 26:
-                cities[number] = new City(Groups.CYAN,"Sondalo", 280, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.CYAN,"Sondalo", 280, 50, 200, 10));
                 break;
             case 27:
-                cities[number] = new City(Groups.CYAN,"Grosio", 260, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.CYAN,"Grosio", 260, 50, 200, 10));
                 break;
             case 28:
-                cities[number] = new City(Groups.BLUE,"Livigno", 300, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.BLUE,"Livigno", 300, 50, 200, 10));
                 break;
             case 29:
-                cities[number] = new City(Groups.BLUE,"Trepalle", 300, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.BLUE,"Trepalle", 300, 50, 200, 10));
                 break;
             case 30:
-                cities[number] = new Chances();
+                gameManager.setCity(number, new Chances());
                 break;
             case 31:
-                cities[number] = new City(Groups.BLUE,"Bormio", 300, 50, 200, 10);
+                gameManager.setCity(number, new City(Groups.BLUE,"Bormio", 300, 50, 200, 10));
                 break;
 
             default:
                 System.out.println("Could not find city....");
         }
 
-        Button button = new Button(cities[number].getNome());
+        Button button = new Button(gameManager.getCity(number).getNome());
         button.setPrefSize(110, 110);
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
         button.setStyle(button.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
 
-        if (cities[number] instanceof City city) {
+        if (gameManager.getCity(number) instanceof City city) {
             img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(city.getGroup().getPath())));
             setImage(button);
-        }else if (cities[number] instanceof Stations stations) {
+        }else if (gameManager.getCity(number) instanceof Stations stations) {
             img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/train.png")));
             setImage(button);
         }
 
         // Aggiungi listener alla casella
-        button.setOnAction(new BoxListener(cities[number].getNome()));
+        button.setOnAction(new BoxListener(gameManager.getCity(number).getNome()));
 
         return button;
     }
@@ -328,11 +325,7 @@ public class Game extends Application {
         button.setGraphic(view);
     }
 
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public DiceButton[] getDices() {
-        return dices;
+    public GameManager getGameManager() {
+        return gameManager;
     }
 }

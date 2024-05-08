@@ -25,7 +25,7 @@ public class EndTurnButton extends Button {
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/turn.png")),50,50,true,true);
         ImageView icon = new ImageView(playImage);
         setGraphic(icon);
-        setOnAction(new TurnListener(game.getPlayers(), game.getDices()));
+        setOnAction(new TurnListener(game.getGameManager().getPlayers(), game.getGameManager().getDices()));
     }
 
 
