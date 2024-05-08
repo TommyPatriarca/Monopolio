@@ -23,7 +23,7 @@ public class MuteButton extends Button {
     AudioManager audioManager = new AudioManager();
 
     public MuteButton() {
-       // audioManager.play();
+        audioManager.play();
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/audio/play.png")),50,50,true,true);
         // Crea le ImageView per le immagini
@@ -47,11 +47,11 @@ public class MuteButton extends Button {
         muteIcon = new ImageView(muteImage);
 
         if (muted) {
-            // audioManager.mute();
+             audioManager.mute();
             setGraphic(muteIcon);
             // logica per disattivare l'audio
         } else {
-            // audioManager.unmute();
+             audioManager.unmute();
             setGraphic(playIcon);
             // logica per attivare l'audio
         }

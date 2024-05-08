@@ -81,8 +81,6 @@ public class Mode extends Application {
         newGameButton.setPrefWidth(230);
         newGameButton.setTranslateY(10);
         newGameButton.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
-        newGameButton.setOnMouseEntered(e -> newGameButton.setEffect(glowEffect));
-        newGameButton.setOnMouseExited(e -> newGameButton.setEffect(null));
 
         // Creazione del bottone loadGame
         Button loadGameButton = new Button("Load game");
@@ -91,8 +89,33 @@ public class Mode extends Application {
         loadGameButton.setPrefWidth(230);
         loadGameButton.setTranslateY(10);
         loadGameButton.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 30;");
-        loadGameButton.setOnMouseEntered(e -> loadGameButton.setEffect(glowEffect));
-        loadGameButton.setOnMouseExited(e -> loadGameButton.setEffect(null));
+
+        // Creazione dell'effetto di zoom e glow
+        double zoomFactor = 1.1; // Fattore di zoom
+        Glow zoomEffect = new Glow(0.3); // Effetto di luminosità
+        newGameButton.setOnMouseEntered(e -> {
+            newGameButton.setScaleX(zoomFactor);
+            newGameButton.setScaleY(zoomFactor);
+            newGameButton.setEffect(zoomEffect);
+            newGameButton.setEffect(glowEffect);
+        });
+        newGameButton.setOnMouseExited(e -> {
+            newGameButton.setScaleX(1);
+            newGameButton.setScaleY(1);
+            newGameButton.setEffect(null);
+        });
+
+        loadGameButton.setOnMouseEntered(e -> {
+            loadGameButton.setScaleX(zoomFactor);
+            loadGameButton.setScaleY(zoomFactor);
+            loadGameButton.setEffect(zoomEffect);
+            loadGameButton.setEffect(glowEffect);
+        });
+        loadGameButton.setOnMouseExited(e -> {
+            loadGameButton.setScaleX(1);
+            loadGameButton.setScaleY(1);
+            loadGameButton.setEffect(null);
+        });
 
         // Aggiunta dell'ombra ai bottoni
         newGameButton.setEffect(shadow);
