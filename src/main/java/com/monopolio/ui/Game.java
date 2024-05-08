@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * DA FARE PIù AVANTI
  *
- *  SERVE PER NON RISCRIVERE TROOPPE VOLTE IL TESTO "MONO" E "POLIO"
+ *
  *
  *
  *
