@@ -157,7 +157,7 @@ public class Game extends Application {
 
         //end turn
         TurnButton endTurnButton = new TurnButton(gameManager);
-        gridPane.add(endTurnButton,7,7);
+        gridPane.add(endTurnButton,4,7);
 
         gridPane.add(gameManager.getDice(0), 2, 2);
         gridPane.add(gameManager.getDice(1), 3, 2);
@@ -182,9 +182,9 @@ public class Game extends Application {
 
         RulesButton rulesButton = new RulesButton(this);
         toolbarBox.getChildren().add(rulesButton);
-        rulesButton.setOnAction(event -> {
-            AlertManager.showRules(primaryStage);
-        });
+
+        SettingsButton settingsButton = new SettingsButton(this,primaryStage);
+        toolbarBox.getChildren().add(settingsButton);
 
         root.setRight(toolbarBox);
         
