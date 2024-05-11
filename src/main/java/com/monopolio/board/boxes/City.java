@@ -32,9 +32,9 @@ public class City implements Box {
      * @param player è il giocatore che vuole comprare l'hotel.
      */
     public void buyHotel(Player player){
-        if(houseNumber==4 && player.soldi>=hotelprice){
+        if(houseNumber==4 && player.money >=hotelprice){
             //puoi comprare l'albergo
-            player.soldi-=hotelprice;
+            player.money -=hotelprice;
             houseNumber++;
             payment=basePayment*houseNumber;//TODO sostituire logica prezzi
         }
@@ -48,9 +48,9 @@ public class City implements Box {
      * @param player è il giocatore che vuole comprare la casa.
      */
     public void buyHouse(Player player){
-        if(player.soldi>=houseprice){
+        if(player.money >=houseprice){
             //puoi comprare una casa
-            player.soldi-=houseprice;
+            player.money -=houseprice;
             houseNumber++;
             payment=basePayment*houseNumber;//TODO sostituire logica prezzi
         }
@@ -64,7 +64,7 @@ public class City implements Box {
      * @param player è il giocatore che vuole comprare questa proprietà.
      */
     public void buyPropriety(Player player){
-        if(player.soldi>=price){
+        if(player.money >=price){
             owner=player;
         }
         else{
@@ -79,7 +79,7 @@ public class City implements Box {
     public void sellHotel(Player player){
         if(player.equals(owner) && houseNumber==5){
             //puoi vendere un albergo
-            player.soldi+=hotelprice/2;
+            player.money +=hotelprice/2;
             houseNumber--;
             payment=basePayment*houseNumber;//TODO sostituire logica prezzi
         }
@@ -95,7 +95,7 @@ public class City implements Box {
     public void sellHouse(Player player){
         if(player.equals(owner) && houseNumber>0 && houseNumber < 5){
             //puoi vendere una casa
-            player.soldi+=houseprice/2;
+            player.money +=houseprice/2;
             houseNumber--;
             payment=basePayment*houseNumber;//TODO sostituire logica prezzi
         }

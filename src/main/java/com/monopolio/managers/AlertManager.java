@@ -46,4 +46,42 @@ public class AlertManager {
 
         alert.showAndWait();
     }
+
+    /**
+     * Viene utilizzato per mostrare un messaggio di errore .
+     * @param primaryStage schermata sulla quale viene mostrato il messaggio di errore.
+     */
+    public static void showError(Stage primaryStage, String error) {
+        SoundManager.error();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initOwner(primaryStage); // Imposta la finestra genitore
+        alert.setTitle("Attenzione");
+        alert.setHeaderText(null);
+        alert.setContentText(error);
+
+        // Applica lo stile alert personalizzato
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setStyle("-fx-background-color: #001845E0; -fx-border-radius: 10;");
+
+        // Rimuove l'intestazione predefinita
+        dialogPane.setHeader(null);
+
+        // Arrotonda i bordi dell'alert
+        dialogPane.getStyleClass().add("custom-alert");
+        Stage stage = (Stage) dialogPane.getScene().getWindow();
+        stage.initOwner(primaryStage);
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        // Modifica lo stile del contenuto del messaggio
+        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 10;");
+
+        // Modifica lo stile dei pulsanti dell'alert
+        alert.getButtonTypes().forEach(buttonType -> {
+            Button button = (Button) dialogPane.lookupButton(buttonType);
+            button.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
+        });
+
+        alert.showAndWait();
+    }
 }

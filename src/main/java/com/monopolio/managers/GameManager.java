@@ -8,10 +8,26 @@ import com.monopolio.player.Player;
 
 public class GameManager {
     private Player[] players = new Player[4];
-    private Box[] cities = new Box[36];
+    private Box[] cities = new Box[32]; // 0-31
     private DiceButton[] dices = new DiceButton[2];
     private ChancesButton chancesButton = new ChancesButton();
     private TreasuresButton treasuresButton = new TreasuresButton();
+
+    public void startGame() {
+        for(Player player : players) {
+            player.setPosition(0);
+        }
+        players[0].setMyTurn(true);
+    }
+
+    public Player getCurrentPlayer() {
+        for(Player player : players) {
+            if(player.isMyTurn()) {
+                return player;
+            }
+        }
+        return null;
+    }
 
     public boolean areDicesRolled() {
         boolean rolled = true;
@@ -27,10 +43,6 @@ public class GameManager {
         for(DiceButton dice : dices) {
             dice.enable();
         }
-    }
-
-    public void startGame() {
-        players[0].setMyTurn(true);
     }
 
     public Player getPlayer(int index) {

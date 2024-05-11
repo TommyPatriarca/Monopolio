@@ -72,7 +72,7 @@ public class Game extends Application {
 
         // Aggiungi i nomi dei giocatori alla VBox
         for (int i=0;i<4;i++) {
-            if(!gameManager.getPlayer(i).getNome().isEmpty()){
+            if(!gameManager.getPlayer(i).getName().isEmpty()){
             HBox playerBox = new HBox();
             playerBox.setAlignment(Pos.CENTER_LEFT);
             playerBox.setSpacing(5);
@@ -96,7 +96,7 @@ public class Game extends Application {
             circle.setStroke(Color.WHITE); //
 
             // Aggiungi il nome del giocatore
-            Label playerNameLabel = new Label(gameManager.getPlayer(i).getNome());
+            Label playerNameLabel = new Label(gameManager.getPlayer(i).getName());
             playerNameLabel.setTextFill(Color.WHITE);
 
             // Aggiungi contatore soldi dei giocatori
@@ -141,13 +141,13 @@ public class Game extends Application {
             }
         }
 
-        gameManager.setDice(0, new DiceButton());
-        gameManager.setDice(1, new DiceButton());
+        gameManager.setDice(0, new DiceButton(gameManager));
+        gameManager.setDice(1, new DiceButton(gameManager));
 
         //pallini
         PlayerPawn[] playerPawns = new PlayerPawn[4];
         for (int i = 0; i < 4; i++) {
-            if (!gameManager.getPlayer(i).getNome().isEmpty()) {
+            if (!gameManager.getPlayer(i).getName().isEmpty()) {
                 PlayerPawn token = new PlayerPawn(gameManager.getPlayer(i),Color.AQUA);
                 playerPawns[i] = token;
                 gridPane.add(token, 0, 0);
@@ -155,7 +155,7 @@ public class Game extends Application {
         }
 
         //end turn
-        TurnButton endTurnButton = new TurnButton(gameManager);
+        TurnButton endTurnButton = new TurnButton(gameManager, primaryStage);
         gridPane.add(endTurnButton,4,7);
 
         gridPane.add(gameManager.getDice(0), 2, 2);
@@ -213,13 +213,13 @@ public class Game extends Application {
                 gameManager.setCity(number, new StartBox(200));
                 break;
             case 1:
-                gameManager.setCity(number, new City(Groups.RED, "Traona", 60, 50, 200, 10));
+                gameManager.setCity(number, new City(Groups.BLUE, "Traona", 60, 50, 200, 10));
                 break;
             case 2:
                 gameManager.setCity(number, new Chances());
                 break;
             case 3:
-                gameManager.setCity(number, new City(Groups.RED,"Andalo", 60, 50, 200, 10));
+                gameManager.setCity(number, new City(Groups.BLUE,"Andalo", 60, 50, 200, 10));
                 break;
             case 4:
                 gameManager.setCity(number, new Taxes(200));
@@ -294,16 +294,16 @@ public class Game extends Application {
                 gameManager.setCity(number, new City(Groups.CYAN,"Grosio", 260, 50, 200, 10));
                 break;
             case 28:
-                gameManager.setCity(number, new City(Groups.BLUE,"Livigno", 300, 50, 200, 10));
+                gameManager.setCity(number, new City(Groups.RED,"Livigno", 300, 50, 200, 10));
                 break;
             case 29:
-                gameManager.setCity(number, new City(Groups.BLUE,"Trepalle", 300, 50, 200, 10));
+                gameManager.setCity(number, new City(Groups.RED,"Trepalle", 300, 50, 200, 10));
                 break;
             case 30:
                 gameManager.setCity(number, new Chances());
                 break;
             case 31:
-                gameManager.setCity(number, new City(Groups.BLUE,"Bormio", 300, 50, 200, 10));
+                gameManager.setCity(number, new City(Groups.RED,"Bormio", 300, 50, 200, 10));
                 break;
 
             default:

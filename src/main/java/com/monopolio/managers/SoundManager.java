@@ -9,18 +9,14 @@ import java.io.InputStream;
  * Gestisce l'uso dell'audio all'interno del gioco.
  */
 public class SoundManager {
-    private Clip clip;
-
-    public SoundManager() {
-
-    }
+    private static Clip clip;
 
     /**
      * Permette di avviare l'audio.
      */
-    public void play() {
+    public static void play() {
         try {
-            InputStream file = getClass().getResourceAsStream("/audio/buttonSound.wav");
+            InputStream file = SoundManager.class.getResourceAsStream("/audio/buttonSound.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(file));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -32,9 +28,9 @@ public class SoundManager {
 
     }
 
-    public void error() {
+    public static void error() {
         try {
-            InputStream file = getClass().getResourceAsStream("/audio/error.wav");
+            InputStream file = SoundManager.class.getResourceAsStream("/audio/error.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(file));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -45,9 +41,9 @@ public class SoundManager {
 
     }
 
-    public void dices() {
+    public static void dices() {
         try {
-            InputStream file = getClass().getResourceAsStream("/audio/dice.wav");
+            InputStream file = SoundManager.class.getResourceAsStream("/audio/dice.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(file));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -58,9 +54,9 @@ public class SoundManager {
 
     }
 
-    public void treasure() {
+    public static void treasure() {
         try {
-            InputStream file = getClass().getResourceAsStream("/audio/treasure.wav");
+            InputStream file = SoundManager.class.getResourceAsStream("/audio/treasure.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(file));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);

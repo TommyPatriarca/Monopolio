@@ -11,18 +11,20 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
 public class TurnButton extends Button {
     private GameManager gameManager;
+    private Stage primaryStage;
 
-    public TurnButton(GameManager gameManager)
+    public TurnButton(GameManager gameManager, Stage primaryStage)
     {
         this.gameManager=gameManager;
 
         design();
-        setOnAction(new TurnListener(gameManager));
+        setOnAction(new TurnListener(gameManager, primaryStage));
     }
 
 

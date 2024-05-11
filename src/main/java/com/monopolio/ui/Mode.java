@@ -33,7 +33,6 @@ public class Mode extends Application {
     FontUtils font = new FontUtils(14);
 
     // Crea un manager per il suono dei bottoni
-    SoundManager soundManager = new SoundManager();
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -163,13 +162,13 @@ public class Mode extends Application {
 
         // bottone listener per il nuovo gioco
         newGameButton.setOnAction(event -> {
-            soundManager.play();
+            SoundManager.play();
             sceneManager.showStartScreen(modeStage);
         });
 
         // bottone listener per il caricamento del gioco
         loadGameButton.setOnAction(event -> {
-            soundManager.play();
+            SoundManager.play();
 
         });
     }

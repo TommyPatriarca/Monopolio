@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.SoundManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
@@ -37,9 +38,6 @@ public class Start extends Application {
     }
 
     FontUtils font = new FontUtils(14);
-
-    //audio bottoni
-    SoundManager soundManager = new SoundManager();
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -188,10 +186,9 @@ public class Start extends Application {
                 playerNames[i] = playerFields[i].getText().trim();
             }
             if (DuplicateNames(playerFields)) {
-                soundManager.error();
-                showAlert(primaryStage);
+                AlertManager.showError(primaryStage, "Presenza di nomi duplicati!");
             } else {
-                soundManager.play();
+                SoundManager.play();
                 sceneManager.showGameScreen(primaryStage, playerNames); // Mostra la schermata di selezione dei giocatori
             }
         });
@@ -225,41 +222,5 @@ public class Start extends Application {
             }
         }
         return false;
-    }
-
-    /**
-     * Viene utilizzato per mostrare un messaggio di errore (nomi duplicati).
-     * @param primaryStage schermata sulla quale viene mostrato il messaggio di errore.
-     */
-    private void showAlert(Stage primaryStage) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.initOwner(primaryStage); // Imposta la finestra genitore
-        alert.setTitle("Attenzione");
-        alert.setHeaderText(null);
-        alert.setContentText("Presenza di nomi duplicati!");
-
-        // Applica lo stile alert personalizzato
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: #001845E0; -fx-border-radius: 10;");
-
-        // Rimuove l'intestazione predefinita
-        dialogPane.setHeader(null);
-
-        // Arrotonda i bordi dell'alert
-        dialogPane.getStyleClass().add("custom-alert");
-        Stage stage = (Stage) dialogPane.getScene().getWindow();
-        stage.initOwner(primaryStage);
-        stage.initStyle(StageStyle.TRANSPARENT);
-
-        // Modifica lo stile del contenuto del messaggio
-        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 10;");
-
-        // Modifica lo stile dei pulsanti dell'alert
-        alert.getButtonTypes().forEach(buttonType -> {
-            Button button = (Button) dialogPane.lookupButton(buttonType);
-            button.setStyle("-fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
-        });
-
-        alert.showAndWait();
     }
 }
