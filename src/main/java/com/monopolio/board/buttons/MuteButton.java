@@ -1,7 +1,7 @@
 package com.monopolio.board.buttons;
 
 import com.monopolio.listeners.MuteListener;
-import com.monopolio.managers.AudioManager;
+import com.monopolio.managers.SongManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -11,7 +11,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.util.Objects;
 
 public class MuteButton extends Button {
@@ -20,10 +19,10 @@ public class MuteButton extends Button {
     private ImageView muteIcon;
 
     // File audioFile = new File("/audio/track.wav");
-    AudioManager audioManager = new AudioManager();
+    SongManager songManager = new SongManager();
 
     public MuteButton() {
-        audioManager.play();
+        songManager.play();
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/audio/play.png")),50,50,true,true);
         // Crea le ImageView per le immagini
@@ -47,11 +46,11 @@ public class MuteButton extends Button {
         muteIcon = new ImageView(muteImage);
 
         if (muted) {
-             audioManager.mute();
+             songManager.mute();
             setGraphic(muteIcon);
             // logica per disattivare l'audio
         } else {
-             audioManager.unmute();
+             songManager.unmute();
             setGraphic(playIcon);
             // logica per attivare l'audio
         }

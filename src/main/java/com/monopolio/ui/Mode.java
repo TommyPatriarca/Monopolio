@@ -1,6 +1,6 @@
 package com.monopolio.ui;
 
-import com.monopolio.managers.ButtonSoundManager;
+import com.monopolio.managers.SoundManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
@@ -33,7 +33,7 @@ public class Mode extends Application {
     FontUtils font = new FontUtils(14);
 
     // Crea un manager per il suono dei bottoni
-    ButtonSoundManager buttonSoundManager = new ButtonSoundManager();
+    SoundManager soundManager = new SoundManager();
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -163,13 +163,13 @@ public class Mode extends Application {
 
         // bottone listener per il nuovo gioco
         newGameButton.setOnAction(event -> {
-            buttonSoundManager.play();
+            soundManager.play();
             sceneManager.showStartScreen(modeStage);
         });
 
         // bottone listener per il caricamento del gioco
         loadGameButton.setOnAction(event -> {
-            buttonSoundManager.play();
+            soundManager.play();
 
         });
     }

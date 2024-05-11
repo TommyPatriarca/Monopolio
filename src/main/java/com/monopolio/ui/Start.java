@@ -1,6 +1,6 @@
 package com.monopolio.ui;
 
-import com.monopolio.managers.ButtonSoundManager;
+import com.monopolio.managers.SoundManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
@@ -39,7 +39,7 @@ public class Start extends Application {
     FontUtils font = new FontUtils(14);
 
     //audio bottoni
-    ButtonSoundManager buttonSoundManager = new ButtonSoundManager();
+    SoundManager soundManager = new SoundManager();
 
     // Definizione colori
     private Color backgroundColor = Color.rgb(0, 18, 51);
@@ -188,10 +188,10 @@ public class Start extends Application {
                 playerNames[i] = playerFields[i].getText().trim();
             }
             if (DuplicateNames(playerFields)) {
-                buttonSoundManager.error();
+                soundManager.error();
                 showAlert(primaryStage);
             } else {
-                buttonSoundManager.play();
+                soundManager.play();
                 sceneManager.showGameScreen(primaryStage, playerNames); // Mostra la schermata di selezione dei giocatori
             }
         });

@@ -1,5 +1,6 @@
 package com.monopolio.listeners;
 
+import com.monopolio.Monopolio;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -13,7 +14,9 @@ public class BoxListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        System.out.println("Hai premuto il pulsante: " + buttonLabel);
+        if(Monopolio.devMode) {
+            System.out.println("the button (" + buttonLabel + ") got clicked");
+        }
         // Aggiungi qui le azioni da eseguire quando viene premuto il pulsante
     }
 }

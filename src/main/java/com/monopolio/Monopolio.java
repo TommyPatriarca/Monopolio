@@ -8,6 +8,7 @@ import javafx.stage.Stage;
  * Rappresenta il punto di partenza del gioco che avvia il programma e la grafica.
  */
 public class Monopolio extends Application {
+    public static boolean devMode = true;
 
     /**
      * Crea un oggetto di tipo "SceneManager" e permette di vedere lo schermo.

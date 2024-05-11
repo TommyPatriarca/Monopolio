@@ -3,11 +3,10 @@ package com.monopolio.ui;
 import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
-import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
-import com.monopolio.player.PlayerToken;
+import com.monopolio.player.PlayerPawn;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -146,11 +145,11 @@ public class Game extends Application {
         gameManager.setDice(1, new DiceButton());
 
         //pallini
-        PlayerToken[] playerTokens = new PlayerToken[4];
+        PlayerPawn[] playerPawns = new PlayerPawn[4];
         for (int i = 0; i < 4; i++) {
             if (!gameManager.getPlayer(i).getNome().isEmpty()) {
-                PlayerToken token = new PlayerToken(gameManager.getPlayer(i),Color.AQUA);
-                playerTokens[i] = token;
+                PlayerPawn token = new PlayerPawn(gameManager.getPlayer(i),Color.AQUA);
+                playerPawns[i] = token;
                 gridPane.add(token, 0, 0);
             }
         }
@@ -337,9 +336,5 @@ public class Game extends Application {
         view.setFitHeight(20);
         view.setPreserveRatio(true);
         button.setGraphic(view);
-    }
-
-    public GameManager getGameManager() {
-        return gameManager;
     }
 }

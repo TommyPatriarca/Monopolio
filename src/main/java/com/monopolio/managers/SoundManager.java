@@ -8,10 +8,10 @@ import java.io.InputStream;
 /**
  * Gestisce l'uso dell'audio all'interno del gioco.
  */
-public class ButtonSoundManager {
+public class SoundManager {
     private Clip clip;
 
-    public ButtonSoundManager() {
+    public SoundManager() {
 
     }
 

@@ -13,6 +13,22 @@ public class GameManager {
     private ChancesButton chancesButton = new ChancesButton();
     private TreasuresButton treasuresButton = new TreasuresButton();
 
+    public boolean areDicesRolled() {
+        boolean rolled = true;
+        for(DiceButton dice : dices) {
+            if(!dice.isRolled()) {
+                return false;
+            }
+        }
+        return rolled;
+    }
+
+    public void restoreDices() {
+        for(DiceButton dice : dices) {
+            dice.enable();
+        }
+    }
+
     public void startGame() {
         players[0].setMyTurn(true);
     }

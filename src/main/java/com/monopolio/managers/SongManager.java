@@ -2,20 +2,18 @@ package com.monopolio.managers;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 
 /**
  * Gestisce l'uso dell'audio all'interno del gioco.
  */
-public class AudioManager {
+public class SongManager {
     private InputStream is = getClass().getResourceAsStream("/audio/track.wav");
     private Clip clip;
     private boolean muted;
 
-    public AudioManager() {
+    public SongManager() {
         this.muted = false;
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
