@@ -9,9 +9,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 
-import java.awt.*;
-
-import static javax.swing.text.StyleConstants.setBackground;
 
 // TODO fare in modo che il botone compri cio che si puo acquistare, ad esempio se nessuno ha quel terreno premendolo lo acquisti altrimenti se è tuo acquisti una casa
 public class BuyButton extends Button {
@@ -27,6 +24,7 @@ public class BuyButton extends Button {
         setPrefSize(110, 110);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
+        setText("Buy");
         setStyle(getStyle() + "-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 15;");
     }
 }
