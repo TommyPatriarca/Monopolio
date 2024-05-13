@@ -13,7 +13,7 @@ public class ToPrison implements Box {
      * @param player
      */
     public void toPrison(Player player) {
-        player.setPosition(9);
+        player.setPosition(8);
         player.setInPrison(true);
     }
 

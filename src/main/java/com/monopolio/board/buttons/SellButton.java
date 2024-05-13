@@ -23,7 +23,7 @@ public class SellButton extends Button {
         setPrefSize(110, 50);
         setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
-        setText("Sell");
+        setText("Vendi");
         setStyle(getStyle() + "-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 15;");
     }
 }
