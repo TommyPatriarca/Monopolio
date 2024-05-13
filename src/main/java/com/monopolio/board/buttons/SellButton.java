@@ -1,5 +1,6 @@
 package com.monopolio.board.buttons;
 
+import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
@@ -11,16 +12,15 @@ import javafx.scene.paint.Color;
 
 // TODO stessa cosa del BuyButton
 public class SellButton extends Button {
-    Player player;
-    Game game;
+    private GameManager gameManager;
 
-    public SellButton(Player player, Game game) {
-        this.player = player;
-        this.game = game;
+    public SellButton(GameManager gameManager) {
+        this.gameManager = gameManager;
+        design();
     }
 
     public void design() {
-        setPrefSize(110, 110);
+        setPrefSize(110, 50);
         setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setText("Sell");

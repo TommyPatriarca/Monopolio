@@ -6,7 +6,6 @@ import com.monopolio.board.buttons.*;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
-import com.monopolio.player.PlayerPawn;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -144,20 +143,19 @@ public class Game extends Application {
         gameManager.setDice(0, new DiceButton(gameManager));
         gameManager.setDice(1, new DiceButton(gameManager));
 
-        //pallini
-        PlayerPawn[] playerPawns = new PlayerPawn[4];
-        for (int i = 0; i < 4; i++) {
-            if (!gameManager.getPlayer(i).getName().isEmpty()) {
-                PlayerPawn token = new PlayerPawn(gameManager.getPlayer(i),Color.AQUA);
-                playerPawns[i] = token;
-                gridPane.add(token, 0, 0);
-            }
-        }
-
         //end turn
         TurnButton endTurnButton = new TurnButton(gameManager, primaryStage);
         gridPane.add(endTurnButton,4,7);
 
+        // buy button
+        BuyButton buyButton = new BuyButton(gameManager);
+        gridPane.add(buyButton,2,7);
+
+        //sell button
+        SellButton sellButton = new SellButton(gameManager);
+        gridPane.add(sellButton,6,7);
+
+        // grid pane add dice 0 a (2,2)
         gridPane.add(gameManager.getDice(0), 2, 2);
         gridPane.add(gameManager.getDice(1), 3, 2);
 
