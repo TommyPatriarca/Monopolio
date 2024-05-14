@@ -4,6 +4,7 @@ import com.monopolio.board.Groups;
 import com.monopolio.board.boxes.*;
 import com.monopolio.managers.GameManager;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 
 import java.awt.*;
 import java.util.Scanner;
@@ -57,12 +58,24 @@ public class Cli {
     }
 
     private void printBoard() {
-        for(int i=0;i < 9;i++){
-            for(int j=0;j < 9;j++){
-                if(i==1 && j == 0){ // todo: sistema la stampa
-                    System.out.println(gameManager.getCity(31).getNome());
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (i == 0 || i == 8 || j == 0 || j == 8) {
+                    if (i == 0) {
+                        System.out.print(gameManager.getCity(j).getNome().replace("\n"," ")+"   ");
+                    }else if (i == 8) {
+                        System.out.print(gameManager.getCity(24-j).getNome().replace("\n"," ")+"   ");
+                    }else if (j == 0){
+                        System.out.println();
+                        System.out.print(gameManager.getCity(32-i).getNome().replace("\n"," ")+"                                                                          ");
+                    }
+                    else {
+                        System.out.print(gameManager.getCity(8+i).getNome().replace("\n"," ")+"   \n\n\n");
+                    }
+
                 }
             }
         }
     }
+
 }
