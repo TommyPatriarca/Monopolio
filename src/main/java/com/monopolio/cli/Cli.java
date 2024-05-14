@@ -20,17 +20,18 @@ public class Cli {
     }
 
     public int askInterface(){
-        int choose;
+        int selection;
         do{
-            System.out.println("Benvenuto!\nCon che tipo di interfaccia vuoi giocare? (1 --> CLI  2 --> GUI)");
-            choose = s.nextInt();
-        } while(choose != 1 && choose != 2);
+            System.out.println("Benvenuto!\nCon che tipo di interfaccia vuoi giocare?\n[1] CLI\n[2] GUI");
+            System.out.print("\nSelezione -> ");
+            selection = s.nextInt();
+        } while(selection != 1 && selection != 2);
 
-        return choose;
+        return selection;
     }
 
     public void start(){
-        System.out.println("\n------MONOPOLIO VALTELLINESE------\n\n");
+        System.out.println("\n------ MONOPOLIO ------\n\n");
         initBoard();
         printBoard();
     }

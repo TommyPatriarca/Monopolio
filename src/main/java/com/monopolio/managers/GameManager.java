@@ -1,5 +1,6 @@
 package com.monopolio.managers;
 
+import com.monopolio.Monopolio;
 import com.monopolio.board.Box;
 import com.monopolio.board.Groups;
 import com.monopolio.board.boxes.*;
@@ -20,116 +21,6 @@ public class GameManager {
             player.setPosition(0);
         }
         players[0].setMyTurn(true);
-    }
-
-    public void handleMovement() {
-        if(areDicesRolled()) {
-
-        }
-    }
-    
-    public void initCity(int number) {
-        switch (number){
-            case 0:
-                setCity(number, new StartBox(200));
-                break;
-            case 1:
-                setCity(number, new City(Groups.BLUE, "Traona", 60, 50, 200, 10));
-                break;
-            case 2:
-                setCity(number, new Chances());
-                break;
-            case 3:
-                setCity(number, new City(Groups.BLUE,"Andalo", 60, 50, 200, 10));
-                break;
-            case 4:
-                setCity(number, new Taxes(200));
-                break;
-            case 5:
-                setCity(number, new City(Groups.YELLOW,"Regoledo", 100, 50, 200, 10));
-                break;
-            case 6:
-                setCity(number, new Treasures());
-                break;
-            case 7:
-                setCity(number, new City(Groups.YELLOW,"Morbegno", 100, 50, 200, 10));
-                break;
-            case 8:
-                setCity(number, new Prison());
-                break;
-            case 9:
-                setCity(number, new City(Groups.YELLOW,"Talamona", 120, 50, 200, 10));
-                break;
-            case 10:
-                setCity(number, new City(Groups.ORANGE,"Ardenno", 140, 50, 200, 10));
-                break;
-            case 11:
-                setCity(number, new Stations(Stations.StationTypes.EST));
-                break;
-            case 12:
-                setCity(number, new City(Groups.ORANGE,"Berbenno", 140, 50, 200, 10));
-                break;
-            case 13:
-                setCity(number, new City(Groups.ORANGE,"Castione", 160, 50, 200, 10));
-                break;
-            case 14:
-                setCity(number, new City(Groups.PINK,"Castiones", 160, 50, 200, 10));
-                break;
-            case 15:
-                setCity(number, new Chances());
-                break;
-            case 16:
-                setCity(number, new Parking());
-                break;
-            case 17:
-                setCity(number, new City(Groups.PINK,"Sondrio", 180, 50, 200, 10));
-                break;
-            case 18:
-                setCity(number, new City(Groups.PINK,"Chiesa", 180, 50, 200, 10));
-                break;
-            case 19:
-                setCity(number, new City(Groups.GREEN,"Piantedo", 220, 50, 200, 10));
-                break;
-            case 20:
-                setCity(number, new Treasures());
-                break;
-            case 21:
-                setCity(number, new City(Groups.GREEN,"San Giacomo", 220, 50, 200, 10));
-                break;
-            case 22:
-                setCity(number, new City(Groups.GREEN,"Tresenda", 240, 50, 200, 10));
-                break;
-            case 23:
-                setCity(number, new City(Groups.CYAN,"Tirano", 260, 50, 200, 10));
-                break;
-            case 24:
-                setCity(number, new ToPrison());
-                break;
-            case 25:
-                setCity(number, new Stations(Stations.StationTypes.SUD));
-                break;
-            case 26:
-                setCity(number, new City(Groups.CYAN,"Sondalo", 280, 50, 200, 10));
-                break;
-            case 27:
-                setCity(number, new City(Groups.CYAN,"Grosio", 260, 50, 200, 10));
-                break;
-            case 28:
-                setCity(number, new City(Groups.RED,"Livigno", 300, 50, 200, 10));
-                break;
-            case 29:
-                setCity(number, new City(Groups.RED,"Trepalle", 300, 50, 200, 10));
-                break;
-            case 30:
-                setCity(number, new Chances());
-                break;
-            case 31:
-                setCity(number, new City(Groups.RED,"Bormio", 300, 50, 200, 10));
-                break;
-
-            default:
-                System.out.println("Could not find city....");
-        }
     }
 
     public Player getCurrentPlayer() {
@@ -154,6 +45,200 @@ public class GameManager {
     public void restoreDices() {
         for(DiceButton dice : dices) {
             dice.enable();
+        }
+    }
+
+    // Handles the player buy propety
+    public void buyPropety() {
+        Player player = getCurrentPlayer();
+        int position = player.getPosition();
+
+        if(cities[position] instanceof Chances) {
+            AlertManager.showError("Non puoi compare le probabilità...");
+        } else if(cities[position] instanceof City) {
+            City city = (City) cities[position];
+            if(!city.isOwned()) {
+                if(player.getMoney() >= city.getPrice()) {
+                } else {
+                    AlertManager.showError("Non hai abbastanza soldi per comprare questa citta");
+                }
+            } else {
+                AlertManager.showError("Questa città è gia stata acquistata");
+            }
+        } else if(cities[position] instanceof Parking) {
+            Parking Parking = (Parking) cities[position];
+            // Do nothing
+        } else if(cities[position] instanceof Prison) {
+            Prison prison = (Prison) cities[position];
+            // Do nothing
+        } else if(cities[position] instanceof StartBox) {
+            StartBox startBox = (StartBox) cities[position];
+            startBox.redeemStart(player);
+        } else if(cities[position] instanceof Stations) {
+            Stations stations = (Stations) cities[position];
+            // Todo: implement stations
+        } else if(cities[position] instanceof Taxes) {
+            Taxes taxes = (Taxes) cities[position];
+            taxes.redeemTaxes(player);
+        } else if(cities[position] instanceof ToPrison) {
+            ToPrison toPrison = (ToPrison) cities[position];
+            toPrison.toPrison(player);
+        } else if(cities[position] instanceof Treasures) {
+            Treasures treasures = (Treasures) cities[position];
+            // Todo: implement treasures
+        } else {
+            if(Monopolio.isDevMode()) {
+                System.out.println("Could not handle player movement");
+            }
+        }
+    }
+
+    // Handles the player position once dices are rolled
+    public void handleMovement() {
+        Player player = getCurrentPlayer();
+        int position = player.getPosition();
+
+        if(cities[position] instanceof Chances) {
+            Chances chance = (Chances) cities[position];
+            chance.pickRandom(player);
+        } else if(cities[position] instanceof City) {
+            City city = (City) cities[position];
+            if(city.isOwned() && city.getOwner() != player) {
+                city.getPaid(player);
+            } else {
+                // Buy or Auction, smh
+            }
+        } else if(cities[position] instanceof Parking) {
+            Parking Parking = (Parking) cities[position];
+            // Do nothing
+        } else if(cities[position] instanceof Prison) {
+            Prison prison = (Prison) cities[position];
+            // Do nothing
+        } else if(cities[position] instanceof StartBox) {
+            StartBox startBox = (StartBox) cities[position];
+            startBox.redeemStart(player);
+        } else if(cities[position] instanceof Stations) {
+            Stations stations = (Stations) cities[position];
+            // Todo: implement stations
+        } else if(cities[position] instanceof Taxes) {
+            Taxes taxes = (Taxes) cities[position];
+            taxes.redeemTaxes(player);
+        } else if(cities[position] instanceof ToPrison) {
+            ToPrison toPrison = (ToPrison) cities[position];
+            toPrison.toPrison(player);
+        } else if(cities[position] instanceof Treasures) {
+            Treasures treasures = (Treasures) cities[position];
+            // Todo: implement treasures
+        } else {
+            if(Monopolio.isDevMode()) {
+                System.out.println("Could not handle player movement");
+            }
+        }
+    }
+
+    public void initCity(int number) {
+        switch (number){
+            case 0:
+                setCity(number, new StartBox(200));
+                break;
+            case 1:
+                setCity(number, new City(Groups.YELLOW, "Traona", 60, 50, 200, 10));
+                break;
+            case 2:
+                setCity(number, new Chances());
+                break;
+            case 3:
+                setCity(number, new City(Groups.YELLOW,"Andalo", 60, 50, 200, 10));
+                break;
+            case 4:
+                setCity(number, new Stations(Stations.StationTypes.NORD));
+                break;
+            case 5:
+                setCity(number, new City(Groups.ORANGE,"Regoledo", 100, 50, 200, 10));
+                break;
+            case 6:
+                setCity(number, new City(Groups.ORANGE,"Talamona", 120, 50, 200, 10));
+                break;
+            case 7:
+                setCity(number, new City(Groups.ORANGE,"Morbegno", 100, 50, 200, 10));
+                break;
+            case 8:
+                setCity(number, new Prison());
+                break;
+            case 9:
+                setCity(number, new City(Groups.RED,"Ardenno", 140, 50, 200, 10));
+                break;
+            case 10:
+                setCity(number, new City(Groups.RED,"Ardenno", 140, 50, 200, 10));
+                break;
+            case 11:
+                setCity(number, new City(Groups.RED,"Berbenno", 140, 50, 200, 10));
+                break;
+            case 12:
+                setCity(number, new Stations(Stations.StationTypes.EST));
+                break;
+            case 13:
+                setCity(number, new City(Groups.PINK,"Castione", 160, 50, 200, 10));
+                break;
+            case 14:
+                setCity(number, new Treasures());
+                break;
+            case 15:
+                setCity(number, new City(Groups.PINK,"Castiones", 160, 50, 200, 10));
+                break;
+            case 16:
+                setCity(number, new Parking());
+                break;
+            case 17:
+                setCity(number, new City(Groups.PURPLE,"Sondrio", 180, 50, 200, 10));
+                break;
+            case 18:
+                setCity(number, new City(Groups.PURPLE,"Chiesa", 180, 50, 200, 10));
+                break;
+            case 19:
+                setCity(number, new City(Groups.PURPLE,"Piantedo", 220, 50, 200, 10));
+                break;
+            case 20:
+                setCity(number, new Stations(Stations.StationTypes.SUD));
+                break;
+            case 21:
+                setCity(number, new City(Groups.GREEN,"San Giacomo", 220, 50, 200, 10));
+                break;
+            case 22:
+                setCity(number, new Chances());
+                break;
+            case 23:
+                setCity(number, new City(Groups.GREEN,"Tirano", 260, 50, 200, 10));
+                break;
+            case 24:
+                setCity(number, new ToPrison());
+                break;
+            case 25:
+                setCity(number, new City(Groups.CYAN,"Livigno", 300, 50, 200, 10));
+                break;
+            case 26:
+                setCity(number, new City(Groups.CYAN,"Sondalo", 280, 50, 200, 10));
+                break;
+            case 27:
+                setCity(number, new City(Groups.CYAN,"Grosio", 260, 50, 200, 10));
+                break;
+            case 28:
+                setCity(number, new Stations(Stations.StationTypes.OVEST));
+                break;
+            case 29:
+                setCity(number, new City(Groups.BLUE,"Trepalle", 300, 50, 200, 10));
+                break;
+            case 30:
+                setCity(number, new Taxes(200));
+                break;
+            case 31:
+                setCity(number, new City(Groups.BLUE,"Bormio", 300, 50, 200, 10));
+                break;
+
+            default:
+                if(Monopolio.isDevMode()) {
+                    System.out.println("Could not find city....");
+                }
         }
     }
 

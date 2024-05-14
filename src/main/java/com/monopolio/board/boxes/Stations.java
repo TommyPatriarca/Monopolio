@@ -19,7 +19,7 @@ public class Stations implements Box {
      */
     @Override
     public String getNome() {
-        return "Stazione "+type.getLabel();
+        return "Stazione\n"+type.getLabel();
     }
 
     /**

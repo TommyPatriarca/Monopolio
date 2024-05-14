@@ -1,5 +1,6 @@
 package com.monopolio.board.buttons;
 
+import com.monopolio.listeners.BuyListener;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
@@ -18,6 +19,7 @@ public class BuyButton extends Button {
     public BuyButton(GameManager gameManager) {
         this.gameManager = gameManager;
         design();
+        setOnAction(new BuyListener(gameManager));
     }
 
     public void design() {

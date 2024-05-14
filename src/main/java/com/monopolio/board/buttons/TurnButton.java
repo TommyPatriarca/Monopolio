@@ -24,7 +24,7 @@ public class TurnButton extends Button {
         this.gameManager=gameManager;
 
         design();
-        setOnAction(new TurnListener(gameManager, primaryStage));
+        setOnAction(new TurnListener(gameManager));
     }
 
 

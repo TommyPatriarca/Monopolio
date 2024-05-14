@@ -26,7 +26,7 @@ public class Chances implements Box {
      * @param index è la posizione della "Probabilità" all'interno dell'ArrayList.
      * @return la "Probabilità"
      */
-    private String pick(int index) {
+    public String pick(int index) {
         return chances.get(index);
     }
 
@@ -34,8 +34,8 @@ public class Chances implements Box {
      * Permette di assegnare la "Probabilità" in base ad un indice scelto in modo casuale.
      * @return la "Probabilità"
      */
-    private String pickRandom(Player player) {
-        int index = RandUtils.Integer(0, chances.size());
+    public String pickRandom(Player player) {
+        int index = RandUtils.Integer(0, chances.size()-1);
         extractChance(index, player);
         return pick(index);
     }

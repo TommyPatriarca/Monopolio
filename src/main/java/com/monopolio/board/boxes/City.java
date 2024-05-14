@@ -16,7 +16,7 @@ public class City implements Box {
     private  int houseNumber=0; //un albergo corrisponde a 5 case
     private int payment=0;   //viene calcolato dopo
     private int basePayment;
-    private Player owner;    //inizialmente non è di nessuno
+    private Player owner = null;    //inizialmente non è di nessuno
 
     public City(Groups group, String name, int price, int houseprice, int hotelprice, int basePayment) {
         this.group = group;
@@ -130,5 +130,21 @@ public class City implements Box {
 
     public Groups getGroup() {
         return group;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isOwned() {
+        return owner != null;
+    }
+
+    public void getPaid(Player player) {
+        player.removeMoney(payment);
     }
 }

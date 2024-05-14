@@ -10,18 +10,16 @@ import javafx.stage.Stage;
 
 public class TurnListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
-    private Stage primaryStage;
 
-    public TurnListener(GameManager gameManager, Stage primaryStage) {
+    public TurnListener(GameManager gameManager) {
         this.gameManager = gameManager;
-        this.primaryStage = primaryStage;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
         if(!gameManager.areDicesRolled()) {
             // the player cannot end turn if dices are not rolled.
-            AlertManager.showError(primaryStage, "Non puoi terminare il turno prima di aver tirato entrambi i dadi.");
+            AlertManager.showError("Non puoi terminare il turno prima di aver tirato entrambi i dadi.");
             return;
         }
 
@@ -33,7 +31,7 @@ public class TurnListener implements EventHandler<ActionEvent> {
                 } else {
                     gameManager.getPlayer(i+1).setMyTurn(true);
                 } // logic to end the player's turn.
-                if(Monopolio.devMode) {
+                if(Monopolio.isDevMode()) {
                     System.out.println(gameManager.getPlayer(i).getName() + " (Player) ended the turn");
                 }
 

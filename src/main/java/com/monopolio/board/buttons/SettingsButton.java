@@ -47,7 +47,7 @@ public class SettingsButton extends VBox {
     }
 
     private void addSubButtons() {
-        Button rulesButton = createSubButton("Rules", event -> AlertManager.showRules(primaryStage));
+        Button rulesButton = createSubButton("Rules", event -> AlertManager.showRules());
         Button soundButton = createSubButton("Sound", event -> {});
         Button graphicsButton = createSubButton("Graphics", event -> {});
         Button languageButton = createSubButton("Language", event -> {});

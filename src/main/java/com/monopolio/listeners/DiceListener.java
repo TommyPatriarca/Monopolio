@@ -21,7 +21,7 @@ public class DiceListener implements EventHandler<ActionEvent> {
         // Logica per la gestione dei dadi
         SoundManager.dices();
         int rolled = dice.roll();
-        if(Monopolio.devMode) {
+        if(Monopolio.isDevMode()) {
             System.out.println("the number (" + rolled + ") was rolled");
         }
         dice.colorRed();
@@ -29,8 +29,13 @@ public class DiceListener implements EventHandler<ActionEvent> {
 
         // Logica per la gestione del player
         gameManager.getCurrentPlayer().moveForward(rolled);
-        if(Monopolio.devMode) {
+        if(Monopolio.isDevMode()) {
             System.out.println(gameManager.getCurrentPlayer().getName() + " (Player) was moved to the position (" + gameManager.getCurrentPlayer().getPosition() + ")");
+        }
+
+        // Logica per la gestione della nuova posizione del player
+        if(gameManager.areDicesRolled()) {
+            gameManager.handleMovement();
         }
 
         // Alla fine del round -> dice.setDefault();

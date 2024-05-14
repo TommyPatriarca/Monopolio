@@ -1,6 +1,7 @@
 package com.monopolio;
 
 import com.monopolio.cli.Cli;
+import com.monopolio.managers.InterfaceManager;
 import com.monopolio.managers.SceneManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,7 +12,8 @@ import java.util.Scanner;
  * Rappresenta il punto di partenza del gioco che avvia il programma e la grafica.
  */
 public class Monopolio extends Application {
-    public static boolean devMode = true;
+    private static InterfaceManager.InterfaceType interfaceType;
+    private static boolean devMode = true;
     private static Cli cli = new Cli();
     private static Scanner s = new Scanner(System.in);
     /**
@@ -25,12 +27,20 @@ public class Monopolio extends Application {
     }
 
     public static void main(String[] args) {
-
         if(cli.askInterface() == 2){
+            interfaceType = InterfaceManager.InterfaceType.GUI;
             launch(args);
         }else{
+            interfaceType = InterfaceManager.InterfaceType.CLI;
             cli.start();
         }
     }
 
+    public static boolean isDevMode() {
+        return devMode;
+    }
+
+    public static InterfaceManager.InterfaceType getInterfaceType() {
+        return interfaceType;
+    }
 }

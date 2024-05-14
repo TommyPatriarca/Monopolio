@@ -14,7 +14,7 @@ public class BoxListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        if(Monopolio.devMode) {
+        if(Monopolio.isDevMode()) {
             System.out.println("the button (" + buttonLabel + ") got clicked");
         }
         // Aggiungi qui le azioni da eseguire quando viene premuto il pulsante

@@ -5,9 +5,11 @@ public enum Groups {
     YELLOW("/images/groups/yellow.png"),
     ORANGE("/images/groups/orange.png"),
     PINK("/images/groups/pink.png"),
+    PURPLE("/images/groups/purple.png"),
     GREEN("/images/groups/green.png"),
     CYAN("/images/groups/cyan.png"),
-    BLUE("/images/groups/blue.png");
+    BLUE("/images/groups/blue.png"),
+    BLACK("/images/groups/black.png");
 
     private final String path;
 

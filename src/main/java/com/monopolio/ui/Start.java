@@ -183,7 +183,7 @@ public class Start extends Application {
                 playerNames[i] = playerFields[i].getText().trim();
             }
             if (DuplicateNames(playerFields)) {
-                AlertManager.showError(primaryStage, "Presenza di nomi duplicati!");
+                AlertManager.showError("Presenza di nomi duplicati!");
             } else {
                 SoundManager.play();
                 sceneManager.showGameScreen(primaryStage, playerNames); // Mostra la schermata di selezione dei giocatori
