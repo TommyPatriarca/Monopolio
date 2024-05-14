@@ -1,6 +1,5 @@
 package com.monopolio.ui;
 
-import com.monopolio.board.*;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
 import com.monopolio.managers.GameManager;
@@ -20,29 +19,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.Objects;
-
-/**
- * DA FARE PIù AVANTI
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- */
 
 public class Game extends Application {
     private GameManager gameManager = new GameManager();
     private Image img;
     private ImageView view;
-    private boolean set;
 
     public Game(String[] playerNames) {
         // Creazione degli oggetti Player basati sui nomi dei giocatori
@@ -70,48 +53,39 @@ public class Game extends Application {
         playerNamesBox.setPadding(new Insets(10, 10, 10, 0));
 
         // Aggiungi i nomi dei giocatori alla VBox
-        for (int i=0;i<4;i++) {
-            if(!gameManager.getPlayer(i).getName().isEmpty()){
-            HBox playerBox = new HBox();
-            playerBox.setAlignment(Pos.CENTER_LEFT);
-            playerBox.setSpacing(5);
+        for (int i = 0; i < 4; i++) {
+            if (!gameManager.getPlayer(i).getName().isEmpty()) {
+                HBox playerBox = new HBox();
+                playerBox.setAlignment(Pos.CENTER_LEFT);
+                playerBox.setSpacing(5);
 
-            // Aggiungi un pallino colorato
-            Circle circle = new Circle(5);
-            switch (i){
-                case 0 -> {
-                    circle.setFill(Color.GREEN);
+                // Aggiungi un pallino colorato
+                Circle circle = new Circle(5);
+                switch (i) {
+                    case 0 -> circle.setFill(Color.GREEN);
+                    case 1 -> circle.setFill(Color.YELLOW);
+                    case 2 -> circle.setFill(Color.LIGHTBLUE);
+                    case 3 -> circle.setFill(Color.PURPLE);
                 }
-                case 1 -> {
-                    circle.setFill(Color.YELLOW);
-                }
-                case 2 -> {
-                    circle.setFill(Color.LIGHTBLUE);
-                }
-                case 3 -> {
-                    circle.setFill(Color.PURPLE);
-                }
-            }
-            circle.setStroke(Color.WHITE); //
+                circle.setStroke(Color.WHITE);
 
-            // Aggiungi il nome del giocatore
-            Label playerNameLabel = new Label(gameManager.getPlayer(i).getName());
-            playerNameLabel.setTextFill(Color.WHITE);
+                // Aggiungi il nome del giocatore
+                Label playerNameLabel = new Label(gameManager.getPlayer(i).getName());
+                playerNameLabel.setTextFill(Color.WHITE);
 
-            // Aggiungi contatore soldi dei giocatori
-             Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
-             playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
+                // Aggiungi contatore soldi dei giocatori
+                Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
+                playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
 
-            // Aggiungi il pallino e il nome del giocatore all'HBox
-            playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);
+                // Aggiungi il pallino e il nome del giocatore all'HBox
+                playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);
 
-            // Aggiungi l'HBox alla VBox
-            playerNamesBox.getChildren().add(playerBox);
+                // Aggiungi l'HBox alla VBox
+                playerNamesBox.getChildren().add(playerBox);
             }
         }
 
         root.setLeft(playerNamesBox);
-
 
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
@@ -133,8 +107,8 @@ public class Game extends Application {
                     } else {
                         number = 33 - i;
                     }
-                    Button button = createButton(number - 1);
-                    gridPane.add(button, j, i);
+                    StackPane cell = createCell(number - 1, 30);
+                    gridPane.add(cell, j, i);
                 }
             }
         }
@@ -142,17 +116,17 @@ public class Game extends Application {
         gameManager.setDice(0, new DiceButton(gameManager));
         gameManager.setDice(1, new DiceButton(gameManager));
 
-        //end turn
+        // end turn
         TurnButton endTurnButton = new TurnButton(gameManager, primaryStage);
-        gridPane.add(endTurnButton,4,7);
+        gridPane.add(endTurnButton, 4, 7);
 
         // buy button
         BuyButton buyButton = new BuyButton(gameManager);
-        gridPane.add(buyButton,2,7);
+        gridPane.add(buyButton, 2, 7);
 
-        //sell button
+        // sell button
         SellButton sellButton = new SellButton(gameManager);
-        gridPane.add(sellButton,6,7);
+        gridPane.add(sellButton, 6, 7);
 
         // grid pane add dice 0 a (2,2)
         gridPane.add(gameManager.getDice(0), 2, 2);
@@ -179,11 +153,11 @@ public class Game extends Application {
         RulesButton rulesButton = new RulesButton(this);
         toolbarBox.getChildren().add(rulesButton);
 
-        SettingsButton settingsButton = new SettingsButton(this,primaryStage);
+        SettingsButton settingsButton = new SettingsButton(this, primaryStage);
         toolbarBox.getChildren().add(settingsButton);
 
         root.setRight(toolbarBox);
-        
+
         // Creazione della scena
         Scene scene = new Scene(root, 800, 600);
 
@@ -195,18 +169,10 @@ public class Game extends Application {
         gameManager.startGame();
     }
 
-    /*
-        if (cities[0] instanceof City) {
-            City city = (City) cities[0];
-            city.metodo(); // Chiamata al metodo specifico di MiaClasse
-        } else {
-            System.out.println("L'oggetto non è un'istanza di MiaClasse");
-        }
-    */
-
-    private Button createButton(int number) {
+    private StackPane createCell(int number, int i) {
         gameManager.initCity(number);
 
+        // Creazione del pulsante con l'immagine di sfondo
         Button button = new Button(gameManager.getCity(number).getNome());
         button.setPrefSize(110, 110);
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
@@ -225,8 +191,47 @@ public class Game extends Application {
         // Aggiungi listener alla casella
         button.setOnAction(new BoxListener(gameManager.getCity(number).getNome()));
 
-        return button;
+        // Creazione della StackPane e aggiunta del pulsante
+        StackPane cell = new StackPane();
+        cell.setAlignment(Pos.CENTER);
+
+        // Aggiungi il pulsante al StackPane
+        cell.getChildren().add(button);
+
+        // Aggiungi le icone dei giocatori al StackPane
+        ImageView[] playerIcons = createPlayerIcons(number,100);
+        for (ImageView icon : playerIcons) {
+            cell.getChildren().add(icon);
+        }
+
+        return cell;
     }
+
+    private ImageView[] createPlayerIcons(int number, int iconSize) {
+        Player[] players = gameManager.getPlayers();
+        ImageView[] icons = new ImageView[4];
+        int index = 0;
+        int j = 0;
+
+        for (Player player : players) {
+            if (player.getPosition() == number) {
+                String imagePath = switch (j) {
+                    case 0 -> "/images/pawns/verde.png";
+                    case 1 -> "/images/pawns/giallo.png";
+                    case 2 -> "/images/pawns/azzurro.png";
+                    case 3 -> "/images/pawns/viola.png";
+                    default -> throw new IllegalStateException("Unexpected value: " + j);
+                };
+                Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)), iconSize, iconSize, true, true);
+                icons[index++] = new ImageView(playImage);
+            }
+            j++;
+        }
+
+        // Rimuovi le voci null
+        return Arrays.stream(icons).filter(Objects::nonNull).toArray(ImageView[]::new);
+    }
+
 
     private void setImage(Button button) {
         view = new ImageView(img);

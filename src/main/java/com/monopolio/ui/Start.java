@@ -8,9 +8,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
@@ -20,7 +18,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -99,7 +96,7 @@ public class Start extends Application {
             textField.setStyle("-fx-background-color: #001845FF; -fx-text-inner-color: white; -fx-background-radius: 10; -fx-border-width: 2.5; -fx-border-color: " + toHex(borderColors[i]) + "; -fx-border-radius: 10;");
 
             // Limita la lunghezza massima del testo a 10 caratteri
-            final int index = i; // Indice finale per essere utilizzato nell'espressione lambda
+            final int index = i;
             textField.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.length() > 10) {
                     textField.setText(oldValue);

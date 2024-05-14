@@ -29,26 +29,6 @@ public class TradeButton extends Button {
         //setOnAction(new MuteListener(this));
     }
 
-    public void toggle() {
-        muted = !muted;
-
-        // Carica le immagini per il pulsante play e il pulsante mute
-        Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/audio/play.png")),50,50,true,true);
-        Image muteImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/audio/mute.png")),50,50,true,true);
-
-        // Crea le ImageView per le immagini
-        playIcon = new ImageView(playImage);
-        muteIcon = new ImageView(muteImage);
-
-        if (muted) {
-            setGraphic(muteIcon);
-            // logica per disattivare l'audio
-        } else {
-            setGraphic(playIcon);
-            // logica per attivare l'audio
-        }
-    }
-
     public void design() {
         setPrefSize(50, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
