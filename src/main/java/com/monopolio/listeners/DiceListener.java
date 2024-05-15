@@ -8,6 +8,7 @@ import com.monopolio.managers.SoundManager;
 import com.monopolio.ui.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
 public class DiceListener implements EventHandler<ActionEvent> {

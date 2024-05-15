@@ -53,8 +53,11 @@ public class GameManager {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
 
+        // Chances
         if(cities[position] instanceof Chances) {
             AlertManager.showError("Non puoi compare le probabilità...");
+
+            // City
         } else if(cities[position] instanceof City) {
             City city = (City) cities[position];
             if(!city.isOwned()) {
@@ -70,26 +73,35 @@ public class GameManager {
             } else {
                 AlertManager.showError("Questa città è gia stata acquistata");
             }
+
+            // Parking
         } else if(cities[position] instanceof Parking) {
-            Parking Parking = (Parking) cities[position];
-            // Do nothing
+            AlertManager.showError("Non puoi compare il parcheggio...");
+
+            // Prison
         } else if(cities[position] instanceof Prison) {
-            Prison prison = (Prison) cities[position];
-            // Do nothing
+            AlertManager.showError("Non puoi compare la prigione...");
+
+            // StartBox
         } else if(cities[position] instanceof StartBox) {
-            StartBox startBox = (StartBox) cities[position];
-            startBox.redeemStart(player);
+            AlertManager.showError("Non puoi compare il via...");
+
+            // Stations
         } else if(cities[position] instanceof Stations) {
             Stations stations = (Stations) cities[position];
             // Todo: implement stations
+
+            // Taxes
         } else if(cities[position] instanceof Taxes) {
-            Taxes taxes = (Taxes) cities[position];
-            taxes.redeemTaxes(player);
+            AlertManager.showError("Non puoi compare le tasse...");
+
+            // ToPrison
         } else if(cities[position] instanceof ToPrison) {
-            ToPrison toPrison = (ToPrison) cities[position];
-            toPrison.toPrison(player);
+            AlertManager.showError("Non puoi compare la prigione...");
+
+            // Treasures
         } else if(cities[position] instanceof Treasures) {
-            Treasures treasures = (Treasures) cities[position];
+            AlertManager.showError("Non puoi compare i tesori...");
             // Todo: implement treasures
         } else {
             if(Monopolio.isDevMode()) {
@@ -103,9 +115,12 @@ public class GameManager {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
 
+        // Chances
         if(cities[position] instanceof Chances) {
             Chances chance = (Chances) cities[position];
             chance.pickRandom(player);
+
+            // City
         } else if(cities[position] instanceof City) {
             City city = (City) cities[position];
             if(city.isOwned() && city.getOwner() != player) {
@@ -113,18 +128,28 @@ public class GameManager {
             } else {
                 // Buy or Auction, smh
             }
+
+            // Parking
         } else if(cities[position] instanceof Parking) {
             Parking Parking = (Parking) cities[position];
             // Do nothing
+
+            // Prison
         } else if(cities[position] instanceof Prison) {
             Prison prison = (Prison) cities[position];
             // Do nothing
+
+            // StartBox
         } else if(cities[position] instanceof StartBox) {
             StartBox startBox = (StartBox) cities[position];
             startBox.redeemStart(player);
+
+            // Stations
         } else if(cities[position] instanceof Stations) {
             Stations stations = (Stations) cities[position];
             // Todo: implement stations
+
+            // Taxes
         } else if(cities[position] instanceof Taxes) {
             Taxes taxes = (Taxes) cities[position];
             taxes.redeemTaxes(player);

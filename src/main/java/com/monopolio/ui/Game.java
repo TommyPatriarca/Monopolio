@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -246,6 +247,41 @@ public class Game extends Application {
 
         // Rimuovi le voci null
         return Arrays.stream(icons).filter(Objects::nonNull).toArray(ImageView[]::new);
+    }
+
+    public ImageView removePlayerIcons(Player player) {
+        Player[] players = gameManager.getPlayers();
+        ImageView icons = new ImageView();
+        String imagePath;
+        int index = 0;
+        int j = 0;
+
+
+        for (Player tmpPlayer : players) {
+            if (tmpPlayer == player) {
+                 imagePath = switch (j) {
+                    case 0 -> "/images/pawns/verde.png";
+                    case 1 -> "/images/pawns/giallo.png";
+                    case 2 -> "/images/pawns/azzurro.png";
+                    case 3 -> "/images/pawns/viola.png";
+                    default -> throw new IllegalStateException("Unexpected value: " + j);
+                };
+                Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)), 100, 100, true, true);
+                break;
+            }
+            j++;
+        }
+
+        for(Node node : getCell(0).getChildren()) {
+            if(node instanceof ImageView) {
+                ImageView imageView = (ImageView) node;
+                if(imageView.getImage().getUrl().equals("")) {
+                    getCell(0).getChildren().remove(imageView);
+                }
+            }
+        }
+
+        return icons;
     }
 
     private void setImage(Button button) {
