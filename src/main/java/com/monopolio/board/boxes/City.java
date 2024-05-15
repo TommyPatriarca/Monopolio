@@ -64,8 +64,9 @@ public class City implements Box {
      * @param player è il giocatore che vuole comprare questa proprietà.
      */
     public void buyPropriety(Player player){
-        if(player.money >=price){
+        if(player.money >= price){
             owner=player;
+            player.removeMoney(price);
         }
         else{
             //non puoi comprare

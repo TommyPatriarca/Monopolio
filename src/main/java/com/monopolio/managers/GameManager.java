@@ -59,6 +59,11 @@ public class GameManager {
             City city = (City) cities[position];
             if(!city.isOwned()) {
                 if(player.getMoney() >= city.getPrice()) {
+                    city.buyPropriety(player);
+                    AlertManager.show("Hai acquistato la proprietà con successo");
+                    if(Monopolio.isDevMode()) {
+                        System.out.println(player.getName() + " (Player) has bought a propety and now has $"+player.getMoney());
+                    }
                 } else {
                     AlertManager.showError("Non hai abbastanza soldi per comprare questa citta");
                 }
