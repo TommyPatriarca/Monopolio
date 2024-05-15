@@ -34,4 +34,9 @@ public class LogManager {
 
         logLabel.setFont(Font.font(logLabel.getFont().getName(), 10));
     }
+
+    private void design(){
+
+    }
+
 }

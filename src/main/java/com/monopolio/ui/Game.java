@@ -35,6 +35,7 @@ public class Game extends Application {
     private ListView<String> logListView;
     private ObservableList<String> logItems;
 
+    private LogManager
 
     public Game(String[] playerNames) {
         cells = new StackPane[32];
@@ -47,14 +48,16 @@ public class Game extends Application {
                 gameManager.setPlayer(i, new Player(""));
             }
         }
-        // Inizializza la lista dei log
-        //logItems = FXCollections.observableArrayList();
-        //logListView = new ListView<>(logItems);
-        //logListView.setPrefWidth(200);
+        //Inizializza la lista dei log
+        logItems = FXCollections.observableArrayList();
+        logListView = new ListView<>(logItems);
+        logListView.setPrefWidth(200);
     }
 
     @Override
     public void start(Stage primaryStage) {
+
+
         // Creazione del layout principale
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
@@ -100,9 +103,6 @@ public class Game extends Application {
         }
 
         root.setLeft(playerNamesBox);
-
-        // Aggiungi il Label dei log alla sinistra del layout principale
-        //root.setLeft(logListView);
 
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
@@ -182,6 +182,24 @@ public class Game extends Application {
         primaryStage.setTitle("Monopolio - Gioco");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // Creazione del StackPane per sovrapporre i nodi
+        StackPane centerStackPane = new StackPane();
+        centerStackPane.setAlignment(Pos.TOP_CENTER);
+        centerStackPane.setPadding(new Insets(10));
+
+        // Creazione del ListView per i log
+        ListView<String> logListView = new ListView<>(logItems);
+        logListView.setPrefSize(400, 300);
+
+        // Aggiungi il ListView dei log al centro del StackPane
+        centerStackPane.getChildren().add(logListView);
+
+        // Aggiungi il GridPane al centro del StackPane
+        centerStackPane.getChildren().add(gridPane);
+
+        // Aggiungi il StackPane al centro del BorderPane
+        root.setCenter(centerStackPane);
 
         gameManager.startGame();
     }
