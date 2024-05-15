@@ -3,14 +3,18 @@ package com.monopolio.ui;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
 import com.monopolio.managers.GameManager;
+import com.monopolio.managers.LogManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +31,9 @@ public class Game extends Application {
     private Image img;
     private ImageView view;
     private StackPane[] cells;
+    private ListView<String> logListView;
+    private ObservableList<String> logItems;
+
 
     public Game(String[] playerNames) {
         cells = new StackPane[32];
@@ -39,6 +46,10 @@ public class Game extends Application {
                 gameManager.setPlayer(i, new Player(""));
             }
         }
+        // Inizializza la lista dei log
+        //logItems = FXCollections.observableArrayList();
+        //logListView = new ListView<>(logItems);
+        //logListView.setPrefWidth(200);
     }
 
     @Override
@@ -88,6 +99,9 @@ public class Game extends Application {
         }
 
         root.setLeft(playerNamesBox);
+
+        // Aggiungi il Label dei log alla sinistra del layout principale
+        //root.setLeft(logListView);
 
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
@@ -226,7 +240,7 @@ public class Game extends Application {
                 };
                 Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)), iconSize, iconSize, true, true);
                 icons[index++] = new ImageView(playImage);
-            }
+        }
             j++;
         }
 
