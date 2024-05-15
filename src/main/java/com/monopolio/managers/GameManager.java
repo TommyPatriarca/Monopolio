@@ -18,6 +18,7 @@ public class GameManager {
 
     public void startGame() {
         for(Player player : players) {
+            player.setOldPosition(0);
             player.setPosition(0);
         }
         players[0].setMyTurn(true);

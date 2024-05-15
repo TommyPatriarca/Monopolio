@@ -44,8 +44,10 @@ public class DiceListener implements EventHandler<ActionEvent> {
             gameManager.handleMovement();
             if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
                 // Togli la pedina precedente
+                game.removePlayerIcons(gameManager.getCurrentPlayer(), game.getCell(gameManager.getCurrentPlayer().getOldPosition()));
+
                 System.out.println("Pawn should be moved to ("+gameManager.getCurrentPlayer().getPosition()+")");
-                ImageView[] playerIcons = game.createPlayerIcons(gameManager.getCurrentPlayer().getPosition(), 100);
+                ImageView[] playerIcons = game.createPlayerIcons(gameManager.getCurrentPlayer().getPosition());
                 for (ImageView icon : playerIcons) {
                     game.getCell(gameManager.getCurrentPlayer().getPosition()).getChildren().add(icon);
                 }

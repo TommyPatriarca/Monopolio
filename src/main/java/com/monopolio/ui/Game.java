@@ -19,12 +19,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Game extends Application {
@@ -35,7 +38,7 @@ public class Game extends Application {
     private ListView<String> logListView;
     private ObservableList<String> logItems;
 
-    private LogManager
+    //private LogManager logManager = new LogManager();
 
     public Game(String[] playerNames) {
         cells = new StackPane[32];
@@ -48,6 +51,7 @@ public class Game extends Application {
                 gameManager.setPlayer(i, new Player(""));
             }
         }
+
         //Inizializza la lista dei log
         logItems = FXCollections.observableArrayList();
         logListView = new ListView<>(logItems);
@@ -189,9 +193,9 @@ public class Game extends Application {
         centerStackPane.setPadding(new Insets(10));
 
         // Creazione del ListView per i log
+        /*
         ListView<String> logListView = new ListView<>(logItems);
         logListView.setPrefSize(400, 300);
-
         // Aggiungi il ListView dei log al centro del StackPane
         centerStackPane.getChildren().add(logListView);
 
@@ -200,6 +204,7 @@ public class Game extends Application {
 
         // Aggiungi il StackPane al centro del BorderPane
         root.setCenter(centerStackPane);
+         */
 
         gameManager.startGame();
     }
@@ -234,7 +239,7 @@ public class Game extends Application {
         cell.getChildren().add(button);
 
         // Aggiungi le icone dei giocatori al StackPane
-        ImageView[] playerIcons = createPlayerIcons(number,100);
+        ImageView[] playerIcons = createPlayerIcons(number);
         for (ImageView icon : playerIcons) {
             cell.getChildren().add(icon);
         }
@@ -242,14 +247,16 @@ public class Game extends Application {
         return cell;
     }
 
-    public ImageView[] createPlayerIcons(int number, int iconSize) {
+    public ImageView[] createPlayerIcons(int number) {
         Player[] players = gameManager.getPlayers();
         ImageView[] icons = new ImageView[4];
         int index = 0;
+        int iconSize = 100; // or the size you use for creating player icons
         int j = 0;
 
         for (Player player : players) {
-            if (player.getPosition() == number) {
+            if (player.getPosition() == number && !player.getName().isEmpty()) {
+                player.setOldPosition(number);
                 String imagePath = switch (j) {
                     case 0 -> "/images/pawns/verde.png";
                     case 1 -> "/images/pawns/giallo.png";
@@ -259,7 +266,7 @@ public class Game extends Application {
                 };
                 Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)), iconSize, iconSize, true, true);
                 icons[index++] = new ImageView(playImage);
-        }
+            }
             j++;
         }
 
@@ -267,40 +274,75 @@ public class Game extends Application {
         return Arrays.stream(icons).filter(Objects::nonNull).toArray(ImageView[]::new);
     }
 
-    public ImageView removePlayerIcons(Player player) {
+    public void removePlayerIcons(Player player, StackPane cell) {
         Player[] players = gameManager.getPlayers();
-        ImageView icons = new ImageView();
-        String imagePath;
-        int index = 0;
+        Image playerImage = null;
+        int iconSize = 100; // or the size you use for creating player icons
         int j = 0;
 
-
+        // Find the image for the specified player
         for (Player tmpPlayer : players) {
-            if (tmpPlayer == player) {
-                 imagePath = switch (j) {
+            if (tmpPlayer.equals(player)) {
+                String imagePath = switch (j) {
                     case 0 -> "/images/pawns/verde.png";
                     case 1 -> "/images/pawns/giallo.png";
                     case 2 -> "/images/pawns/azzurro.png";
                     case 3 -> "/images/pawns/viola.png";
                     default -> throw new IllegalStateException("Unexpected value: " + j);
                 };
-                Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)), 100, 100, true, true);
+                playerImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)), iconSize, iconSize, true, true);
                 break;
             }
             j++;
         }
 
-        for(Node node : getCell(0).getChildren()) {
-            if(node instanceof ImageView) {
-                ImageView imageView = (ImageView) node;
-                if(imageView.getImage().getUrl().equals("")) {
-                    getCell(0).getChildren().remove(imageView);
+        if (playerImage == null) {
+            throw new IllegalArgumentException("Player not found in the game manager's players list.");
+        }
+
+        // Logging player image details for debugging
+        System.out.println("Player image ARGB at (0, 0): " + playerImage.getPixelReader().getArgb(0, 0));
+
+        // Find and remove all instances of the player's icon from the cell
+        List<ImageView> iconsToRemove = new ArrayList<>();
+        for (Node node : cell.getChildren()) {
+            if (node instanceof ImageView imageView) {
+                System.out.println("Checking image in cell: " + imageView.getImage());
+                if (compareImages(imageView.getImage(), playerImage)) {
+                    iconsToRemove.add(imageView);
+                    System.out.println("Marked player icon for removal.");
                 }
             }
         }
 
-        return icons;
+        if (!iconsToRemove.isEmpty()) {
+            cell.getChildren().removeAll(iconsToRemove);
+            System.out.println("Removed player icon(s) from cell.");
+        } else {
+            System.out.println("Player icon not found in the cell.");
+        }
     }
+
+    // Helper method to compare images more thoroughly
+    private boolean compareImages(Image img1, Image img2) {
+        if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) {
+            return false;
+        }
+
+        PixelReader reader1 = img1.getPixelReader();
+        PixelReader reader2 = img2.getPixelReader();
+
+        for (int y = 0; y < img1.getHeight(); y++) {
+            for (int x = 0; x < img1.getWidth(); x++) {
+                if (reader1.getArgb(x, y) != reader2.getArgb(x, y)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 
     private void setImage(Button button) {
         view = new ImageView(img);

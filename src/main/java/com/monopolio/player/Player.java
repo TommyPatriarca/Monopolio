@@ -7,6 +7,7 @@ public class Player {
     private final String name;
     public int money = 1500;
     private int position = 0;
+    private int oldPosition = 0; // Usato per l'immagine della pedina
     private boolean inPrison = false;
     private boolean myTurn = false;
 
@@ -52,11 +53,26 @@ public class Player {
     }
 
     /**
+     * @return la posizione in cui si trovava il giocatore nella griglia.
+     */
+    public int getOldPosition() {
+        return oldPosition;
+    }
+
+    /**
      * Posiziona il giocatore in una casella della griglia.
      * @param position in cui viene posizionato il giocatore.
      */
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    /**
+     * Posiziona salva la vecchia posizione del giocatore per rimuovere le pedine
+     * @param oldPosition in cui vecchia posizione del giocatore.
+     */
+    public void setOldPosition(int oldPosition) {
+        this.oldPosition = oldPosition;
     }
 
     /**
