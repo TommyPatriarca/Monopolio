@@ -3,6 +3,7 @@ package com.monopolio.board.buttons;
 import com.monopolio.listeners.DiceListener;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
+import com.monopolio.ui.Game;
 import com.monopolio.utils.RandUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -16,18 +17,20 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 public class DiceButton extends Button {
+    private Game game;
     private GameManager gameManager;
     private boolean isRolled = false;
     private int value;
     private Image img;
     private ImageView view;
 
-    public DiceButton(GameManager gameManager) {
+    public DiceButton(GameManager gameManager, Game game) {
+        this.game = game;
         //verde 38b000
         //rosso dd0426
         setDefault();
         design();
-        setOnAction(new DiceListener(this, gameManager));
+        setOnAction(new DiceListener(this, gameManager, game));
     }
 
     public void setDefault() {

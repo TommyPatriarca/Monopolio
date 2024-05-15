@@ -26,8 +26,10 @@ public class Game extends Application {
     private GameManager gameManager = new GameManager();
     private Image img;
     private ImageView view;
+    private StackPane[] cells;
 
     public Game(String[] playerNames) {
+        cells = new StackPane[32];
         // Creazione degli oggetti Player basati sui nomi dei giocatori
         for (int i = 0; i < 4; i++) {
             String playerName = playerNames[i];
@@ -107,14 +109,14 @@ public class Game extends Application {
                     } else {
                         number = 33 - i;
                     }
-                    StackPane cell = createCell(number - 1, 30);
-                    gridPane.add(cell, j, i);
+                    cells[number-1] = createCell(number - 1, 30);
+                    gridPane.add(cells[number-1], j, i);
                 }
             }
         }
 
-        gameManager.setDice(0, new DiceButton(gameManager));
-        gameManager.setDice(1, new DiceButton(gameManager));
+        gameManager.setDice(0, new DiceButton(gameManager, this));
+        gameManager.setDice(1, new DiceButton(gameManager, this));
 
         // end turn
         TurnButton endTurnButton = new TurnButton(gameManager, primaryStage);
@@ -207,7 +209,7 @@ public class Game extends Application {
         return cell;
     }
 
-    private ImageView[] createPlayerIcons(int number, int iconSize) {
+    public ImageView[] createPlayerIcons(int number, int iconSize) {
         Player[] players = gameManager.getPlayers();
         ImageView[] icons = new ImageView[4];
         int index = 0;
@@ -232,11 +234,18 @@ public class Game extends Application {
         return Arrays.stream(icons).filter(Objects::nonNull).toArray(ImageView[]::new);
     }
 
-
     private void setImage(Button button) {
         view = new ImageView(img);
         view.setFitHeight(20);
         view.setPreserveRatio(true);
         button.setGraphic(view);
+    }
+
+    public StackPane getCell(int index) {
+        return cells[index];
+    }
+
+    public StackPane[] getCells() {
+        return cells;
     }
 }
