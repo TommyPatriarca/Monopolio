@@ -90,4 +90,5 @@ public class RandUtils {
         final int day = RandUtils.Integer(1, 25);
         return LocalDate.of(year, month, day);
     }
+
 }

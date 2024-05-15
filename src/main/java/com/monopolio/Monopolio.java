@@ -1,6 +1,7 @@
 package com.monopolio;
 
 import com.monopolio.cli.Cli;
+import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
 import com.monopolio.managers.SceneManager;
 import javafx.application.Application;
@@ -14,7 +15,8 @@ import java.util.Scanner;
 public class Monopolio extends Application {
     private static InterfaceManager.InterfaceType interfaceType;
     private static boolean devMode = true;
-    private static Cli cli = new Cli();
+    private static Controllore controllore = new Controllore();
+    private static Cli cli = new Cli(controllore);
     private static Scanner s = new Scanner(System.in);
     /**
      * Crea un oggetto di tipo "SceneManager" e permette di vedere lo schermo.
