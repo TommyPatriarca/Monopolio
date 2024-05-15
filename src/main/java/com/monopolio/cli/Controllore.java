@@ -11,5 +11,7 @@ public class Controllore {
         return RandUtils.Integer(1,4);
     }
 
-
+    public boolean duplicateNames(){
+        return false;   // da modificare
+    }
 }
