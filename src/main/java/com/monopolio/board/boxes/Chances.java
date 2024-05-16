@@ -58,7 +58,6 @@ public class Chances implements Box {
                 break;
             case 1:
                 // Vai alla casella Partenza.
-                player.setOldPosition(player.getPosition());
                 player.setPosition(0);
                 break;
             case 2:
@@ -71,7 +70,6 @@ public class Chances implements Box {
                 break;
             case 4:
                 // Avanza di tre caselle.
-                player.setOldPosition(player.getPosition());
                 player.setPosition(player.getPosition()+3);
                 break;
         }
