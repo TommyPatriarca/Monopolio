@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -16,7 +17,13 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.util.Objects;
+
 public class InterfaceSelection extends Application {
+    Image img;
 
     @Override
     public void start(Stage stage) {
@@ -40,6 +47,9 @@ public class InterfaceSelection extends Application {
 
         // Creazione della scena
         Scene scene = new Scene(layout, 300, 250);
+
+        img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icon.png")));
+        stage.getIcons().add(img);
 
         // Configurazione dello stage
         stage.setTitle("Selezione Interfaccia");
