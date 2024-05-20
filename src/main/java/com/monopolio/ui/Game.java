@@ -132,14 +132,14 @@ public class Game extends Application {
         MuteButton muteButton = new MuteButton();
         toolbarBox.getChildren().add(muteButton);
 
-        TradeButton tradeButton = new TradeButton();
-        toolbarBox.getChildren().add(tradeButton);
+        //TradeButton tradeButton = new TradeButton();
+        //toolbarBox.getChildren().add(tradeButton);
 
         RulesButton rulesButton = new RulesButton(this);
         toolbarBox.getChildren().add(rulesButton);
 
-        SettingsButton settingsButton = new SettingsButton(this, primaryStage);
-        toolbarBox.getChildren().add(settingsButton);
+        //SettingsButton settingsButton = new SettingsButton(this, primaryStage);
+        //toolbarBox.getChildren().add(settingsButton);
 
         root.setRight(toolbarBox);
 

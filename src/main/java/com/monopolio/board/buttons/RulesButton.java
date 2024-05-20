@@ -1,5 +1,6 @@
 package com.monopolio.board.buttons;
 
+import com.monopolio.managers.AlertManager;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -23,6 +24,7 @@ public class RulesButton extends Button {
         // Crea le ImageView per le immagini
         ImageView icon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
+        setOnAction(event -> AlertManager.showRules());
         setGraphic(icon);
     }
 
