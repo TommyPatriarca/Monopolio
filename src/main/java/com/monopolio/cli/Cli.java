@@ -278,7 +278,10 @@ public class Cli {
      * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
      */
     public void handle() {
+
+        gameManager.startGame();
         askDice();
+        askChoose();
     }
 
     /**
@@ -286,23 +289,39 @@ public class Cli {
      */
     public void askDice() {
         boolean flag = false;
-        int n1 = 0, n2 = 0;
+        int d1 = 0, d2 = 0;
+
         do {
-            message("\n\nPremere la barra spaziartrice per tirare i dadi");
+            message("\n\nInserire " + "si" + " per tirare i dadi");
             String choose = s.nextLine();
             if (choose.equals("si")) {
-                n1 = controllore.throwDice();
-                System.out.println("Dado 1 -> " + n1);
-                n2 = controllore.throwDice();
-                System.out.println("Dado 2 -> " + n2);
+                d1 = controllore.throwDice();
+                message("\033[0;36m" + " Dado 1 -> " + d1 + "\033[0m");
+                d2 = controllore.throwDice();
+                message("\033[0;36m" + " Dado 2 -> " + d2 + "\033[0m");
                 flag = true;
             }
-        } while (flag);
+        } while (!flag);
 
-        gameManager.getCurrentPlayer().moveForward(n1 + n2);
+        gameManager.getCurrentPlayer().moveForward(d1 + d2);
+        //message("" + gameManager.getCurrentPlayer().getPosition());
     }
 
 
+    public void askChoose() {
+        int selection = 0;
+        do {
+            message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà");
+            message("\nSelezione -> ");
+            try {
+                selection = Integer.parseInt(s.nextLine());
+            } catch (NumberFormatException e) {
+                messageRed("Non hai inserto un numero");
+            }
+        } while (selection != 0 && selection != 1 && selection != 2);
+
+
+    }
 
 
 
