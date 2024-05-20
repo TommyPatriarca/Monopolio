@@ -23,22 +23,6 @@ public class Cli {
     }
 
     /**
-     * Stampa un messaggio a scelta.
-     *
-     * @param text messaggio che viene stampato.
-     */
-    public void message(String text) {
-        System.out.println(text);
-    }
-
-    /**
-     * Stampa un messaggio a scelta di colore rosso.
-     *
-     * @param text messaggio che viene stampato.
-     */
-    public void messageRed(String text){System.out.println("\033[0;31m" + text + "\033[0m");}
-
-    /**
      * Chiede con quale tipologia di interfaccia si vuole utilizzare il gioco.
      *
      * @return il nbumero intero corrispondente alla scelta.
@@ -56,6 +40,18 @@ public class Cli {
         } while (selection != 1 && selection != 2);
 
         return selection;
+    }
+
+
+    /**
+     * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la tabella.
+     */
+    public void start() {
+        message("\n------ MONOPOLIO ------\n\n");
+        askName();
+        initBoard();
+        printBoard();
+        handle();
     }
 
     /**
@@ -216,23 +212,21 @@ public class Cli {
     }
 
     /**
-     * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la tabella.
+     * Stampa un messaggio a scelta.
+     *
+     * @param text messaggio che viene stampato.
      */
-    public void start() {
-        message("\n------ MONOPOLIO ------\n\n");
-        askName();
-        initBoard();
-        printBoard();
-        handle();
+    public void message(String text) {
+        System.out.println(text);
     }
 
     /**
-     * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
+     * Stampa un messaggio a scelta di colore rosso.
+     *
+     * @param text messaggio che viene stampato.
      */
-    public void handle() {
-        askDice();
+    public void messageRed(String text){System.out.println("\033[0;31m" + text + "\033[0m");}
 
-    }
 
     /**
      * Inizializza la griglia delle città inserendo le città nelle varie posizioni.
@@ -280,6 +274,12 @@ public class Cli {
         }
     }
 
+    /**
+     * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
+     */
+    public void handle() {
+        askDice();
+    }
 
     /**
      * Chiede all'utente di lanciare i dadi.
@@ -301,6 +301,11 @@ public class Cli {
 
         gameManager.getCurrentPlayer().moveForward(n1 + n2);
     }
+
+
+
+
+
 
 
 }
