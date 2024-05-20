@@ -1,5 +1,7 @@
 package com.monopolio.ui;
 
+import com.monopolio.Monopolio;
+import com.monopolio.managers.InterfaceManager;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -8,45 +10,49 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.util.Objects;
 
 public class InterfaceSelection extends Application {
     Image img;
+    Image bkg;
+    int selection;
 
     @Override
     public void start(Stage stage) {
-        // Creazione della scritta "SELEZIONE INTERFACCIA"
-        Label titleLabel = new Label("SELEZIONE INTERFACCIA");
-        titleLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: linear-gradient(to right, cyan, darkcyan);");
-        titleLabel.setFont(Font.font("Arial", 24));
 
         // Creazione dei bottoni CLI e GUI
         Button cliButton = createButton("CLI");
         Button guiButton = createButton("GUI");
+        Button exitButton = createButton("EXIT");
 
         // Gestione degli eventi di clic
         cliButton.setOnAction(e -> handleCliSelection());
         guiButton.setOnAction(e -> handleGuiSelection());
+        exitButton.setOnAction(e -> handleExitSelection());
+
+        cliButton.setTranslateY(100);
+        guiButton.setTranslateY(100);
+        exitButton.setTranslateY(100);
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(titleLabel, cliButton, guiButton);
+        layout.getChildren().addAll( cliButton, guiButton, exitButton);
         layout.setAlignment(Pos.CENTER);
-        layout.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, null)));
+
+
+        // Caricamento dell'immagine di sfondo
+        bkg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/selection2.png")));
+        BackgroundImage backgroundImage = new BackgroundImage(bkg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        layout.setBackground(new Background(backgroundImage));
 
         // Creazione della scena
-        Scene scene = new Scene(layout, 300, 250);
+        Scene scene = new Scene(layout, 500, 650);
 
         img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icon.png")));
         stage.getIcons().add(img);
@@ -54,6 +60,7 @@ public class InterfaceSelection extends Application {
         // Configurazione dello stage
         stage.setTitle("Selezione Interfaccia");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -61,8 +68,7 @@ public class InterfaceSelection extends Application {
     private Button createButton(String text) {
         Button button = new Button(text);
 
-        // Applicazione degli stili per un tema scuro
-        button.setStyle("-fx-background-color: #333333; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 40px; -fx-background-radius: 20px; -fx-border-radius: 20px;");
+        button.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-width: 150px; -fx-pref-height: 40px; -fx-background-radius: 20px; -fx-border-radius: 20px;");
 
         // Aggiunta dell'effetto di Glow
         DropShadow glow = new DropShadow();
@@ -85,16 +91,25 @@ public class InterfaceSelection extends Application {
     // Metodo per gestire la selezione CLI
     private void handleCliSelection() {
         System.out.println("CLI selezionata");
-        // Qui puoi aggiungere il codice per avviare l'interfaccia CLI
+
     }
 
     // Metodo per gestire la selezione GUI
     private void handleGuiSelection() {
         System.out.println("GUI selezionata");
-        // Qui puoi aggiungere il codice per avviare l'interfaccia GUI
+    }
+
+    private void handleExitSelection() {
+        System.out.println("EXIT selezionato");
+        System.exit(0);
+    }
+
+    public int getSelection() {
+        return selection;
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-}
+    }
+
