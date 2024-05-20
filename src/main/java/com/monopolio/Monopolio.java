@@ -4,11 +4,9 @@ import com.monopolio.cli.Cli;
 import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
 import com.monopolio.managers.SceneManager;
-import com.monopolio.ui.InterfaceSelection;
+import com.monopolio.ui.Selection;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.util.Scanner;
 
 /**
  * Rappresenta il punto di partenza del gioco che avvia il programma e la grafica.
@@ -30,8 +28,8 @@ public class Monopolio extends Application {
     }
 
     public static void main(String[] args) {
-        InterfaceSelection interfaceSelection = new InterfaceSelection();
-        interfaceSelection.start(args);
+        Selection selection = new Selection();
+        selection.start(args);
     }
 
     public static boolean isDevMode() {

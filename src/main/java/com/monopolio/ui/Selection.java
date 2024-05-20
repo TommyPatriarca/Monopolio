@@ -4,25 +4,21 @@ import com.monopolio.Monopolio;
 import com.monopolio.cli.Cli;
 import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
-import com.monopolio.managers.SceneManager;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class InterfaceSelection extends Application {
+public class Selection extends Application {
     private Controllore controllore = new Controllore();
     private Cli cli = new Cli(controllore);
 

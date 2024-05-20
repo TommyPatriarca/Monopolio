@@ -8,6 +8,7 @@ import com.monopolio.board.buttons.ChancesButton;
 import com.monopolio.board.buttons.DiceButton;
 import com.monopolio.board.buttons.TreasuresButton;
 import com.monopolio.player.Player;
+import com.monopolio.ui.Game;
 import javafx.scene.control.Button;
 
 public class GameManager {
@@ -16,6 +17,17 @@ public class GameManager {
     private DiceButton[] dices = new DiceButton[2];
     private ChancesButton chancesButton = new ChancesButton();
     private TreasuresButton treasuresButton = new TreasuresButton();
+
+    // CLI
+    public GameManager() {
+
+    }
+
+    // GUI
+    private Game game;
+    public GameManager(Game game) {
+        this.game = game;
+    }
 
     public void startGame() {
         for(Player player : players) {
@@ -107,6 +119,10 @@ public class GameManager {
                 System.out.println("Could not handle property sell");
             }
         }
+
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+            game.refreshPlayersGUI();
+        }
     }
 
     // Handles the player buy propety
@@ -169,6 +185,10 @@ public class GameManager {
                 System.out.println("Could not handle buy property");
             }
         }
+
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+            game.refreshPlayersGUI();
+        }
     }
 
     // Handles the player position once dices are rolled
@@ -224,6 +244,10 @@ public class GameManager {
             if(Monopolio.isDevMode()) {
                 System.out.println("Could not handle player movement");
             }
+        }
+
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+            game.refreshPlayersGUI();
         }
     }
 

@@ -3,7 +3,6 @@ package com.monopolio.ui;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
 import com.monopolio.managers.GameManager;
-import com.monopolio.managers.LogManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -31,12 +30,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class Game extends Application {
-    private GameManager gameManager = new GameManager();
+    private GameManager gameManager = new GameManager(this);
     private Image img;
     private ImageView view;
     private StackPane[] cells;
     private ListView<String> logListView;
     private ObservableList<String> logItems;
+    private BorderPane root;
     private Button selectedButton = null;
     private int selectedButtonIndex = 0;
 
@@ -62,53 +62,14 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-
         // Creazione del layout principale
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         root.setPadding(new Insets(10));
         root.setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         // Creazione della VBox per i nomi dei giocatori
-        VBox playerNamesBox = new VBox();
-        playerNamesBox.setAlignment(Pos.TOP_LEFT);
-        playerNamesBox.setSpacing(10);
-        playerNamesBox.setPadding(new Insets(10, 10, 10, 0));
 
-        // Aggiungi i nomi dei giocatori alla VBox
-        for (int i = 0; i < 4; i++) {
-            if (!gameManager.getPlayer(i).getName().isEmpty()) {
-                HBox playerBox = new HBox();
-                playerBox.setAlignment(Pos.CENTER_LEFT);
-                playerBox.setSpacing(5);
-
-                // Aggiungi un pallino colorato
-                Circle circle = new Circle(5);
-                switch (i) {
-                    case 0 -> circle.setFill(Color.GREEN);
-                    case 1 -> circle.setFill(Color.YELLOW);
-                    case 2 -> circle.setFill(Color.LIGHTBLUE);
-                    case 3 -> circle.setFill(Color.PURPLE);
-                }
-                circle.setStroke(Color.WHITE);
-
-                // Aggiungi il nome del giocatore
-                Label playerNameLabel = new Label(gameManager.getPlayer(i).getName());
-                playerNameLabel.setTextFill(Color.WHITE);
-
-                // Aggiungi contatore soldi dei giocatori
-                Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
-                playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
-
-                // Aggiungi il pallino e il nome del giocatore all'HBox
-                playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);
-
-                // Aggiungi l'HBox alla VBox
-                playerNamesBox.getChildren().add(playerBox);
-            }
-        }
-
-        root.setLeft(playerNamesBox);
+        refreshPlayersGUI();
 
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
@@ -375,5 +336,47 @@ public class Game extends Application {
 
     public void setSelectedButtonIndex(int selectedButtonIndex) {
         this.selectedButtonIndex = selectedButtonIndex;
+    }
+
+    public void refreshPlayersGUI() {
+        VBox playerNamesBox = new VBox();
+        playerNamesBox.setAlignment(Pos.TOP_LEFT);
+        playerNamesBox.setSpacing(10);
+        playerNamesBox.setPadding(new Insets(10, 10, 10, 0));
+
+        // Aggiungi i nomi dei giocatori alla VBox
+        for (int i = 0; i < 4; i++) {
+            if (!gameManager.getPlayer(i).getName().isEmpty()) {
+                HBox playerBox = new HBox();
+                playerBox.setAlignment(Pos.CENTER_LEFT);
+                playerBox.setSpacing(5);
+
+                // Aggiungi un pallino colorato
+                Circle circle = new Circle(5);
+                switch (i) {
+                    case 0 -> circle.setFill(Color.GREEN);
+                    case 1 -> circle.setFill(Color.YELLOW);
+                    case 2 -> circle.setFill(Color.LIGHTBLUE);
+                    case 3 -> circle.setFill(Color.PURPLE);
+                }
+                circle.setStroke(Color.WHITE);
+
+                // Aggiungi il nome del giocatore
+                Label playerNameLabel = new Label(gameManager.getPlayer(i).getName());
+                playerNameLabel.setTextFill(Color.WHITE);
+
+                // Aggiungi contatore soldi dei giocatori
+                Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
+                playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
+
+                // Aggiungi il pallino e il nome del giocatore all'HBox
+                playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);
+
+                // Aggiungi l'HBox alla VBox
+                playerNamesBox.getChildren().add(playerBox);
+            }
+        }
+
+        root.setLeft(playerNamesBox);
     }
 }
