@@ -1,13 +1,7 @@
 package com.monopolio.cli;
 
-import com.monopolio.board.Groups;
-import com.monopolio.board.boxes.*;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-
-import java.awt.*;
 import java.util.Scanner;
 
 /**
@@ -278,7 +272,6 @@ public class Cli {
      * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
      */
     public void handle() {
-
         gameManager.startGame();
         askDice();
         askChoose();
@@ -291,6 +284,7 @@ public class Cli {
         boolean flag = false;
         int d1 = 0, d2 = 0;
 
+        message("\033[0;32m" + "\n\nTURNO DI " + gameManager.getCurrentPlayer().getName().toUpperCase() + "\033[0m");
         do {
             message("\n\nInserire " + "si" + " per tirare i dadi");
             String choose = s.nextLine();
