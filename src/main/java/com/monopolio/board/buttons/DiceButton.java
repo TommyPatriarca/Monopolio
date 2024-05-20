@@ -75,7 +75,7 @@ public class DiceButton extends Button {
     }
 
     public int roll() {
-        value = RandUtils.Integer(1,6);
+        value = RandUtils.Integer(1,4);
 
         switch(value) {
             case 1 -> {
