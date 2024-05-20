@@ -18,7 +18,6 @@ public class Monopolio extends Application {
     private static boolean devMode = true;
     private Controllore controllore = new Controllore();
     private Cli cli = new Cli(controllore);
-    private static Scanner s = new Scanner(System.in);
 
     /**
      * Crea un oggetto di tipo "SceneManager" e permette di vedere lo schermo.
