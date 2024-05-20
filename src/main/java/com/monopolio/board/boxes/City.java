@@ -111,7 +111,7 @@ public class City implements Box {
      */
     public void sellPropriety(Player player){
         if(player.equals(owner) && houseNumber==0){
-            player.addMoney(basePayment/2);
+            player.addMoney(price/2);
             owner = null;
         }
         else{

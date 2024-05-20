@@ -120,7 +120,7 @@ public class GameManager {
             }
         }
 
-        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
             game.refreshPlayersGUI();
         }
     }
@@ -186,7 +186,7 @@ public class GameManager {
             }
         }
 
-        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
             game.refreshPlayersGUI();
         }
     }
@@ -246,7 +246,7 @@ public class GameManager {
             }
         }
 
-        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
             game.refreshPlayersGUI();
         }
     }
