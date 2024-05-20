@@ -1,5 +1,7 @@
 package com.monopolio.board.buttons;
 
+import com.monopolio.listeners.BuyListener;
+import com.monopolio.listeners.SellListener;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
@@ -12,10 +14,11 @@ import javafx.scene.paint.Color;
 
 // TODO stessa cosa del BuyButton
 public class SellButton extends Button {
-    private GameManager gameManager;
+    private Game game;
 
-    public SellButton(GameManager gameManager) {
-        this.gameManager = gameManager;
+    public SellButton(Game game, GameManager gameManager) {
+        this.game = game;
+        setOnAction(new SellListener(game, gameManager));
         design();
     }
 

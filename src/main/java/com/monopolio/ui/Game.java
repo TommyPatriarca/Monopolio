@@ -37,6 +37,8 @@ public class Game extends Application {
     private StackPane[] cells;
     private ListView<String> logListView;
     private ObservableList<String> logItems;
+    private Button selectedButton = null;
+    private int selectedButtonIndex = 0;
 
     //private LogManager logManager = new LogManager();
 
@@ -146,7 +148,7 @@ public class Game extends Application {
         gridPane.add(buyButton, 2, 7);
 
         // sell button
-        SellButton sellButton = new SellButton(gameManager);
+        SellButton sellButton = new SellButton(this, gameManager);
         gridPane.add(sellButton, 6, 7);
 
         // grid pane add dice 0 a (2,2)
@@ -217,7 +219,7 @@ public class Game extends Application {
         button.setPrefSize(110, 110);
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
-        button.setStyle(button.getStyle() + "-fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+        button.setStyle(button.getStyle() + "-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         button.setEffect(new DropShadow(10, Color.BLACK));
 
         if (gameManager.getCity(number) instanceof City city) {
@@ -229,7 +231,7 @@ public class Game extends Application {
         }
 
         // Aggiungi listener alla casella
-        button.setOnAction(new BoxListener(gameManager.getCity(number).getNome()));
+        button.setOnAction(new BoxListener(this, button, number));
 
         // Creazione della StackPane e aggiunta del pulsante
         StackPane cell = new StackPane();
@@ -357,5 +359,21 @@ public class Game extends Application {
 
     public StackPane[] getCells() {
         return cells;
+    }
+
+    public Button getSelectedButton() {
+        return selectedButton;
+    }
+
+    public void setSelectedButton(Button selectedButton) {
+        this.selectedButton = selectedButton;
+    }
+
+    public int getSelectedButtonIndex() {
+        return selectedButtonIndex;
+    }
+
+    public void setSelectedButtonIndex(int selectedButtonIndex) {
+        this.selectedButtonIndex = selectedButtonIndex;
     }
 }

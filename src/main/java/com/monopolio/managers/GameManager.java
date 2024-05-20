@@ -8,6 +8,7 @@ import com.monopolio.board.buttons.ChancesButton;
 import com.monopolio.board.buttons.DiceButton;
 import com.monopolio.board.buttons.TreasuresButton;
 import com.monopolio.player.Player;
+import javafx.scene.control.Button;
 
 public class GameManager {
     private Player[] players = new Player[4];
@@ -46,6 +47,65 @@ public class GameManager {
     public void restoreDices() {
         for(DiceButton dice : dices) {
             dice.enable();
+        }
+    }
+
+    // Handles the player sell propety
+    public void sellPropety(Box box) {
+        Player player = getCurrentPlayer();
+        int position = player.getPosition();
+
+        // Chances
+        if(box instanceof Chances) {
+            AlertManager.showError("Non puoi vendere le probabilità...");
+
+            // City
+        } else if(box instanceof City) {
+            City city = (City) box;
+            if(city.isOwned()) {
+                if(city.getOwner() == player) {
+                    city.sellPropriety(player);
+                    AlertManager.show("Città venduta con successo");
+                } else {
+                    AlertManager.showError("Non sei il proprietario di questa casa");
+                }
+            } else {
+                AlertManager.showError("Questa città non è stata ancora acquistata");
+            }
+
+            // Parking
+        } else if(box instanceof Parking) {
+            AlertManager.showError("Non puoi vendere il parcheggio...");
+
+            // Prison
+        } else if(box instanceof Prison) {
+            AlertManager.showError("Non puoi vendere la prigione...");
+
+            // StartBox
+        } else if(box instanceof StartBox) {
+            AlertManager.showError("Non puoi vendere il via...");
+
+            // Stations
+        } else if(box instanceof Stations) {
+            Stations stations = (Stations) box;
+            // Todo: implement stations
+
+            // Taxes
+        } else if(box instanceof Taxes) {
+            AlertManager.showError("Non puoi vendere le tasse...");
+
+            // ToPrison
+        } else if(box instanceof ToPrison) {
+            AlertManager.showError("Non puoi vendere la prigione...");
+
+            // Treasures
+        } else if(box instanceof Treasures) {
+            AlertManager.showError("Non puoi vendere i tesori...");
+            // Todo: implement treasures
+        } else {
+            if(Monopolio.isDevMode()) {
+                System.out.println("Could not handle property sell");
+            }
         }
     }
 
@@ -106,7 +166,7 @@ public class GameManager {
             // Todo: implement treasures
         } else {
             if(Monopolio.isDevMode()) {
-                System.out.println("Could not handle player movement");
+                System.out.println("Could not handle buy property");
             }
         }
     }
