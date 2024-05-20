@@ -32,6 +32,13 @@ public class Cli {
     }
 
     /**
+     * Stampa un messaggio a scelta di colore rosso.
+     *
+     * @param text messaggio che viene stampato.
+     */
+    public void messageRed(String text){System.out.println("\033[0;31m" + text + "\033[0m");}
+
+    /**
      * Chiede con quale tipologia di interfaccia si vuole utilizzare il gioco.
      *
      * @return il nbumero intero corrispondente alla scelta.
@@ -39,12 +46,12 @@ public class Cli {
     public int askInterface() {
         int selection = 0;
         do {
-            System.out.println("Benvenuto!\nCon che tipo di interfaccia vuoi giocare?\n[1] CLI\n[2] GUI");
-            System.out.print("\nSelezione -> ");
+            message("Benvenuto!\nCon che tipo di interfaccia vuoi giocare?\n[1] CLI\n[2] GUI");
+            message("\nSelezione -> ");
             try {
                 selection = Integer.parseInt(s.nextLine());
             } catch (NumberFormatException e) {
-                //TODO NON HA MESSO ROUN NUMERO
+                messageRed("Non hai inserto un numero");
             }
         } while (selection != 1 && selection != 2);
 
@@ -56,12 +63,15 @@ public class Cli {
      */
     public void askName() {
         int nPlayer = 0;
+        boolean flag2, flag;
+        Player[] players = new Player[4];
+
         do {
-            System.out.println("Quanti giocatori vogliono giocare? ( mininimo -> 2 massimo -> 4)");
+            message("Quanti giocatori vogliono giocare? ( mininimo -> 2 massimo -> 4)");
             try {
                 nPlayer = Integer.parseInt(s.nextLine());
             } catch (NumberFormatException e) {
-                //TODO NON HA MESSO ROUN NUMERO
+                messageRed("Non hai inserto un numero");
             }
 
         } while (!(nPlayer >= 2 && nPlayer <= 4));
@@ -70,30 +80,138 @@ public class Cli {
         //Inserisce nomi
         switch (nPlayer) {
             case 2:
-                boolean flag = true;
+                flag = true;
                 do {
-                    System.out.println("Inserisci il nome del giocatore 1");
+                    message("Inserisci il nome del giocatore 1");
                     String n1 = s.nextLine();
                     Player player1 = new Player(n1);
-                    System.out.println("Inserisci il nome del giocatore 2");
+                    players[0] = player1;
+
+                    message("Inserisci il nome del giocatore 2");
                     String n2 = s.nextLine();
                     Player player2 = new Player(n2);
-                    flag = controllore.duplicateNames();
-                    if (!flag) {
-                        player1 = new Player(n1);
-                        player2 = new Player(n2);
-                        Player player3 = new Player("");
-                        Player player4 = new Player("");
-                        gameManager.setPlayer(0,player1);
-                        gameManager.setPlayer(1,player2);
-                        gameManager.setPlayer(2,player3);
-                        gameManager.setPlayer(3,player4);
-                        flag = true;
-                    }
-                } while (!flag);
-            break;
+                    players[1] = player2;
 
-            //case 3:
+                    Player player3 = new Player("");
+                    players[2] = player3;
+                    Player player4 = new Player("");
+                    players[3] = player4;
+
+                    flag2 = controllore.duplicateNames(players);
+
+                    //SE I NOMI SONO DUPLICATI
+                    if (flag2 == false) {
+                        gameManager.setPlayer(0, player1);
+                        message(gameManager.getPlayer(0).getName());
+
+                        gameManager.setPlayer(1, player2);
+                        message(gameManager.getPlayer(1).getName());
+
+                        gameManager.setPlayer(2, player3);
+                        message(gameManager.getPlayer(2).getName());
+
+                        gameManager.setPlayer(3, player4);
+                        message(gameManager.getPlayer(3).getName());
+
+                        flag = false;
+                    } else {
+                        messageRed("Non puoi inserire un nome uguale ad un altro");
+                    }
+
+                } while (flag);
+                break;
+
+            case 3:
+                flag = true;
+                do {
+                    message("Inserisci il nome del giocatore 1");
+                    String n1 = s.nextLine();
+                    Player player1 = new Player(n1);
+                    players[0] = player1;
+
+                    message("Inserisci il nome del giocatore 2");
+                    String n2 = s.nextLine();
+                    Player player2 = new Player(n2);
+                    players[1] = player2;
+
+                    message("Inserisci il nome del giocatore 2");
+                    String n3 = s.nextLine();
+                    Player player3 = new Player(n3);
+                    players[2] = player3;
+
+                    Player player4 = new Player("");
+                    players[3] = player4;
+
+                    flag2 = controllore.duplicateNames(players);
+
+                    //SE I NOMI SONO DUPLICATI
+                    if (flag2 == false) {
+                        gameManager.setPlayer(0, player1);
+                        message(gameManager.getPlayer(0).getName());
+
+                        gameManager.setPlayer(1, player2);
+                        message(gameManager.getPlayer(1).getName());
+
+                        gameManager.setPlayer(2, player3);
+                        message(gameManager.getPlayer(2).getName());
+
+                        gameManager.setPlayer(3, player4);
+                        message(gameManager.getPlayer(3).getName());
+
+                        flag = false;
+                    } else {
+                        messageRed("Non puoi inserire un nome uguale ad un altro");
+                    }
+
+                } while (flag);
+                break;
+
+            case 4:
+                flag = true;
+                do {
+                    message("Inserisci il nome del giocatore 1");
+                    String n1 = s.nextLine();
+                    Player player1 = new Player(n1);
+                    players[0] = player1;
+
+                    message("Inserisci il nome del giocatore 2");
+                    String n2 = s.nextLine();
+                    Player player2 = new Player(n2);
+                    players[1] = player2;
+
+                    message("Inserisci il nome del giocatore 2");
+                    String n3 = s.nextLine();
+                    Player player3 = new Player(n3);
+                    players[2] = player3;
+
+                    message("Inserisci il nome del giocatore 2");
+                    String n4 = s.nextLine();
+                    Player player4 = new Player(n4);
+                    players[3] = player4;
+
+                    flag2 = controllore.duplicateNames(players);
+
+                    //SE I NOMI SONO DUPLICATI
+                    if (flag2 == false) {
+                        gameManager.setPlayer(0, player1);
+                        message(gameManager.getPlayer(0).getName());
+
+                        gameManager.setPlayer(1, player2);
+                        message(gameManager.getPlayer(1).getName());
+
+                        gameManager.setPlayer(2, player3);
+                        message(gameManager.getPlayer(2).getName());
+
+                        gameManager.setPlayer(3, player4);
+                        message(gameManager.getPlayer(3).getName());
+
+                        flag = false;
+                    } else {
+                        messageRed("Non puoi inserire un nome uguale ad un altro");
+                    }
+
+                } while (flag);
+                break;
         }
     }
 
@@ -101,7 +219,7 @@ public class Cli {
      * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la tabella.
      */
     public void start() {
-        System.out.println("\n------ MONOPOLIO ------\n\n");
+        message("\n------ MONOPOLIO ------\n\n");
         askName();
         initBoard();
         printBoard();
@@ -147,14 +265,14 @@ public class Cli {
             for (int j = 0; j < 9; j++) {
                 if (i == 0 || i == 8 || j == 0 || j == 8) {
                     if (i == 0) {
-                        System.out.print(gameManager.getCity(j).getNome().replace("\n", " ") + "   ");
+                        message(gameManager.getCity(j).getNome().replace("\n", " ") + "   ");
                     } else if (i == 8) {
-                        System.out.print(gameManager.getCity(24 - j).getNome().replace("\n", "     ") + "   ");
+                        message(gameManager.getCity(24 - j).getNome().replace("\n", "     ") + "   ");
                     } else if (j == 0) {
                         System.out.println();
-                        System.out.print(gameManager.getCity(32 - i).getNome().replace("\n", " ") + "                                                                                        ");
+                        message(gameManager.getCity(32 - i).getNome().replace("\n", " ") + "                                                                                        ");
                     } else {
-                        System.out.print(gameManager.getCity(8 + i).getNome().replace("\n", " ") + "   \n\n\n");
+                        message(gameManager.getCity(8 + i).getNome().replace("\n", " ") + "   \n\n\n");
                     }
 
                 }
