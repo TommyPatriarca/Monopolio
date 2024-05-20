@@ -138,6 +138,9 @@ public class Game extends Application {
         RulesButton rulesButton = new RulesButton(this);
         toolbarBox.getChildren().add(rulesButton);
 
+        InfoButton infoButton = new InfoButton(gameManager, this);
+        toolbarBox.getChildren().add(infoButton);
+
         //SettingsButton settingsButton = new SettingsButton(this, primaryStage);
         //toolbarBox.getChildren().add(settingsButton);
 
