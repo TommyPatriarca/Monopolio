@@ -1,7 +1,10 @@
 package com.monopolio.cli;
 
+import com.monopolio.board.Box;
+import com.monopolio.board.boxes.City;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
+
 import java.util.Scanner;
 
 /**
@@ -223,7 +226,9 @@ public class Cli {
      *
      * @param text messaggio che viene stampato.
      */
-    public void messageRed(String text){System.out.println("\033[0;31m" + text + "\033[0m");}
+    public void messageRed(String text) {
+        System.out.println("\033[0;31m" + text + "\033[0m");
+    }
 
 
     /**
@@ -305,7 +310,9 @@ public class Cli {
         //message("" + gameManager.getCurrentPlayer().getPosition());
     }
 
-
+    /**
+     * Chiede all'utente l'azione che vuole eseguire.
+     */
     public void askChoose() {
         int selection = 0;
         do {
@@ -318,11 +325,58 @@ public class Cli {
             }
         } while (selection != 0 && selection != 1 && selection != 2);
 
+        switch (selection) {
+            case 0:
+                System.exit(0);
+                break;
+            case 1:
+                City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
 
+                if (city.isOwned()) {
+                    messageRed("Non puoi comprare una proprietà che è già posseduta da qualcuno");
+                    break;
+                }
+
+                if (city.getPrice() > gameManager.getCurrentPlayer().getMoney()) {
+                    messageRed("Non puoi comprare una proprietà se non disponi abbastanza soldi");
+                } else {
+                    city.buyPropriety(gameManager.getCurrentPlayer());
+                    message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
+                }
+                break;
+            case 2:
+                //Todo: aggiungere if per vedere se è non è una città
+
+                city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                boolean flag = false;
+                int count = 0;
+
+                do{
+                    message("Quale proprietà vuoi vendere?");
+                    String choose = s.nextLine();
+
+                    //CONTROLLO ESISTENZA CITTA
+                    for(Box c : gameManager.getCities()){
+                        if(c.getNome().toLowerCase().equals(choose.toLowerCase())){
+                            count++;
+                            flag = true;
+                        }
+                    }
+
+                    if(count == 0){
+                        messageRed("La città che hai inserito non esiste");
+                    }
+                }while(!flag);
+
+                if (!city.isOwned()) {
+                    messageRed("Non puoi vendere una proprietà che non possiedi");
+                    break;
+                } else {
+                    city.sellPropriety(gameManager.getCurrentPlayer());
+                    message("\033[0;33m" + "Proprietà " + city.getNome() + " venduta con successo" + "\033[0m");
+                }
+        }
     }
-
-
-
 
 
 }
