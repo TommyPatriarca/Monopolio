@@ -9,7 +9,6 @@ import com.monopolio.board.buttons.DiceButton;
 import com.monopolio.board.buttons.TreasuresButton;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
-import javafx.scene.control.Button;
 
 public class GameManager {
     private Player[] players = new Player[4];
@@ -78,6 +77,9 @@ public class GameManager {
                 if(city.getOwner() == player) {
                     city.sellPropriety(player);
                     AlertManager.show("Città venduta con successo");
+                    if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                        sellOutline();
+                    }
                 } else {
                     AlertManager.showError("Non sei il proprietario di questa casa");
                 }
@@ -143,6 +145,9 @@ public class GameManager {
                     AlertManager.show("Hai acquistato la proprietà con successo");
                     if(Monopolio.isDevMode()) {
                         System.out.println(player.getName() + " (Player) has bought a propety and now has $"+player.getMoney());
+                    }
+                    if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null && game.getSelectedButtonIndex() != position) {
+                        buyOutline(player, position);
                     }
                 } else {
                     AlertManager.showError("Non hai abbastanza soldi per comprare questa citta");
@@ -355,6 +360,78 @@ public class GameManager {
                     System.out.println("Could not find city....");
                 }
         }
+    }
+
+    private void sellOutline() {
+        game.getButton(game.getSelectedButtonIndex()).setStyle("-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+        game.setSelectedButton(null);
+        game.setSelectedButtonIndex(0);
+    }
+
+    public void buyOutline(Player player, int position) {
+        for(int i=0;i<getPlayers().length;i++) {
+            if(getPlayer(i) == player) {
+                switch(i) {
+                    case 0:
+                        game.getButton(position).setStyle("-fx-cursor: hand; -fx-border-color: green; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                        break;
+                    case 1:
+                        game.getButton(position).setStyle("-fx-cursor: hand; -fx-border-color: yellow; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                        break;
+                    case 2:
+                        game.getButton(position).setStyle("-fx-cursor: hand; -fx-border-color: cyan; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                        break;
+                    case 3:
+                        game.getButton(position).setStyle("-fx-cursor: hand; -fx-border-color: purple; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                        break;
+
+                    default:
+                        game.getButton(position).setStyle("-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                        break;
+                }
+
+                break;
+            }
+        }
+    }
+
+    public boolean isPropertyOwned(int index) {
+        // City
+        if(cities[index] instanceof City) {
+            City city = (City) cities[index];
+            if(city.isOwned()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Player getPropertyOwner(int index) {
+        // City
+        if(cities[index] instanceof City) {
+            City city = (City) cities[index];
+            if(city.isOwned()) {
+                return city.getOwner();
+            }
+        }
+
+        return null;
+    }
+
+    public int getPropertyOwnerIndex(int index) {
+        // City
+        if(cities[index] instanceof City) {
+            City city = (City) cities[index];
+            if(city.isOwned()) {
+                for(int i=0;i<players.length;i++) {
+                    if(getPlayer(i) == city.getOwner()) {
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return -1;
     }
 
     public Player getPlayer(int index) {

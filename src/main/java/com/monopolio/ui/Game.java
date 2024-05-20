@@ -37,6 +37,7 @@ public class Game extends Application {
     private ListView<String> logListView;
     private ObservableList<String> logItems;
     private BorderPane root;
+    private Button[] buttons = new Button[32];
     private Button selectedButton = null;
     private int selectedButtonIndex = 0;
 
@@ -192,11 +193,13 @@ public class Game extends Application {
         }
 
         // Aggiungi listener alla casella
-        button.setOnAction(new BoxListener(this, button, number));
+        button.setOnAction(new BoxListener(gameManager, this, button, number));
 
         // Creazione della StackPane e aggiunta del pulsante
         StackPane cell = new StackPane();
         cell.setAlignment(Pos.CENTER);
+
+        buttons[number] = button;
 
         // Aggiungi il pulsante al StackPane
         cell.getChildren().add(button);
@@ -378,5 +381,9 @@ public class Game extends Application {
         }
 
         root.setLeft(playerNamesBox);
+    }
+
+    public Button getButton(int index) {
+        return buttons[index];
     }
 }
