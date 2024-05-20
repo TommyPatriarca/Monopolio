@@ -1,7 +1,10 @@
 package com.monopolio.ui;
 
 import com.monopolio.Monopolio;
+import com.monopolio.cli.Cli;
+import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
+import com.monopolio.managers.SceneManager;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -20,13 +23,18 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class InterfaceSelection extends Application {
+    private Controllore controllore = new Controllore();
+    private Cli cli = new Cli(controllore);
+
     Image img;
     Image bkg;
     int selection;
+    Stage stage;
+    Monopolio monopolio = new Monopolio();
 
     @Override
     public void start(Stage stage) {
-
+        this.stage = stage;
         // Creazione dei bottoni CLI e GUI
         Button cliButton = createButton("CLI");
         Button guiButton = createButton("GUI");
@@ -42,7 +50,7 @@ public class InterfaceSelection extends Application {
         exitButton.setTranslateY(100);
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll( cliButton, guiButton, exitButton);
+        layout.getChildren().addAll(cliButton, guiButton, exitButton);
         layout.setAlignment(Pos.CENTER);
 
 
@@ -90,13 +98,16 @@ public class InterfaceSelection extends Application {
 
     // Metodo per gestire la selezione CLI
     private void handleCliSelection() {
-        System.out.println("CLI selezionata");
-
+        Monopolio.setInterfaceType(InterfaceManager.InterfaceType.CLI);
+        stage.close();
+        monopolio.getCli().start();
     }
 
     // Metodo per gestire la selezione GUI
     private void handleGuiSelection() {
-        System.out.println("GUI selezionata");
+        Monopolio.setInterfaceType(InterfaceManager.InterfaceType.GUI);
+        stage.close();
+        monopolio.start(new Stage());
     }
 
     private void handleExitSelection() {
@@ -108,8 +119,7 @@ public class InterfaceSelection extends Application {
         return selection;
     }
 
-    public static void main(String[] args) {
+    public void start(String[] args) {
         launch(args);
     }
-    }
-
+}

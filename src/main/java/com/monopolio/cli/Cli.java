@@ -214,6 +214,10 @@ public class Cli {
         System.out.println(text);
     }
 
+    public void messagePrint(String text) {
+        System.out.print(text);
+    }
+
     /**
      * Stampa un messaggio a scelta di colore rosso.
      *
@@ -253,14 +257,14 @@ public class Cli {
             for (int j = 0; j < 9; j++) {
                 if (i == 0 || i == 8 || j == 0 || j == 8) {
                     if (i == 0) {
-                        message(gameManager.getCity(j).getNome().replace("\n", " ") + "   ");
+                        messagePrint(gameManager.getCity(j).getNome().replace("\n", " ") + "   ");
                     } else if (i == 8) {
-                        message(gameManager.getCity(24 - j).getNome().replace("\n", "     ") + "   ");
+                        messagePrint(gameManager.getCity(24 - j).getNome().replace("\n", "     ") + "   ");
                     } else if (j == 0) {
                         System.out.println();
-                        message(gameManager.getCity(32 - i).getNome().replace("\n", " ") + "                                                                                        ");
+                        messagePrint(gameManager.getCity(32 - i).getNome().replace("\n", " ") + "                                                                                        ");
                     } else {
-                        message(gameManager.getCity(8 + i).getNome().replace("\n", " ") + "   \n\n\n");
+                        messagePrint(gameManager.getCity(8 + i).getNome().replace("\n", " ") + "   \n\n\n");
                     }
 
                 }
