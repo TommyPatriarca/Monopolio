@@ -52,7 +52,7 @@ public class Mode extends Application {
         shadow.setRadius(50); // Imposta il blur
         shadow.setSpread(0.1); // Imposta l'intensità
 
-        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icon.png")));
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/buildings.png")));
         modeStage.getIcons().add(img);
 
         // Creazione del testo "MONO"

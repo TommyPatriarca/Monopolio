@@ -6,15 +6,18 @@ import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -27,10 +30,13 @@ public class Selection extends Application {
     int selection;
     Stage stage;
     Monopolio monopolio = new Monopolio();
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @Override
     public void start(Stage stage) {
         this.stage = stage;
+
         // Creazione dei bottoni CLI e GUI
         Button cliButton = createButton("CLI");
         Button guiButton = createButton("GUI");
@@ -49,29 +55,65 @@ public class Selection extends Application {
         layout.getChildren().addAll(cliButton, guiButton, exitButton);
         layout.setAlignment(Pos.CENTER);
 
+        // Creazione della barra del titolo personalizzata
+        HBox titleBar = createCustomTitleBar();
+
+        BorderPane root = new BorderPane();
+        root.setTop(titleBar);
+        root.setCenter(layout);
 
         // Caricamento dell'immagine di sfondo
         bkg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/selection2.png")));
         BackgroundImage backgroundImage = new BackgroundImage(bkg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        layout.setBackground(new Background(backgroundImage));
+        root.setBackground(new Background(backgroundImage));
 
         // Creazione della scena
-        Scene scene = new Scene(layout, 500, 650);
+        Scene scene = new Scene(root, 500, 650);
 
-        img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icon.png")));
+        img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/buildings.png")));
         stage.getIcons().add(img);
 
         // Configurazione dello stage
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Selezione Interfaccia");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }
 
+    // Metodo per creare la barra del titolo personalizzata
+    private HBox createCustomTitleBar() {
+        HBox titleBar = new HBox();
+        titleBar.setStyle("-fx-background-color: transparent; -fx-padding: 10px;");
+
+        // Regione per spingere il pulsante di chiusura a destra
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Button closeButton = new Button("x");
+        closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+        closeButton.setOnAction(e -> stage.close());
+
+        titleBar.getChildren().addAll(spacer, closeButton);
+
+        titleBar.setOnMousePressed((MouseEvent event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        titleBar.setOnMouseDragged((MouseEvent event) -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+        // Aggiunta di margini per abbassare la barra del titolo
+        VBox.setMargin(titleBar, new Insets(10, 0, 0, 0));
+
+        return titleBar;
+    }
+
     // Metodo per creare un bottone
     private Button createButton(String text) {
         Button button = new Button(text);
-
         button.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-width: 150px; -fx-pref-height: 40px; -fx-background-radius: 20px; -fx-border-radius: 20px;");
 
         // Aggiunta dell'effetto di Glow
