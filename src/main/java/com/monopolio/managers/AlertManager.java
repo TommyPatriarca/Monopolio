@@ -49,7 +49,7 @@ public class AlertManager {
             alert.showAndWait();
         } else {
             // CLI
-            //System.out.println("Rules");
+            System.out.println("Rules");
         }
     }
     public static void show(String string) {
@@ -82,15 +82,12 @@ public class AlertManager {
             });
 
             alert.showAndWait();
-        } else {
-            // CLI
-            //System.out.println(string);
         }
     }
 
     /**
      * Viene utilizzato per mostrare un messaggio di errore .
-     * @param primaryStage schermata sulla quale viene mostrato il messaggio di errore.
+     * @param error stringa di errore da stampare a schermo
      */
     public static void showError(String error) {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
@@ -125,9 +122,6 @@ public class AlertManager {
             });
 
             alert.showAndWait();
-        } else {
-            // CLI
-            //System.out.println("\033[0;31m" + error + "\033[0m");
         }
     }
 

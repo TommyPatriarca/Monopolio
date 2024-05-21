@@ -23,6 +23,12 @@ public class TurnListener implements EventHandler<ActionEvent> {
             return;
         }
 
+        if(gameManager.getCurrentPlayer().getMoney() < 0) {
+            // the player cannot end turn if dices are not rolled.
+            AlertManager.showError("Non puoi terminare il turno con il saldo in negativo");
+            return;
+        }
+
         for(int i=0; i<4; i++) {
             if(gameManager.getPlayer(i).isMyTurn()) {
                 gameManager.getPlayer(i).setMyTurn(false);

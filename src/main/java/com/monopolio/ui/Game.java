@@ -373,7 +373,11 @@ public class Game extends Application {
 
                 // Aggiungi contatore soldi dei giocatori
                 Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
-                playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
+                if(gameManager.getPlayer(i).getMoney() >= 0) {
+                    playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
+                } else {
+                    playerMoneyLabel.setTextFill(Color.RED);
+                }
 
                 // Aggiungi il pallino e il nome del giocatore all'HBox
                 playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);

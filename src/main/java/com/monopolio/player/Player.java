@@ -5,7 +5,7 @@ package com.monopolio.player;
  */
 public class Player {
     private final String name;
-    public int money = 1500;
+    public int money = -1500;
     private int position = 0;
     private int oldPosition = 0; // Usato per l'immagine della pedina
     private boolean inPrison = false;
