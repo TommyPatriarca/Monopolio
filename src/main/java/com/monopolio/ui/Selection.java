@@ -138,7 +138,7 @@ public class Selection extends Application {
     private void handleCliSelection() {
         Monopolio.setInterfaceType(InterfaceManager.InterfaceType.CLI);
         stage.close();
-        monopolio.getCli().start();
+        monopolio.getCli().startCli();
     }
 
     // Metodo per gestire la selezione GUI

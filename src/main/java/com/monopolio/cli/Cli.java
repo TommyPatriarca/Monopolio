@@ -7,6 +7,7 @@ import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,10 @@ public class Cli {
     private Scanner s = new Scanner(System.in);
     private GameManager gameManager = new GameManager();
     private Controllore controllore;
+    private ArrayList<Box> posssedute1 = new ArrayList<Box>();
+    private ArrayList<Box> posssedute2 = new ArrayList<Box>();
+    private ArrayList<Box> posssedute3 = new ArrayList<Box>();
+    private ArrayList<Box> posssedute4 = new ArrayList<Box>();
 
     public Cli(Controllore controllore) {
         this.controllore = controllore;
@@ -29,8 +34,8 @@ public class Cli {
     public int askInterface() {
         int selection = 0;
         do {
-            message("Benvenuto!\nCon che tipo di interfaccia vuoi giocare?\n[1] CLI\n[2] GUI");
-            message("\nSelezione -> ");
+            messagePrint("Benvenuto!\nCon che tipo di interfaccia vuoi giocare?\n[1] CLI\n[2] GUI");
+            messagePrint("\nSelezione -> ");
             try {
                 selection = Integer.parseInt(s.nextLine());
             } catch (NumberFormatException e) {
@@ -45,8 +50,8 @@ public class Cli {
     /**
      * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la tabella.
      */
-    public void start() {
-        message("\n------ MONOPOLIO ------\n\n");
+    public void startCli() {
+        message("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
         askName();
         initBoard();
         printBoard();
@@ -62,7 +67,8 @@ public class Cli {
         Player[] players = new Player[4];
 
         do {
-            message("Quanti giocatori vogliono giocare? ( mininimo -> 2 massimo -> 4)");
+            messagePrint("Quanti giocatori vogliono giocare? ( mininimo -> 2 massimo -> 4)");
+            messagePrint("\nSelezione -> ");
             try {
                 nPlayer = Integer.parseInt(s.nextLine());
             } catch (NumberFormatException e) {
@@ -77,12 +83,15 @@ public class Cli {
             case 2:
                 flag = true;
                 do {
-                    message("Inserisci il nome del giocatore 1");
+                    messagePrint("\nInserisci il nome del giocatore 1");
+                    messagePrint("\nSelezione -> ");
                     String n1 = s.nextLine();
+
                     Player player1 = new Player(n1);
                     players[0] = player1;
 
-                    message("Inserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nSelezione -> ");
                     String n2 = s.nextLine();
                     Player player2 = new Player(n2);
                     players[1] = player2;
@@ -97,17 +106,10 @@ public class Cli {
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
                         gameManager.setPlayer(0, player1);
-                        message(gameManager.getPlayer(0).getName());
-
                         gameManager.setPlayer(1, player2);
-                        message(gameManager.getPlayer(1).getName());
-
                         gameManager.setPlayer(2, player3);
-                        message(gameManager.getPlayer(2).getName());
-
                         gameManager.setPlayer(3, player4);
-                        message(gameManager.getPlayer(3).getName());
-
+                        message("\n");
                         flag = false;
                     } else {
                         messageRed("Non puoi inserire un nome uguale ad un altro");
@@ -119,17 +121,20 @@ public class Cli {
             case 3:
                 flag = true;
                 do {
-                    message("Inserisci il nome del giocatore 1");
+                    messagePrint("\nInserisci il nome del giocatore 1");
+                    messagePrint("\nSelezione -> ");
                     String n1 = s.nextLine();
                     Player player1 = new Player(n1);
                     players[0] = player1;
 
-                    message("Inserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nSelezione -> ");
                     String n2 = s.nextLine();
                     Player player2 = new Player(n2);
                     players[1] = player2;
 
-                    message("Inserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nSelezione -> ");
                     String n3 = s.nextLine();
                     Player player3 = new Player(n3);
                     players[2] = player3;
@@ -142,17 +147,10 @@ public class Cli {
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
                         gameManager.setPlayer(0, player1);
-                        message(gameManager.getPlayer(0).getName());
-
                         gameManager.setPlayer(1, player2);
-                        message(gameManager.getPlayer(1).getName());
-
                         gameManager.setPlayer(2, player3);
-                        message(gameManager.getPlayer(2).getName());
-
                         gameManager.setPlayer(3, player4);
-                        message(gameManager.getPlayer(3).getName());
-
+                        message("\n");
                         flag = false;
                     } else {
                         messageRed("Non puoi inserire un nome uguale ad un altro");
@@ -164,22 +162,26 @@ public class Cli {
             case 4:
                 flag = true;
                 do {
-                    message("Inserisci il nome del giocatore 1");
+                    messagePrint("\nInserisci il nome del giocatore 1");
+                    messagePrint("\nSelezione -> ");
                     String n1 = s.nextLine();
                     Player player1 = new Player(n1);
                     players[0] = player1;
 
-                    message("Inserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nSelezione -> ");
                     String n2 = s.nextLine();
                     Player player2 = new Player(n2);
                     players[1] = player2;
 
-                    message("Inserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nSelezione -> ");
                     String n3 = s.nextLine();
                     Player player3 = new Player(n3);
                     players[2] = player3;
 
-                    message("Inserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nSelezione -> ");
                     String n4 = s.nextLine();
                     Player player4 = new Player(n4);
                     players[3] = player4;
@@ -189,17 +191,10 @@ public class Cli {
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
                         gameManager.setPlayer(0, player1);
-                        message(gameManager.getPlayer(0).getName());
-
                         gameManager.setPlayer(1, player2);
-                        message(gameManager.getPlayer(1).getName());
-
                         gameManager.setPlayer(2, player3);
-                        message(gameManager.getPlayer(2).getName());
-
                         gameManager.setPlayer(3, player4);
-                        message(gameManager.getPlayer(3).getName());
-
+                        message("\n");
                         flag = false;
                     } else {
                         messageRed("Non puoi inserire un nome uguale ad un altro");
@@ -211,32 +206,9 @@ public class Cli {
     }
 
     /**
-     * Stampa un messaggio a scelta.
-     *
-     * @param text messaggio che viene stampato.
-     */
-    public static void message(String text) {
-        System.out.println(text);
-    }
-
-    public void messagePrint(String text) {
-        System.out.print(text);
-    }
-
-    /**
-     * Stampa un messaggio a scelta di colore rosso.
-     *
-     * @param text messaggio che viene stampato.
-     */
-    public static void messageRed(String text) {
-        System.out.println("\033[0;31m" + text + "\033[0m");
-    }
-
-
-    /**
      * Inizializza la griglia delle città inserendo le città nelle varie posizioni.
      */
-    private void initBoard() {
+    public void initBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (i == 0 || i == 8 || j == 0 || j == 8) {
@@ -287,10 +259,10 @@ public class Cli {
         gameManager.startGame();
 
         //Todo: fare controllo bancarotta per terminare.
-        while(true){
+        while (true) {
             askDice();
             flag = false;
-            while(!flag){
+            while (!flag) {
                 flag = askChoose();
             }
         }
@@ -303,22 +275,23 @@ public class Cli {
         boolean flag = false;
         int d1 = 0, d2 = 0;
 
-        message("\033[0;32m" + "\n\nTURNO DI " + gameManager.getCurrentPlayer().getName().toUpperCase() + "\033[0m");
+        message("\n\n-----------------------------------------------------------------------------");
+        message("\033[0;32m" + "TURNO DI " + gameManager.getCurrentPlayer().getName().toUpperCase() + "\033[0m");
         do {
-            message("\n\nInserire " + "si" + " per tirare i dadi");
+            message("\nInserire " + "si" + " per tirare i dadi");
+            messagePrint("Selezione -> ");
             String choose = s.nextLine();
             if (choose.equals("si")) {
                 d1 = controllore.throwDice();
-                message("\nSelezione -> ");
-                message("\033[0;36m" + " Dado 1 -> " + d1 + "\033[0m");
+                message("\033[0;36m" + "Dado 1 -> " + d1 + "\033[0m");
                 d2 = controllore.throwDice();
-                message("\nSelezione -> ");
-                message("\033[0;36m" + " Dado 2 -> " + d2 + "\033[0m");
+                message("\033[0;36m" + "Dado 2 -> " + d2 + "\033[0m");
                 flag = true;
             }
         } while (!flag);
 
         gameManager.getCurrentPlayer().moveForward(d1 + d2);
+        message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome() + "\033[0m");
         //message("" + gameManager.getCurrentPlayer().getPosition());
     }
 
@@ -326,13 +299,18 @@ public class Cli {
      * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà o vendere una proprietà.
      */
     public boolean askChoose() {
-        int selection = 0;
+        int selection = 3;
         boolean flag = false;
+
+        printArr();
         do {
             message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà");
-            message("\nSelezione -> ");
+            messagePrint("\nSelezione -> ");
             try {
                 selection = Integer.parseInt(s.nextLine());
+                if (selection != 0 && selection != 1 && selection != 2) {
+                    messageRed("\n Hai richiesto un'azione inesistente");
+                }
             } catch (NumberFormatException e) {
                 messageRed("Non hai inserto un numero");
             }
@@ -341,23 +319,23 @@ public class Cli {
         switch (selection) {
             case 0:
                 //SALDO NEGATIVO
-                do{
-                    if(gameManager.getCurrentPlayer().getMoney() < 0) {
+                do {
+                    if (gameManager.getCurrentPlayer().getMoney() < 0) {
                         AlertManager.showError("Non puoi terminare il turno con il saldo in negativo");
                         return false;
-                    }else{
+                    } else {
                         flag = true;
                     }
-                }while(!flag);
+                } while (!flag);
 
                 //FINE TURNO
-                for(int i=0; i<4; i++) {
-                    if(gameManager.getPlayer(i).isMyTurn()) {
+                for (int i = 0; i < 4; i++) {
+                    if (gameManager.getPlayer(i).isMyTurn()) {
                         gameManager.getPlayer(i).setMyTurn(false);
-                        if(i==3 || gameManager.getPlayer(i+1).getName().isEmpty()) {
+                        if (i == 3 || gameManager.getPlayer(i + 1).getName().isEmpty()) {
                             gameManager.getPlayer(0).setMyTurn(true);
                         } else {
-                            gameManager.getPlayer(i+1).setMyTurn(true);
+                            gameManager.getPlayer(i + 1).setMyTurn(true);
                         } // logic to end the player's turn.
                         break;
                     }
@@ -367,6 +345,28 @@ public class Cli {
             case 1:
                 Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
                 gameManager.buyPropety();
+
+                //SALVO LE PROPRIETA PER STAMPARLE
+                for (int i = 0; i < 4; i++) {
+                    if (gameManager.getPlayer(i).isMyTurn()) {
+                        switch (i) {
+                            case 0:
+                                posssedute1.add(box);
+                                break;
+                            case 1:
+                                posssedute2.add(box);
+                                break;
+                            case 2:
+                                posssedute3.add(box);
+                                break;
+                            case 3:
+                                posssedute4.add(box);
+                                break;
+                        }
+                    }
+                }
+
+                message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 return false;
 
             case 2:
@@ -374,27 +374,101 @@ public class Cli {
                 flag = false;
                 int count = 0;
 
-                do{
+                do {
                     message("Quale proprietà vuoi vendere?");
+                    messagePrint("Selezione -> ");
                     String choose = s.nextLine();
 
                     //CONTROLLO ESISTENZA CITTA
-                    for(Box c : gameManager.getCities()){
-                        if(c.getNome().toLowerCase().equals(choose.toLowerCase())){
+                    for (Box c : gameManager.getCities()) {
+                        if (c.getNome().toLowerCase().equals(choose.toLowerCase())) {
                             save = c;
                             count++;
                             flag = true;
                         }
                     }
 
-                    if(count == 0){
+                    if (count == 0) {
                         messageRed("La città che hai inserito non esiste");
                     }
-                }while(!flag);
-                
+                } while (!flag);
+
                 gameManager.sellPropety(save);
+                message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 return false;
         }
         return true;
     }
+
+    /**
+     * Stampa un messaggio a scelta.
+     *
+     * @param text messaggio che viene stampato.
+     */
+    public static void message(String text) {
+        System.out.println(text);
+    }
+
+    /**
+     * Stampa un messaggio a scelta senza andare a capo.
+     *
+     * @param text messaggio che viene stampato.
+     */
+    public void messagePrint(String text) {
+        System.out.print(text);
+    }
+
+    /**
+     * Stampa un messaggio a scelta di colore rosso.
+     *
+     * @param text messaggio che viene stampato.
+     */
+    public static void messageRed(String text) {
+        System.out.println("\033[0;31m" + text + "\033[0m" + "\n");
+    }
+
+    //Todo: manca il continuo degli altri player
+    public void printArr(){
+        for (int i = 0; i < 4; i++) {
+            if (gameManager.getPlayer(i).isMyTurn()) {
+                switch (i) {
+                    case 0:
+                        if(posssedute1.isEmpty()){
+                            message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
+                        }else{
+                            messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
+                            for(Box box : posssedute1){
+                                messagePrint(box.getNome());
+                            }
+                            messagePrint("\033[0;33m" + " }" + "\033[0m");
+                        }
+                        break;
+                    case 1:
+                        if(posssedute2.isEmpty()){
+                            message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
+                        }else{
+                            message(posssedute2.toString());
+                        }
+                        break;
+                    case 2:
+                        if(posssedute3.isEmpty()){
+                            message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
+                        }else{
+                            message(posssedute3.toString());
+                        }
+                        break;
+                    case 3:
+                        if(posssedute4.isEmpty()){
+                            message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
+                        }else{
+                            message(posssedute4.toString());
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+
+
 }

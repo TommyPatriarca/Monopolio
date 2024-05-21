@@ -1,5 +1,6 @@
 package com.monopolio.cli;
 
+import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 import com.monopolio.utils.RandUtils;
 
@@ -7,6 +8,7 @@ import com.monopolio.utils.RandUtils;
  * DA FARE
  */
 public class Controllore {
+    private GameManager gameManager = new GameManager();
 
     public int throwDice() {
         return RandUtils.Integer(1, 4);
@@ -24,6 +26,8 @@ public class Controllore {
 
         return false;
     }
+
+
 
 
 }
