@@ -25,6 +25,7 @@ public class City implements Box {
         this.houseprice = houseprice;
         this.hotelprice = hotelprice;
         this.basePayment = basePayment;
+        this.payment = basePayment;
     }
 
     /**
@@ -36,7 +37,7 @@ public class City implements Box {
             //puoi comprare l'albergo
             player.money -=hotelprice;
             houseNumber++;
-            payment=basePayment*houseNumber;//TODO sostituire logica prezzi
+            payment=basePayment*(houseNumber+2);//TODO sostituire logica prezzi
         }
         else{
             //non puoi comprare
@@ -52,7 +53,7 @@ public class City implements Box {
             //puoi comprare una casa
             player.money -=houseprice;
             houseNumber++;
-            payment=basePayment*houseNumber;//TODO sostituire logica prezzi
+            payment=basePayment*(houseNumber+1);//TODO sostituire logica prezzi
         }
         else{
             //non puoi comprare
@@ -82,7 +83,7 @@ public class City implements Box {
             //puoi vendere un albergo
             player.money +=hotelprice/2;
             houseNumber--;
-            payment=basePayment*houseNumber;//TODO sostituire logica prezzi
+            payment=basePayment/(houseNumber+2);//TODO sostituire logica prezzi
         }
         else{
             //non puoi vendere
@@ -98,7 +99,7 @@ public class City implements Box {
             //puoi vendere una casa
             player.money +=houseprice/2;
             houseNumber--;
-            payment=basePayment*houseNumber;//TODO sostituire logica prezzi
+            payment=basePayment/(houseNumber+1);//TODO sostituire logica prezzi
         }
         else{
             //non puoi vendere

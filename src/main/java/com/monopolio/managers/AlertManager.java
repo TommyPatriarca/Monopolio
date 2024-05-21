@@ -53,6 +53,47 @@ public class AlertManager {
             System.out.println("Rules");
         }
     }
+
+
+    /**
+     * Da fare
+     */
+    public static void showDialog(String string) {
+        if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            //alert.initOwner(primaryStage); // Imposta la finestra genitore
+            alert.setTitle("Alert");
+            alert.setHeaderText(null);
+            alert.setContentText(string);
+
+            // Applica lo stile alert personalizzato
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setStyle("-fx-background-color: #001845E0; -fx-border-radius: 10;");
+
+            // Rimuove l'intestazione predefinita
+            dialogPane.setHeader(null);
+
+            dialogPane.getStyleClass().add("custom-alert");
+            Stage stage = (Stage) dialogPane.getScene().getWindow();
+            //stage.initOwner(primaryStage);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+            // Modifica lo stile del contenuto del messaggio
+            dialogPane.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 10;");
+
+            // Modifica lo stile dei pulsanti dell'alert
+            alert.getButtonTypes().forEach(buttonType -> {
+                Button button = (Button) dialogPane.lookupButton(buttonType);
+                button.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
+            });
+
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Da fare
+     */
     public static void show(String string) {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

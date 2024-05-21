@@ -91,7 +91,7 @@ public class Selection extends Application {
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         Button closeButton = new Button("x");
-        closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+        closeButton.setStyle("-fx-cursor: hand; -fx-background-color: transparent; -fx-text-fill: white;");
         closeButton.setOnAction(e -> stage.close());
 
         titleBar.getChildren().addAll(spacer, closeButton);

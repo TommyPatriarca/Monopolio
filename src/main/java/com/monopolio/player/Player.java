@@ -9,6 +9,7 @@ public class Player {
     private int position = 0;
     private int oldPosition = 0; // Usato per l'immagine della pedina
     private boolean inPrison = false;
+    private int turnInPrison = 0;
     private boolean myTurn = false;
 
     public Player(String name) {
@@ -116,5 +117,13 @@ public class Player {
      */
     public boolean isMyTurn() {
         return myTurn;
+    }
+
+    public int getTurnsInPrison() {
+        return turnInPrison;
+    }
+
+    public void setTurnsInPrison(int turnInPrison) {
+        this.turnInPrison = turnInPrison;
     }
 }

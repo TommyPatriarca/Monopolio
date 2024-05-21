@@ -46,6 +46,13 @@ public class GameManager {
         return null;
     }
 
+    public boolean isDoubleDices() {
+        if(areDicesRolled()) {
+            return getDice(0).getValue() == getDice(1).getValue();
+        }
+        return false;
+    }
+
     public boolean areDicesRolled() {
         boolean rolled = true;
         for(DiceButton dice : dices) {
@@ -151,7 +158,7 @@ public class GameManager {
                     }
                     if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null && game.getSelectedButtonIndex() != position) {
                         buyOutline(player, position);
-                    }else{
+                    } else {
                         Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
                     }
                 } else {
