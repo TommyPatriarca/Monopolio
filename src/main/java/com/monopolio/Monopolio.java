@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Monopolio extends Application {
     private static InterfaceManager.InterfaceType interfaceType;
-    private static boolean devMode = true;
+    private static boolean devMode = false;
     private Controllore controllore = new Controllore();
     private Cli cli = new Cli(controllore);
 

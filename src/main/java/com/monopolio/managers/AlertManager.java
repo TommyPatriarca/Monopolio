@@ -49,7 +49,7 @@ public class AlertManager {
             alert.showAndWait();
         } else {
             // CLI
-            System.out.println("Rules");
+            //System.out.println("Rules");
         }
     }
     public static void show(String string) {
@@ -84,7 +84,7 @@ public class AlertManager {
             alert.showAndWait();
         } else {
             // CLI
-            System.out.println("Rules");
+            //System.out.println(string);
         }
     }
 
@@ -127,7 +127,9 @@ public class AlertManager {
             alert.showAndWait();
         } else {
             // CLI
-            System.out.println("Errore: " + error);
+            //System.out.println("\033[0;31m" + error + "\033[0m");
         }
     }
+
+
 }

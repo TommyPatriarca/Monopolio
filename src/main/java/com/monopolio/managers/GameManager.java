@@ -7,6 +7,7 @@ import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.ChancesButton;
 import com.monopolio.board.buttons.DiceButton;
 import com.monopolio.board.buttons.TreasuresButton;
+import com.monopolio.cli.Cli;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
 
@@ -148,6 +149,8 @@ public class GameManager {
                     }
                     if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null && game.getSelectedButtonIndex() != position) {
                         buyOutline(player, position);
+                    }else{
+                        Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
                     }
                 } else {
                     AlertManager.showError("Non hai abbastanza soldi per comprare questa citta");
@@ -195,6 +198,7 @@ public class GameManager {
             game.refreshPlayersGUI();
         }
     }
+
 
     // Handles the player position once dices are rolled
     public void handleMovement() {

@@ -213,7 +213,7 @@ public class Cli {
      *
      * @param text messaggio che viene stampato.
      */
-    public void message(String text) {
+    public static void message(String text) {
         System.out.println(text);
     }
 
@@ -226,7 +226,7 @@ public class Cli {
      *
      * @param text messaggio che viene stampato.
      */
-    public void messageRed(String text) {
+    public static void messageRed(String text) {
         System.out.println("\033[0;31m" + text + "\033[0m");
     }
 
@@ -330,24 +330,15 @@ public class Cli {
                 System.exit(0);
                 break;
             case 1:
-                City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-
-                if (city.isOwned()) {
-                    messageRed("Non puoi comprare una proprietà che è già posseduta da qualcuno");
-                    break;
-                }
-
-                if (city.getPrice() > gameManager.getCurrentPlayer().getMoney()) {
-                    messageRed("Non puoi comprare una proprietà se non disponi abbastanza soldi");
-                } else {
-                    city.buyPropriety(gameManager.getCurrentPlayer());
-                    message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
-                }
+                Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                gameManager.buyPropety();
+                message("" + gameManager.getCurrentPlayer().getMoney());
                 break;
             case 2:
                 //Todo: aggiungere if per vedere se è non è una città
 
-                city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                /*
                 boolean flag = false;
                 int count = 0;
 
@@ -375,6 +366,8 @@ public class Cli {
                     city.sellPropriety(gameManager.getCurrentPlayer());
                     message("\033[0;33m" + "Proprietà " + city.getNome() + " venduta con successo" + "\033[0m");
                 }
+                */
+
         }
     }
 
