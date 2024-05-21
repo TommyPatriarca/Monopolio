@@ -46,6 +46,10 @@ public class GameManager {
         return null;
     }
 
+    public int getDicesRoll() {
+        return getDice(0).getValue()+getDice(1).getValue();
+    }
+
     public boolean isDoubleDices() {
         if(areDicesRolled()) {
             return getDice(0).getValue() == getDice(1).getValue();
@@ -84,10 +88,10 @@ public class GameManager {
             if(city.isOwned()) {
                 if(city.getOwner() == player) {
                     city.sellPropriety(player);
-                    AlertManager.show("Città venduta con successo");
                     if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                        game.getLogManager().log(player.getName() + " ha venduto "+city.getNome());
                         sellOutline();
-                    }else{
+                    } else {
                         Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " venduta con successo" + "\033[0m");
                     }
                 } else {
@@ -152,14 +156,16 @@ public class GameManager {
             if(!city.isOwned()) {
                 if(player.getMoney() >= city.getPrice()) {
                     city.buyPropriety(player);
-                    AlertManager.show("Hai acquistato la proprietà con successo");
-                    if(Monopolio.isDevMode()) {
-                        System.out.println(player.getName() + " (Player) has bought a propety and now has $"+player.getMoney());
-                    }
-                    if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null && game.getSelectedButtonIndex() != position) {
-                        buyOutline(player, position);
+                    if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                        game.getLogManager().log(player.getName() + " ha acquistato "+city.getNome());
+                        if(game.getSelectedButtonIndex() != position) {
+                            buyOutline(player, position);
+                        }
                     } else {
                         Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
+                    }
+                    if(Monopolio.isDevMode()) {
+                        System.out.println(player.getName() + " (Player) has bought a propety and now has $"+player.getMoney());
                     }
                 } else {
                     AlertManager.showError("Non hai abbastanza soldi per comprare questa citta");

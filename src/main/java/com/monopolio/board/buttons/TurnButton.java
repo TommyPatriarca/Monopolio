@@ -17,14 +17,14 @@ import java.util.Objects;
 
 public class TurnButton extends Button {
     private GameManager gameManager;
-    private Stage primaryStage;
+    private Game game;
 
-    public TurnButton(GameManager gameManager, Stage primaryStage)
+    public TurnButton(GameManager gameManager, Game game)
     {
         this.gameManager=gameManager;
 
         design();
-        setOnAction(new TurnListener(gameManager));
+        setOnAction(new TurnListener(gameManager, game));
     }
 
 

@@ -3,16 +3,20 @@ package com.monopolio.listeners;
 import com.monopolio.Monopolio;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
+import com.monopolio.ui.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
 public class TurnListener implements EventHandler<ActionEvent> {
+    private Game game;
     private GameManager gameManager;
 
-    public TurnListener(GameManager gameManager) {
+    public TurnListener(GameManager gameManager, Game game) {
         this.gameManager = gameManager;
+        this.game = game;
     }
 
     @Override
@@ -47,5 +51,7 @@ public class TurnListener implements EventHandler<ActionEvent> {
                 break;
             }
         }
+
+        game.getLogManager().setMainLog("E' il turno del giocatore: " + gameManager.getCurrentPlayer().getName());
     }
 }

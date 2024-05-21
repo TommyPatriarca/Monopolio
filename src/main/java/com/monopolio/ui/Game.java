@@ -111,7 +111,7 @@ public class Game extends Application {
         gameManager.setDice(1, new DiceButton(gameManager, this));
 
         // end turn
-        TurnButton endTurnButton = new TurnButton(gameManager, primaryStage);
+        TurnButton endTurnButton = new TurnButton(gameManager, this);
         gridPane.add(endTurnButton, 4, 7);
 
         // buy button
@@ -163,35 +163,16 @@ public class Game extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Creazione del StackPane per sovrapporre i nodi
-        StackPane centerStackPane = new StackPane();
-        centerStackPane.setAlignment(Pos.TOP_CENTER);
-        centerStackPane.setPadding(new Insets(10));
-
-        // Creazione del ListView per i log
-        ListView<String> logListView = new ListView<>(logItems);
-        logListView.setPrefSize(400, 300);
-        // Aggiungi il ListView dei log al centro del StackPane
-        centerStackPane.getChildren().add(logListView);
-
-        // Aggiungi il GridPane al centro del StackPane
-        centerStackPane.getChildren().add(gridPane);
-
-        // Aggiungi il StackPane al centro del BorderPane
-        root.setCenter(centerStackPane);
-
         // Adding the log label to the UI
         VBox logBox = new VBox();
         logBox.setPadding(new Insets(10));
         logBox.getChildren().add(logLabel);
-        //TODO
+
         root.setBottom(logBox);
 
-        logManager.log("Interfaccia di gioco inizializzata.");
-        logManager.log("Gioco avviato con successo.");
-        logManager.log("Gioco sburato con successo.");
-
         gameManager.startGame();
+
+        logManager.setMainLog("E' il turno del giocatore: " + gameManager.getCurrentPlayer().getName());
     }
 
     private StackPane createCell(int number, int i) {
@@ -359,7 +340,7 @@ public class Game extends Application {
         VBox playerNamesBox = new VBox();
         playerNamesBox.setAlignment(Pos.TOP_LEFT);
         playerNamesBox.setSpacing(10);
-        playerNamesBox.setPadding(new Insets(10, 10, 10, 0));
+        playerNamesBox.setPadding(new Insets(10));
 
         // Aggiungi i nomi dei giocatori alla VBox
         for (int i = 0; i < 4; i++) {
@@ -399,5 +380,9 @@ public class Game extends Application {
 
     public Button getButton(int index) {
         return buttons[index];
+    }
+
+    public LogManager getLogManager() {
+        return logManager;
     }
 }

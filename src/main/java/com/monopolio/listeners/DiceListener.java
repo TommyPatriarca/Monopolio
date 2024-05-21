@@ -31,30 +31,32 @@ public class DiceListener implements EventHandler<ActionEvent> {
         if(Monopolio.isDevMode()) {
             System.out.println("the number (" + rolled + ") was rolled");
         }
+
         dice.colorRed();
         dice.disable();
 
         // Logica per la gestione della nuova posizione del player
         if(gameManager.areDicesRolled()) {
+            game.getLogManager().log(gameManager.getCurrentPlayer().getName()+" ha ottentuo un "+gameManager.getDicesRoll()+" dai dadi");
             if(gameManager.getCurrentPlayer().inPrison()) {
                 // se il player è in prison
                 if(gameManager.getCurrentPlayer().getTurnsInPrison() == 2) {
                     // 3 turni fatti (1 è quello di uscita), esci di prigione
-                    AlertManager.show("Stai uscendo di prigione dopo 3 turni consecutivi");
+                    game.getLogManager().log(gameManager.getCurrentPlayer().getName() + " è ora uscito di prigione dopo 3 turni");
                     gameManager.getCurrentPlayer().setInPrison(false);
                     gameManager.getCurrentPlayer().setTurnsInPrison(0);
                 } else if(gameManager.isDoubleDices()) {
                     // dadi doppi tirati, esci di prigione
-                    AlertManager.show("Stai uscendo di prigione dopo aver fatto dopio dado");
+                    game.getLogManager().log(gameManager.getCurrentPlayer().getName() + " è ora uscito di prigione per aver tirato un doppio dado");
                     gameManager.getCurrentPlayer().setInPrison(false);
                     gameManager.getCurrentPlayer().setTurnsInPrison(0);
                 } else {
                     // non uscire di prigione
-                    AlertManager.showError("Sei ancora in prigione, tira dadi doppi o aspetta il 3 turno");
+                    game.getLogManager().log(gameManager.getCurrentPlayer().getName() + " rimane in prigione");
                     gameManager.getCurrentPlayer().setTurnsInPrison(gameManager.getCurrentPlayer().getTurnsInPrison()+1);
                 }
             } else {
-                gameManager.getCurrentPlayer().moveForward(gameManager.getDice(0).getValue()+gameManager.getDice(1).getValue());
+                gameManager.getCurrentPlayer().moveForward(gameManager.getDicesRoll());
                 gameManager.handleMovement();
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
                     // Togli la pedina precedente
