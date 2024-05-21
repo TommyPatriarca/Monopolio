@@ -311,7 +311,7 @@ public class Cli {
     }
 
     /**
-     * Chiede all'utente l'azione che vuole eseguire.
+     * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà o vendere una proprietà.
      */
     public void askChoose() {
         int selection = 0;
@@ -332,13 +332,10 @@ public class Cli {
             case 1:
                 Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
                 gameManager.buyPropety();
-                message("" + gameManager.getCurrentPlayer().getMoney());
+
                 break;
             case 2:
-                //Todo: aggiungere if per vedere se è non è una città
-
-                box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                /*
+                Box save = null;
                 boolean flag = false;
                 int count = 0;
 
@@ -349,6 +346,7 @@ public class Cli {
                     //CONTROLLO ESISTENZA CITTA
                     for(Box c : gameManager.getCities()){
                         if(c.getNome().toLowerCase().equals(choose.toLowerCase())){
+                            save = c;
                             count++;
                             flag = true;
                         }
@@ -358,15 +356,9 @@ public class Cli {
                         messageRed("La città che hai inserito non esiste");
                     }
                 }while(!flag);
-
-                if (!city.isOwned()) {
-                    messageRed("Non puoi vendere una proprietà che non possiedi");
-                    break;
-                } else {
-                    city.sellPropriety(gameManager.getCurrentPlayer());
-                    message("\033[0;33m" + "Proprietà " + city.getNome() + " venduta con successo" + "\033[0m");
-                }
-                */
+                
+                gameManager.sellPropety(save);
+                break;
 
         }
     }

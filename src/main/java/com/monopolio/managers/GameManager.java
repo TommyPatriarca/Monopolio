@@ -80,6 +80,8 @@ public class GameManager {
                     AlertManager.show("Città venduta con successo");
                     if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                         sellOutline();
+                    }else{
+                        Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " venduta con successo" + "\033[0m");
                     }
                 } else {
                     AlertManager.showError("Non sei il proprietario di questa casa");

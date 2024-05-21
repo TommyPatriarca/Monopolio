@@ -1,6 +1,7 @@
 package com.monopolio.managers;
 
 import com.monopolio.Monopolio;
+import com.monopolio.cli.Cli;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
@@ -122,6 +123,9 @@ public class AlertManager {
             });
 
             alert.showAndWait();
+        }else{
+            //CLI
+            Cli.messageRed(error);
         }
     }
 
