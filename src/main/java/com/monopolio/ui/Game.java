@@ -3,6 +3,7 @@ package com.monopolio.ui;
 import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
 import com.monopolio.managers.GameManager;
+import com.monopolio.managers.LogManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -41,7 +42,7 @@ public class Game extends Application {
     private Button selectedButton = null;
     private int selectedButtonIndex = 0;
 
-    //private LogManager logManager = new LogManager();
+    private LogManager logManager;
 
     public Game(String[] playerNames) {
         cells = new StackPane[32];
@@ -63,7 +64,15 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Creazione del layout principale
+        // Initialize log manager with a label for displaying logs
+        Label logLabel = new Label();
+        logManager = new LogManager(logLabel);
+
+        // Sample logs for testing
+        logManager.log("Il gioco sta per iniziare.");
+        logManager.log("Inizializzazione del layout principale.");
+        logManager.log("Creazione della griglia di gioco.");
+
         root = new BorderPane();
         root.setPadding(new Insets(10));
         root.setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -92,8 +101,8 @@ public class Game extends Application {
                     } else {
                         number = 33 - i;
                     }
-                    cells[number-1] = createCell(number - 1, 30);
-                    gridPane.add(cells[number-1], j, i);
+                    cells[number - 1] = createCell(number - 1, 30);
+                    gridPane.add(cells[number - 1], j, i);
                 }
             }
         }
@@ -141,9 +150,6 @@ public class Game extends Application {
         InfoButton infoButton = new InfoButton(gameManager, this);
         toolbarBox.getChildren().add(infoButton);
 
-        BankruptButton bankruptButton = new BankruptButton(gameManager, this);
-        toolbarBox.getChildren().add(bankruptButton);
-
         //SettingsButton settingsButton = new SettingsButton(this, primaryStage);
         //toolbarBox.getChildren().add(settingsButton);
 
@@ -163,7 +169,6 @@ public class Game extends Application {
         centerStackPane.setPadding(new Insets(10));
 
         // Creazione del ListView per i log
-        /*
         ListView<String> logListView = new ListView<>(logItems);
         logListView.setPrefSize(400, 300);
         // Aggiungi il ListView dei log al centro del StackPane
@@ -174,7 +179,17 @@ public class Game extends Application {
 
         // Aggiungi il StackPane al centro del BorderPane
         root.setCenter(centerStackPane);
-         */
+
+        // Adding the log label to the UI
+        VBox logBox = new VBox();
+        logBox.setPadding(new Insets(10));
+        logBox.getChildren().add(logLabel);
+        //TODO
+        root.setBottom(logBox);
+
+        logManager.log("Interfaccia di gioco inizializzata.");
+        logManager.log("Gioco avviato con successo.");
+        logManager.log("Gioco sburato con successo.");
 
         gameManager.startGame();
     }
@@ -223,7 +238,7 @@ public class Game extends Application {
         Player[] players = gameManager.getPlayers();
         ImageView[] icons = new ImageView[4];
         int index = 0;
-        int iconSize = 100; // or the size you use for creating player icons
+        int iconSize = 100;
         int j = 0;
 
         for (Player player : players) {
@@ -249,7 +264,7 @@ public class Game extends Application {
     public void removePlayerIcons(Player player, StackPane cell) {
         Player[] players = gameManager.getPlayers();
         Image playerImage = null;
-        int iconSize = 100; // or the size you use for creating player icons
+        int iconSize = 100;
         int j = 0;
 
         // Find the image for the specified player
@@ -272,10 +287,6 @@ public class Game extends Application {
             throw new IllegalArgumentException("Player not found in the game manager's players list.");
         }
 
-        // Logging player image details for debugging
-        System.out.println("Player image ARGB at (0, 0): " + playerImage.getPixelReader().getArgb(0, 0));
-
-        // Find and remove all instances of the player's icon from the cell
         List<ImageView> iconsToRemove = new ArrayList<>();
         for (Node node : cell.getChildren()) {
             if (node instanceof ImageView imageView) {
@@ -289,9 +300,6 @@ public class Game extends Application {
 
         if (!iconsToRemove.isEmpty()) {
             cell.getChildren().removeAll(iconsToRemove);
-            System.out.println("Removed player icon(s) from cell.");
-        } else {
-            System.out.println("Player icon not found in the cell.");
         }
     }
 
@@ -376,11 +384,7 @@ public class Game extends Application {
 
                 // Aggiungi contatore soldi dei giocatori
                 Label playerMoneyLabel = new Label("\uD83D\uDCB8" + "  " + gameManager.getPlayer(i).getMoney());
-                if(gameManager.getPlayer(i).getMoney() >= 0) {
-                    playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
-                } else {
-                    playerMoneyLabel.setTextFill(Color.RED);
-                }
+                playerMoneyLabel.setTextFill(Color.LIGHTGREEN);
 
                 // Aggiungi il pallino e il nome del giocatore all'HBox
                 playerBox.getChildren().addAll(circle, playerNameLabel, playerMoneyLabel);
