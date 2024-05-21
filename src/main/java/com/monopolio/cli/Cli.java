@@ -285,12 +285,15 @@ public class Cli {
     public void handle() {
         boolean flag = false;
         gameManager.startGame();
-        askDice();
 
-        while(!flag){
-            flag = askChoose();
+        //Todo: fare controllo bancarotta per terminare.
+        while(true){
+            askDice();
+            flag = false;
+            while(!flag){
+                flag = askChoose();
+            }
         }
-
     }
 
     /**
@@ -394,6 +397,4 @@ public class Cli {
         }
         return true;
     }
-
-
 }
