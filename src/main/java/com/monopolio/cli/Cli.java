@@ -1,7 +1,9 @@
 package com.monopolio.cli;
 
+import com.monopolio.Monopolio;
 import com.monopolio.board.Box;
 import com.monopolio.board.boxes.City;
+import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 
@@ -281,9 +283,14 @@ public class Cli {
      * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
      */
     public void handle() {
+        boolean flag = false;
         gameManager.startGame();
         askDice();
-        askChoose();
+
+        while(!flag){
+            flag = askChoose();
+        }
+
     }
 
     /**
@@ -299,8 +306,10 @@ public class Cli {
             String choose = s.nextLine();
             if (choose.equals("si")) {
                 d1 = controllore.throwDice();
+                message("\nSelezione -> ");
                 message("\033[0;36m" + " Dado 1 -> " + d1 + "\033[0m");
                 d2 = controllore.throwDice();
+                message("\nSelezione -> ");
                 message("\033[0;36m" + " Dado 2 -> " + d2 + "\033[0m");
                 flag = true;
             }
@@ -313,8 +322,9 @@ public class Cli {
     /**
      * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà o vendere una proprietà.
      */
-    public void askChoose() {
+    public boolean askChoose() {
         int selection = 0;
+        boolean flag = false;
         do {
             message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà");
             message("\nSelezione -> ");
@@ -327,16 +337,38 @@ public class Cli {
 
         switch (selection) {
             case 0:
-                System.exit(0);
+                //SALDO NEGATIVO
+                do{
+                    if(gameManager.getCurrentPlayer().getMoney() < 0) {
+                        AlertManager.showError("Non puoi terminare il turno con il saldo in negativo");
+                        return false;
+                    }else{
+                        flag = true;
+                    }
+                }while(!flag);
+
+                //FINE TURNO
+                for(int i=0; i<4; i++) {
+                    if(gameManager.getPlayer(i).isMyTurn()) {
+                        gameManager.getPlayer(i).setMyTurn(false);
+                        if(i==3 || gameManager.getPlayer(i+1).getName().isEmpty()) {
+                            gameManager.getPlayer(0).setMyTurn(true);
+                        } else {
+                            gameManager.getPlayer(i+1).setMyTurn(true);
+                        } // logic to end the player's turn.
+                        break;
+                    }
+                }
+
                 break;
             case 1:
                 Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
                 gameManager.buyPropety();
+                return false;
 
-                break;
             case 2:
                 Box save = null;
-                boolean flag = false;
+                flag = false;
                 int count = 0;
 
                 do{
@@ -358,9 +390,9 @@ public class Cli {
                 }while(!flag);
                 
                 gameManager.sellPropety(save);
-                break;
-
+                return false;
         }
+        return true;
     }
 
 
