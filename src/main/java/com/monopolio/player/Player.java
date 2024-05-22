@@ -26,24 +26,26 @@ public class Player {
     /**
      * @return il denaro che dispone il giocatore.
      */
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
 
     /**
      * Toglie del denaro al giocatore.
+     *
      * @param soldi denaro che viene tolto al giocatore.
      */
     public void removeMoney(int soldi) {
-        this.money = this.money -soldi;
+        this.money = this.money - soldi;
     }
 
     /**
      * Aggiunge del denaro al giocatore.
+     *
      * @param soldi denaro che viene aggiunto al giocatore.
      */
     public void addMoney(int soldi) {
-        this.money = this.money +soldi;
+        this.money = this.money + soldi;
     }
 
     /**
@@ -62,6 +64,7 @@ public class Player {
 
     /**
      * Posiziona il giocatore in una casella della griglia.
+     *
      * @param position in cui viene posizionato il giocatore.
      */
     public void setPosition(int position) {
@@ -70,6 +73,7 @@ public class Player {
 
     /**
      * Posiziona salva la vecchia posizione del giocatore per rimuovere le pedine
+     *
      * @param oldPosition in cui vecchia posizione del giocatore.
      */
     public void setOldPosition(int oldPosition) {
@@ -78,10 +82,11 @@ public class Player {
 
     /**
      * Sposta il giocatore di tot posizioni in avanti.
+     *
      * @param position spostamento del giocatore.
      */
     public void moveForward(int position) {
-        if(this.position+position>31) {
+        if (this.position + position > 31) {
             this.position -= 31;
         }
         this.position += position;
@@ -89,6 +94,7 @@ public class Player {
 
     /**
      * Verifica se il giocatore in quel momento si trova in prigione.
+     *
      * @return "true" se si trova in prigione, sennò "false".
      */
     public boolean inPrison() {
@@ -97,6 +103,7 @@ public class Player {
 
     /**
      * Posiziona il giocatore in prigione modificando l'attributo che lo specifica("boolean inPrison").
+     *
      * @param inPrison specifica se il giocatore si trova in prigione oppure no.
      */
     public void setInPrison(boolean inPrison) {
@@ -105,6 +112,7 @@ public class Player {
 
     /**
      * Imposta se è il turno del player
+     *
      * @param myTurn boolean che viene assegnato a myTurn della classe
      */
     public void setMyTurn(boolean myTurn) {
@@ -113,6 +121,7 @@ public class Player {
 
     /**
      * Verifica se è il turno del player
+     *
      * @return "true" se è il turno del player attuale altrimenti ritorna "false"
      */
     public boolean isMyTurn() {

@@ -55,7 +55,7 @@ public class Cli {
         message("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
         askName();
         initBoard();
-        printBoard();
+        //printBoard(topRow, rightColumn, bottomRow, leftColumn);
         handle();
     }
 
@@ -232,6 +232,7 @@ public class Cli {
     /**
      * Stampa i nomi delle città a schermo.
      */
+    /*
     private void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -251,6 +252,7 @@ public class Cli {
             }
         }
     }
+    */
 
     /**
      * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
@@ -292,17 +294,16 @@ public class Cli {
         } while (!flag);
 
         gameManager.getCurrentPlayer().moveForward(d1 + d2);
+        if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof City) {
+            City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + city.getPrice() + "\033[0m");
 
-            if(gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof City){
-                City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n"," ") + " -> Prezzo: " + city.getPrice() + "\033[0m");
-
-            }else if(gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations){
-                Stations stations = (Stations) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n"," ") + " -> Prezzo: " + stations.getPrice() + "\033[0m");
-            }else{
-                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n"," ") + "\033[0m");
-            }
+        } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations) {
+            Stations stations = (Stations) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + stations.getPrice() + "\033[0m");
+        } else {
+            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + "\033[0m");
+        }
     }
 
     /**
@@ -356,28 +357,28 @@ public class Cli {
             case 1:
 
                 Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                 if(gameManager.buyPropety()){
+                if (gameManager.buyPropety()) {
 
-                     //SALVO LE PROPRIETA PER STAMPARLE
-                     for (int i = 0; i < 4; i++) {
-                         if (gameManager.getPlayer(i).isMyTurn()) {
-                             switch (i) {
-                                 case 0:
-                                     posssedute1.add(box);
-                                     break;
-                                 case 1:
-                                     posssedute2.add(box);
-                                     break;
-                                 case 2:
-                                     posssedute3.add(box);
-                                     break;
-                                 case 3:
-                                     posssedute4.add(box);
-                                     break;
-                             }
-                         }
-                     }
-                 }
+                    //SALVO LE PROPRIETA PER STAMPARLE
+                    for (int i = 0; i < 4; i++) {
+                        if (gameManager.getPlayer(i).isMyTurn()) {
+                            switch (i) {
+                                case 0:
+                                    posssedute1.add(box);
+                                    break;
+                                case 1:
+                                    posssedute2.add(box);
+                                    break;
+                                case 2:
+                                    posssedute3.add(box);
+                                    break;
+                                case 3:
+                                    posssedute4.add(box);
+                                    break;
+                            }
+                        }
+                    }
+                }
 
                 message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 return false;
@@ -394,7 +395,7 @@ public class Cli {
 
                     //CONTROLLO ESISTENZA CITTA
                     for (Box c : gameManager.getCities()) {
-                        if (c.getNome().replace("\n"," ").toLowerCase().equals(choose.toLowerCase())) {
+                        if (c.getNome().replace("\n", " ").toLowerCase().equals(choose.toLowerCase())) {
                             save = c;
                             count++;
                             flag = true;
@@ -406,7 +407,7 @@ public class Cli {
                     }
                 } while (!flag);
 
-                if(gameManager.sellPropety(save)){
+                if (gameManager.sellPropety(save)) {
                     //RIMUOVO LE PROPRIETA PER STAMPARLE
                     for (int i = 0; i < 4; i++) {
                         if (gameManager.getPlayer(i).isMyTurn()) {
@@ -461,50 +462,50 @@ public class Cli {
     }
 
     //Todo: manca il continuo degli altri player
-    public void printArr(){
+    public void printArr() {
         for (int i = 0; i < 4; i++) {
             if (gameManager.getPlayer(i).isMyTurn()) {
                 switch (i) {
                     case 0:
-                        if(posssedute1.isEmpty()){
+                        if (posssedute1.isEmpty()) {
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
-                        }else{
+                        } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
-                            for(Box box : posssedute1){
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            for (Box box : posssedute1) {
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
                         break;
                     case 1:
-                        if(posssedute2.isEmpty()){
+                        if (posssedute2.isEmpty()) {
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
-                        }else{
+                        } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
-                            for(Box box : posssedute2){
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            for (Box box : posssedute2) {
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
                         break;
                     case 2:
-                        if(posssedute3.isEmpty()){
+                        if (posssedute3.isEmpty()) {
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
-                        }else{
+                        } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
-                            for(Box box : posssedute3){
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            for (Box box : posssedute3) {
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
                         break;
                     case 3:
-                        if(posssedute4.isEmpty()){
+                        if (posssedute4.isEmpty()) {
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
-                        }else{
+                        } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
-                            for(Box box : posssedute4){
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            for (Box box : posssedute4) {
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
@@ -514,6 +515,37 @@ public class Cli {
         }
     }
 
+    String[] topRow = {"Parcheggio Gratuito", "Sondrio", "Chiesa", "Piantedo", "Stazione Sud", "San Giacomo", "Probabilità", "Tirano", "Vai in Prigione"};
+    String[] rightColumn = {"Castiones", "Livigno", "Treasures", "Sondalo", "Castione", "Grosio"};
+    String[] bottomRow = {"Stazione Est", "Stazione Ovest", "Berbenno", "Trepalle", "Ardenno", "Tasse (-200$)"};
+    String[] leftColumn = {"Ardenno", "Bormio", "Prigione", "Morbegno", "Talamona", "Regoledo", "Stazione Nord", "Andalo", "Probabilità", "Traona", "Via (+200$)"};
 
+    // Print the board layout
+
+
+    public void printBoard(String[] topRow, String[] rightColumn, String[] bottomRow, String[] leftColumn) {
+        int boardSize = Math.max(Math.max(topRow.length, bottomRow.length), rightColumn.length + leftColumn.length);
+
+        // Print top row
+        for (int i = 0; i < topRow.length; i++) {
+            System.out.print(String.format("%-20s", topRow[i]));
+        }
+        System.out.println();
+
+        // Print middle rows
+        for (int i = 0; i < rightColumn.length; i++) {
+            System.out.print(String.format("%-20s", leftColumn[leftColumn.length - 1 - i])); // left column
+            for (int j = 1; j < boardSize - 1; j++) {
+                System.out.print("                    "); // empty space
+            }
+            System.out.println(String.format("%-20s", rightColumn[i])); // right column
+        }
+
+        // Print bottom row
+        for (int i = bottomRow.length - 1; i >= 0; i--) {
+            System.out.print(String.format("%-20s", bottomRow[i]));
+        }
+        System.out.println();
+    }
 
 }

@@ -19,6 +19,7 @@ public class Monopolio extends Application {
 
     /**
      * Crea un oggetto di tipo "SceneManager" e permette di vedere lo schermo.
+     *
      * @param primaryStage è la schermata che viene aperta e viene passata nel costruttore dell'oggetto "SceneManager".
      */
     @Override
