@@ -164,13 +164,13 @@ public class GameManager {
                         if(game.getSelectedButtonIndex() != position) {
                             buyOutline(player, position);
                         }
-                        return true;
                     } else {
                         Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
                     }
                     if(Monopolio.isDevMode()) {
                         System.out.println(player.getName() + " (Player) has bought a propety and now has $"+player.getMoney());
                     }
+                    return true;
                 } else {
                     AlertManager.showError("Non hai abbastanza soldi per comprare questa citta");
                 }
@@ -296,7 +296,7 @@ public class GameManager {
                 setCity(number, new City(Groups.YELLOW,"Andalo", 60, 50, 200, 10));
                 break;
             case 4:
-                setCity(number, new Stations(Stations.StationTypes.NORD));
+                setCity(number, new Stations(Stations.StationTypes.NORD, 200, 50));
                 break;
             case 5:
                 setCity(number, new City(Groups.ORANGE,"Regoledo", 100, 50, 200, 10));
@@ -320,7 +320,7 @@ public class GameManager {
                 setCity(number, new City(Groups.RED,"Berbenno", 140, 50, 200, 10));
                 break;
             case 12:
-                setCity(number, new Stations(Stations.StationTypes.EST));
+                setCity(number, new Stations(Stations.StationTypes.EST, 200, 50));
                 break;
             case 13:
                 setCity(number, new City(Groups.PINK,"Castione", 160, 50, 200, 10));
@@ -344,7 +344,7 @@ public class GameManager {
                 setCity(number, new City(Groups.PURPLE,"Piantedo", 220, 50, 200, 10));
                 break;
             case 20:
-                setCity(number, new Stations(Stations.StationTypes.SUD));
+                setCity(number, new Stations(Stations.StationTypes.SUD, 200, 50));
                 break;
             case 21:
                 setCity(number, new City(Groups.GREEN,"San Giacomo", 220, 50, 200, 10));
@@ -368,7 +368,7 @@ public class GameManager {
                 setCity(number, new City(Groups.CYAN,"Grosio", 260, 50, 200, 10));
                 break;
             case 28:
-                setCity(number, new Stations(Stations.StationTypes.OVEST));
+                setCity(number, new Stations(Stations.StationTypes.OVEST, 200, 50));
                 break;
             case 29:
                 setCity(number, new City(Groups.BLUE,"Trepalle", 300, 50, 200, 10));
