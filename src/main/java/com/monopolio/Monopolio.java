@@ -1,7 +1,6 @@
 package com.monopolio;
 
 import com.monopolio.cli.Cli;
-import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.ui.Selection;
@@ -14,8 +13,7 @@ import javafx.stage.Stage;
 public class Monopolio extends Application {
     private static InterfaceManager.InterfaceType interfaceType;
     private static boolean devMode = false;
-    private Controllore controllore = new Controllore();
-    private Cli cli = new Cli(controllore);
+    private Cli cli = new Cli();
 
     /**
      * Crea un oggetto di tipo "SceneManager" e permette di vedere lo schermo.

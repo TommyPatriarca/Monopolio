@@ -17,15 +17,10 @@ import java.util.Scanner;
 public class Cli {
     private Scanner s = new Scanner(System.in);
     private GameManager gameManager = new GameManager();
-    private Controllore controllore;
     private ArrayList<Box> posssedute1 = new ArrayList<Box>();
     private ArrayList<Box> posssedute2 = new ArrayList<Box>();
     private ArrayList<Box> posssedute3 = new ArrayList<Box>();
     private ArrayList<Box> posssedute4 = new ArrayList<Box>();
-
-    public Cli(Controllore controllore) {
-        this.controllore = controllore;
-    }
 
     /**
      * Chiede con quale tipologia di interfaccia si vuole utilizzare il gioco.
@@ -102,7 +97,7 @@ public class Cli {
                     Player player4 = new Player("");
                     players[3] = player4;
 
-                    flag2 = controllore.duplicateNames(players);
+                    flag2 = gameManager.duplicateNames(players);
 
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
@@ -143,7 +138,7 @@ public class Cli {
                     Player player4 = new Player("");
                     players[3] = player4;
 
-                    flag2 = controllore.duplicateNames(players);
+                    flag2 = gameManager.duplicateNames(players);
 
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
@@ -187,7 +182,7 @@ public class Cli {
                     Player player4 = new Player(n4);
                     players[3] = player4;
 
-                    flag2 = controllore.duplicateNames(players);
+                    flag2 = gameManager.duplicateNames(players);
 
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
@@ -285,9 +280,9 @@ public class Cli {
             messagePrint("Selezione -> ");
             String choose = s.nextLine();
             if (choose.equals("si")) {
-                d1 = controllore.throwDice();
+                d1 = gameManager.throwDice();
                 message("\033[0;36m" + "Dado 1 -> " + d1 + "\033[0m");
-                d2 = controllore.throwDice();
+                d2 = gameManager.throwDice();
                 message("\033[0;36m" + "Dado 2 -> " + d2 + "\033[0m");
                 flag = true;
             }

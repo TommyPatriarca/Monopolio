@@ -2,7 +2,6 @@ package com.monopolio.ui;
 
 import com.monopolio.Monopolio;
 import com.monopolio.cli.Cli;
-import com.monopolio.cli.Controllore;
 import com.monopolio.managers.InterfaceManager;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;

@@ -10,6 +10,7 @@ import com.monopolio.board.buttons.TreasuresButton;
 import com.monopolio.cli.Cli;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
+import com.monopolio.utils.RandUtils;
 
 public class GameManager {
     private Player[] players = new Player[4];
@@ -167,7 +168,7 @@ public class GameManager {
 
         // Chances
         if (cities[position] instanceof Chances) {
-            AlertManager.showError("Non puoi compare le probabilità...");
+            AlertManager.showError("Non puoi comprare le probabilità...");
 
             // City
         } else if (cities[position] instanceof City) {
@@ -196,15 +197,15 @@ public class GameManager {
 
             // Parking
         } else if (cities[position] instanceof Parking) {
-            AlertManager.showError("Non puoi compare il parcheggio...");
+            AlertManager.showError("Non puoi comprare il parcheggio...");
 
             // Prison
         } else if (cities[position] instanceof Prison) {
-            AlertManager.showError("Non puoi compare la prigione...");
+            AlertManager.showError("Non puoi comprare la prigione...");
 
             // StartBox
         } else if (cities[position] instanceof StartBox) {
-            AlertManager.showError("Non puoi compare il via...");
+            AlertManager.showError("Non puoi comprare il via...");
 
             // Stations
         } else if (cities[position] instanceof Stations) {
@@ -233,15 +234,15 @@ public class GameManager {
 
             // Taxes
         } else if (cities[position] instanceof Taxes) {
-            AlertManager.showError("Non puoi compare le tasse...");
+            AlertManager.showError("Non puoi comprare le tasse...");
 
             // ToPrison
         } else if (cities[position] instanceof ToPrison) {
-            AlertManager.showError("Non puoi compare la prigione...");
+            AlertManager.showError("Non puoi comprare la prigione...");
 
             // Treasures
         } else if (cities[position] instanceof Treasures) {
-            AlertManager.showError("Non puoi compare i tesori...");
+            AlertManager.showError("Non puoi comprare i tesori...");
             // Todo: implement treasures
         } else {
             if (Monopolio.isDevMode()) {
@@ -505,6 +506,30 @@ public class GameManager {
 
         return -1;
     }
+
+    public int throwDice() {
+        return RandUtils.Integer(1, 4);
+    }
+
+
+    /**
+     * Controlla se i nomi dei giocatori inseriti sono doppi.
+     * @param players è l'insieme dei giocatori.
+     * @return "true" se ci sono dei nomi dupplicati, " false" se non ci sono numeri duplicati.
+     */
+    public boolean duplicateNames(Player[] players) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (players[i].getName().equals(players[j].getName()) && i != j && !(players[i].getName().isEmpty() || players[j].getName().isEmpty())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
 
     public Player getPlayer(int index) {
         return players[index];
