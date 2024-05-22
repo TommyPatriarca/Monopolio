@@ -74,7 +74,7 @@ public class GameManager {
     }
 
     // Handles the player sell propety
-    public void sellPropety(Box box) {
+    public boolean sellPropety(Box box) {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
 
@@ -94,6 +94,7 @@ public class GameManager {
                     } else {
                         Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " venduta con successo" + "\033[0m");
                     }
+                    return true;
                 } else {
                     AlertManager.showError("Non sei il proprietario di questa casa");
                 }
@@ -139,10 +140,12 @@ public class GameManager {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
             game.refreshPlayersGUI();
         }
+
+        return false;
     }
 
     // Handles the player buy propety
-    public void buyPropety() {
+    public boolean buyPropety() {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
 
@@ -161,6 +164,7 @@ public class GameManager {
                         if(game.getSelectedButtonIndex() != position) {
                             buyOutline(player, position);
                         }
+                        return true;
                     } else {
                         Cli.message("\033[0;33m" + "Proprietà " + city.getNome() + " comprata con successo" + "\033[0m");
                     }
@@ -212,6 +216,8 @@ public class GameManager {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
             game.refreshPlayersGUI();
         }
+
+        return false;
     }
 
 
