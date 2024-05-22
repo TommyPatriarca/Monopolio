@@ -489,6 +489,17 @@ public class GameManager {
                     }
                 }
             }
+        } else
+        // Station
+        if(cities[index] instanceof Stations) {
+            Stations station = (Stations) cities[index];
+            if(station.isOwned()) {
+                for(int i=0;i<players.length;i++) {
+                    if(getPlayer(i) == station.getOwner()) {
+                        return i;
+                    }
+                }
+            }
         }
 
         return -1;

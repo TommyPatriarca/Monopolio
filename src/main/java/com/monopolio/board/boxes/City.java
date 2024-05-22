@@ -145,6 +145,10 @@ public class City implements Box {
         return owner != null;
     }
 
+    public int getPayment(int houseNumber) {
+        return basePayment*(houseNumber+1);
+    }
+
     public void getPaid(Player player) {
         player.removeMoney(payment);
     }
