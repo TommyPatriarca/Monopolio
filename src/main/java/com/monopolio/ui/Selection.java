@@ -21,8 +21,7 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class Selection extends Application {
-    private Controllore controllore = new Controllore();
-    private Cli cli = new Cli(controllore);
+    private Cli cli = new Cli();
 
     Image img;
     Image bkg;

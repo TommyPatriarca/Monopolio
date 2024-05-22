@@ -1,5 +1,8 @@
 package com.monopolio.board.buttons;
 
+import com.monopolio.listeners.TreasureListener;
+import com.monopolio.managers.GameManager;
+import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -21,7 +24,12 @@ public class TreasuresButton extends Button {
     public TreasuresButton() {
         setDefault();
         design();
-        //setOnAction(new DiceListener(this));
+    }
+
+    public TreasuresButton(GameManager gameManager, Game game) {
+        setDefault();
+        design();
+        setOnAction(new TreasureListener(gameManager, game));
     }
 
     public void setDefault() {

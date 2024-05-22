@@ -28,6 +28,8 @@ public class GameManager {
     private Game game;
 
     public GameManager(Game game) {
+        chancesButton = new ChancesButton(this, game);
+        treasuresButton = new TreasuresButton(this, game);
         this.game = game;
     }
 
@@ -266,7 +268,9 @@ public class GameManager {
         // Chances
         if (cities[position] instanceof Chances) {
             Chances chance = (Chances) cities[position];
-            chance.pickRandom(player);
+            // do nothing
+            // extractChance(chance.pickRandomIndex(), player);
+
 
             // City
         } else if (cities[position] instanceof City) {
@@ -529,7 +533,48 @@ public class GameManager {
         return false;
     }
 
-
+    /**
+     * Gestisce il comportamento associato ad una probabilità.
+     */
+    public void extractChance(int index, Player player) {
+        switch (index) {
+            case 0:
+                // Ottieni 100 monete.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $100");
+                }
+                player.addMoney(100);
+                break;
+            case 1:
+                // Vai alla casella Partenza.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato al via");
+                }
+                player.setPosition(0);
+                break;
+            case 2:
+                // Vai in prigione.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato in prigione");
+                }
+                player.setInPrison(true);
+                break;
+            case 3:
+                // Paga 50 monete di multa.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha perso $50");
+                }
+                player.removeMoney(50);
+                break;
+            case 4:
+                // Avanza di tre caselle.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato avanti di 3 caselle");
+                }
+                player.setPosition(player.getPosition()+3);
+                break;
+        }
+    }
 
     public Player getPlayer(int index) {
         return players[index];

@@ -1,5 +1,7 @@
 package com.monopolio.board.buttons;
 
+import com.monopolio.managers.GameManager;
+import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -19,6 +21,12 @@ public class ChancesButton extends Button {
     private ImageView view;
 
     public ChancesButton() {
+        setDefault();
+        design();
+        //setOnAction(new DiceListener(this));
+    }
+
+    public ChancesButton(GameManager gameManager, Game game) {
         setDefault();
         design();
         //setOnAction(new DiceListener(this));
