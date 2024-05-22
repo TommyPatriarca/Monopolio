@@ -116,8 +116,23 @@ public class GameManager {
 
             // Stations
         } else if(box instanceof Stations) {
-            Stations stations = (Stations) box;
-            // Todo: implement stations
+            Stations station = (Stations) box;
+            if(station.isOwned()) {
+                if(station.getOwner() == player) {
+                    station.sellStation(player);
+                    if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                        game.getLogManager().log(player.getName() + " ha venduto "+station.getNome().replace("\n", " "));
+                        sellOutline();
+                    } else {
+                        Cli.message("\033[0;33m" + "Stazione " + station.getNome().replace("\n", " ") + " venduta con successo" + "\033[0m");
+                    }
+                    return true;
+                } else {
+                    AlertManager.showError("Non sei il proprietario di questa stazione");
+                }
+            } else {
+                AlertManager.showError("Questa città non è stata ancora acquistata");
+            }
 
             // Taxes
         } else if(box instanceof Taxes) {
@@ -192,8 +207,28 @@ public class GameManager {
 
             // Stations
         } else if(cities[position] instanceof Stations) {
-            Stations stations = (Stations) cities[position];
-            // Todo: implement stations
+            Stations station = (Stations) cities[position];
+            if(!station.isOwned()) {
+                if(player.getMoney() >= station.getPrice()) {
+                    station.buyStation(player);
+                    if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                        game.getLogManager().log(player.getName() + " ha acquistato "+station.getNome().replace("\n"," "));
+                        if(game.getSelectedButtonIndex() != position) {
+                            buyOutline(player, position);
+                        }
+                    } else {
+                        Cli.message("\033[0;33m" + "Stazione " + station.getNome().replace("\n"," ") + " comprata con successo" + "\033[0m");
+                    }
+                    if(Monopolio.isDevMode()) {
+                        System.out.println(player.getName() + " (Player) has bought a propety and now has $"+player.getMoney());
+                    }
+                    return true;
+                } else {
+                    AlertManager.showError("Non hai abbastanza soldi per comprare questa stazione");
+                }
+            } else {
+                AlertManager.showError("Questa stazione è gia stata acquistata");
+            }
 
             // Taxes
         } else if(cities[position] instanceof Taxes) {
