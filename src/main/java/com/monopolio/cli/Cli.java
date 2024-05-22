@@ -3,6 +3,7 @@ package com.monopolio.cli;
 import com.monopolio.Monopolio;
 import com.monopolio.board.Box;
 import com.monopolio.board.boxes.City;
+import com.monopolio.board.boxes.Stations;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
@@ -291,8 +292,17 @@ public class Cli {
         } while (!flag);
 
         gameManager.getCurrentPlayer().moveForward(d1 + d2);
-        message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome() + "\033[0m");
-        //message("" + gameManager.getCurrentPlayer().getPosition());
+
+            if(gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof City){
+                City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n"," ") + " -> Prezzo: " + city.getPrice() + "\033[0m");
+
+            }else if(gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations){
+                Stations stations = (Stations) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n"," ") + " -> Prezzo: " + stations.getPrice() + "\033[0m");
+            }else{
+                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n"," ") + "\033[0m");
+            }
     }
 
     /**
@@ -304,6 +314,7 @@ public class Cli {
 
         printArr();
         do {
+
             message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà");
             messagePrint("\nSelezione -> ");
             try {
@@ -343,28 +354,30 @@ public class Cli {
 
                 break;
             case 1:
-                Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                gameManager.buyPropety();
 
-                //SALVO LE PROPRIETA PER STAMPARLE
-                for (int i = 0; i < 4; i++) {
-                    if (gameManager.getPlayer(i).isMyTurn()) {
-                        switch (i) {
-                            case 0:
-                                posssedute1.add(box);
-                                break;
-                            case 1:
-                                posssedute2.add(box);
-                                break;
-                            case 2:
-                                posssedute3.add(box);
-                                break;
-                            case 3:
-                                posssedute4.add(box);
-                                break;
-                        }
-                    }
-                }
+                Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                 if(gameManager.buyPropety()){
+
+                     //SALVO LE PROPRIETA PER STAMPARLE
+                     for (int i = 0; i < 4; i++) {
+                         if (gameManager.getPlayer(i).isMyTurn()) {
+                             switch (i) {
+                                 case 0:
+                                     posssedute1.add(box);
+                                     break;
+                                 case 1:
+                                     posssedute2.add(box);
+                                     break;
+                                 case 2:
+                                     posssedute3.add(box);
+                                     break;
+                                 case 3:
+                                     posssedute4.add(box);
+                                     break;
+                             }
+                         }
+                     }
+                 }
 
                 message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 return false;
@@ -381,7 +394,7 @@ public class Cli {
 
                     //CONTROLLO ESISTENZA CITTA
                     for (Box c : gameManager.getCities()) {
-                        if (c.getNome().toLowerCase().equals(choose.toLowerCase())) {
+                        if (c.getNome().replace("\n"," ").toLowerCase().equals(choose.toLowerCase())) {
                             save = c;
                             count++;
                             flag = true;
@@ -393,7 +406,27 @@ public class Cli {
                     }
                 } while (!flag);
 
-                gameManager.sellPropety(save);
+                if(gameManager.sellPropety(save)){
+                    //RIMUOVO LE PROPRIETA PER STAMPARLE
+                    for (int i = 0; i < 4; i++) {
+                        if (gameManager.getPlayer(i).isMyTurn()) {
+                            switch (i) {
+                                case 0:
+                                    posssedute1.remove(save);
+                                    break;
+                                case 1:
+                                    posssedute2.remove(save);
+                                    break;
+                                case 2:
+                                    posssedute3.remove(save);
+                                    break;
+                                case 3:
+                                    posssedute4.remove(save);
+                                    break;
+                            }
+                        }
+                    }
+                }
                 message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 return false;
         }
@@ -438,7 +471,7 @@ public class Cli {
                         }else{
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
                             for(Box box : posssedute1){
-                                messagePrint(box.getNome());
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
@@ -447,21 +480,33 @@ public class Cli {
                         if(posssedute2.isEmpty()){
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
                         }else{
-                            message(posssedute2.toString());
+                            messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
+                            for(Box box : posssedute2){
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            }
+                            messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
                         break;
                     case 2:
                         if(posssedute3.isEmpty()){
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
                         }else{
-                            message(posssedute3.toString());
+                            messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
+                            for(Box box : posssedute3){
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            }
+                            messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
                         break;
                     case 3:
                         if(posssedute4.isEmpty()){
                             message("\033[0;33m" + "Proprietà possedute: { nessuna }" + "\033[0m");
                         }else{
-                            message(posssedute4.toString());
+                            messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
+                            for(Box box : posssedute4){
+                                messagePrint("\033[0;33m" + box.getNome().replace("\n"," ") + " - " + "\033[0m");
+                            }
+                            messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
                         break;
                 }
