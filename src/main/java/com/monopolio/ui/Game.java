@@ -41,7 +41,6 @@ public class Game extends Application {
     private Button[] buttons = new Button[32];
     private Button selectedButton = null;
     private int selectedButtonIndex = 0;
-    VBox leftSide = new VBox();
 
     private LogManager logManager;
 
@@ -169,8 +168,7 @@ public class Game extends Application {
         logBox.setPadding(new Insets(10));
         logBox.getChildren().add(logLabel);
 
-        leftSide.getChildren().add(logBox);
-        root.setLeft(leftSide);
+        root.setBottom(logBox);
 
         gameManager.startGame();
 
@@ -376,9 +374,8 @@ public class Game extends Application {
                 playerNamesBox.getChildren().add(playerBox);
             }
         }
-        leftSide.setAlignment(Pos.TOP_LEFT);
-        leftSide.setSpacing(700);
-        leftSide.getChildren().add(playerNamesBox);
+
+        root.setLeft(playerNamesBox);
     }
 
     public Button getButton(int index) {
