@@ -50,8 +50,9 @@ public class Cli {
         message("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
         askName();
         initBoard();
-        //printBoard(topRow, rightColumn, bottomRow, leftColumn);
+        printBoard();
         handle();
+
     }
 
     /**
@@ -510,37 +511,24 @@ public class Cli {
         }
     }
 
-    String[] topRow = {"Parcheggio Gratuito", "Sondrio", "Chiesa", "Piantedo", "Stazione Sud", "San Giacomo", "Probabilità", "Tirano", "Vai in Prigione"};
-    String[] rightColumn = {"Castiones", "Livigno", "Treasures", "Sondalo", "Castione", "Grosio"};
-    String[] bottomRow = {"Stazione Est", "Stazione Ovest", "Berbenno", "Trepalle", "Ardenno", "Tasse (-200$)"};
-    String[] leftColumn = {"Ardenno", "Bormio", "Prigione", "Morbegno", "Talamona", "Regoledo", "Stazione Nord", "Andalo", "Probabilità", "Traona", "Via (+200$)"};
+    public void printBoard() {
+        String[] Yellow = new String[]{" - " + "\033[0;43m" +"Traona" + "\033[0m"," - " + "\033[0;43m" + "Andalo" + "\033[0m"};
+        String[] Orange = new String[]{" - " + "\033[0;42m" + "Regoledo" + "\033[0m"," - " + "\033[0;42m" + "Talamona" + "\033[0m"," - " + "\033[0;42m" + "Morbegno" + "\033[0m"};
+        String[] White = new String[]{" - " + "\033[0;47m" + "Ardenno" + "\033[0m"," - " + "\033[0;47m" + "Ardenno" + "\033[0m"," - " + "\033[0;47m" + "Berbenno" + "\033[0m",};
+        String[] Pink = new String[]{"Castione","Castiones"};
+        String[] Purple = new String[]{"Sondrio","Chiesa","Piantedo"};
+        String[] Green = new String[]{"San Giacomo","Tirano"};
+        String[] LightBlue= new String[]{"Livigno","Sondalo","Grosio"};
+        String[] Blue = new String[]{"\033[0;44m" + "Trepalle" + "\033[0m","\033[0;44m" + "Bormio" + "\033[0m"};
 
-    // Print the board layout
-
-
-    public void printBoard(String[] topRow, String[] rightColumn, String[] bottomRow, String[] leftColumn) {
-        int boardSize = Math.max(Math.max(topRow.length, bottomRow.length), rightColumn.length + leftColumn.length);
-
-        // Print top row
-        for (int i = 0; i < topRow.length; i++) {
-            System.out.print(String.format("%-20s", topRow[i]));
-        }
-        System.out.println();
-
-        // Print middle rows
-        for (int i = 0; i < rightColumn.length; i++) {
-            System.out.print(String.format("%-20s", leftColumn[leftColumn.length - 1 - i])); // left column
-            for (int j = 1; j < boardSize - 1; j++) {
-                System.out.print("                    "); // empty space
-            }
-            System.out.println(String.format("%-20s", rightColumn[i])); // right column
-        }
-
-        // Print bottom row
-        for (int i = bottomRow.length - 1; i >= 0; i--) {
-            System.out.print(String.format("%-20s", bottomRow[i]));
-        }
-        System.out.println();
+        message("Via(+200$)" + Yellow[0] + " - " + "\033[0;44m" + "Probabilità" + "\033[0m" + Yellow[1] + " - Stazione Nord" + Orange[0] + Orange[1] + Orange[2] + " - " +"\033[0;41m" + "Prigione" + "\033[0m");
+        message(" ");
+        message(Blue[1] + "                                                                                     " + White[0]);
+        message(" ");
+        message("Tasse(-200$)" + "                                                                                 " + White[1]);
+        message("");
+        message(Blue[0] + "                                                                                       " + White[2]);
+        
     }
 
 }
