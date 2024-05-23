@@ -69,8 +69,8 @@ public class Stations implements Box {
         return owner != null;
     }
 
-    public void getPaid(Player player) {
-        player.removeMoney(basePayment);
+    public void getPaid(int stationsOwned, Player player) {
+        player.removeMoney(basePayment*stationsOwned);
     }
 
     /**
@@ -90,5 +90,9 @@ public class Stations implements Box {
         public String getLabel() {
             return label;
         }
+    }
+
+    public int getBasePayment() {
+        return basePayment;
     }
 }

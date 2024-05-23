@@ -269,7 +269,7 @@ public class GameManager {
         if (cities[position] instanceof Chances) {
             Chances chance = (Chances) cities[position];
             // do nothing
-            // extractChance(chance.pickRandomIndex(), player);
+            extractChance(chance.pickRandomIndex(), player);
 
 
             // City
@@ -298,8 +298,11 @@ public class GameManager {
 
             // Stations
         } else if (cities[position] instanceof Stations) {
-            Stations stations = (Stations) cities[position];
-            // Todo: implement stations
+            Stations station = (Stations) cities[position];
+            if (station.isOwned() && station.getOwner() != player) {
+                station.getPaid(getStationsOwned(player),player);
+                game.getLogManager().log(player.getName() + "ha pagato $"+getStationsOwned(player)*station.getBasePayment() + " a " + station.getOwner().getName());
+            }
 
             // Taxes
         } else if (cities[position] instanceof Taxes) {
@@ -310,7 +313,7 @@ public class GameManager {
             toPrison.toPrison(player);
         } else if (cities[position] instanceof Treasures) {
             Treasures treasures = (Treasures) cities[position];
-            // Todo: implement treasures
+            extractTreasure(treasures.pickRandomIndex(), player);
         } else {
             if (Monopolio.isDevMode()) {
                 System.out.println("Could not handle player movement");
@@ -484,6 +487,21 @@ public class GameManager {
         return null;
     }
 
+    public int getStationsOwned(Player player) {
+        // City
+        int stations = 0;
+        for(Box city : getCities()) {
+            if (city instanceof Stations) {
+                Stations station = (Stations) city;
+                if (station.isOwned() && station.getOwner() == player) {
+                    stations++;
+                }
+            }
+        }
+
+        return stations;
+    }
+
     public int getPropertyOwnerIndex(int index) {
         // City
         if (cities[index] instanceof City) {
@@ -531,6 +549,49 @@ public class GameManager {
         }
 
         return false;
+    }
+
+    /**
+     * Gestisce il comportamento associato ad un tesoro.
+     */
+    public void extractTreasure(int index, Player player) {
+        switch (index) {
+            case 0:
+                // Ottieni 100 monete.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $20");
+                }
+                player.addMoney(20);
+                break;
+            case 1:
+                // Vai alla casella Partenza.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $50");
+                }
+                player.addMoney(50);
+                break;
+            case 2:
+                // Vai in prigione.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $100");
+                }
+                player.addMoney(100);
+                break;
+            case 3:
+                // Paga 50 monete di multa.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $150");
+                }
+                player.addMoney(150);
+                break;
+            case 4:
+                // Avanza di tre caselle.
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                    game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $200");
+                }
+                player.addMoney(200);
+                break;
+        }
     }
 
     /**
