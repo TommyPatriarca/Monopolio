@@ -27,8 +27,8 @@ public class LogManager {
 
         // Personalizza lo stile del Label
         logLabel.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-        logLabel.setFont(Font.font(logLabel.getFont().getName(), 14)); // Modifica la dimensione del font se necessario
-        logLabel.setTextFill(Color.WHITE); // Modifica il colore del testo se necessario
+        logLabel.setFont(Font.font(logLabel.getFont().getName(), 14));
+        logLabel.setTextFill(Color.WHITE);
     }
 
     public void setMainLog(String mainLog) {
