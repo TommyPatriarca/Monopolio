@@ -46,7 +46,7 @@ public class Cli {
      * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la tabella.
      */
     public void startCli() {
-        message("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
+        messageRed("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
         askName();
         initBoard();
         printBoard();
@@ -289,7 +289,7 @@ public class Cli {
             //TREASURES
             if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Treasures) {
                 Treasures treasures = (Treasures) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                message("\033[0;36m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Treasures" + "\033[0m");
+                message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Tesori" + "\033[0m");
                 gameManager.extractTreasure(treasures.pickRandomIndex(), gameManager.getCurrentPlayer());
             //PRISON
             } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof ToPrison) {
