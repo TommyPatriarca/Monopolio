@@ -37,6 +37,6 @@ public class Treasures implements Box {
 
     @Override
     public String getNome() {
-        return "Probabilità";
+        return "Tesori";
     }
 }

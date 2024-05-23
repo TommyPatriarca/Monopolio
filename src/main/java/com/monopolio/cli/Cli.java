@@ -2,8 +2,7 @@ package com.monopolio.cli;
 
 import com.monopolio.Monopolio;
 import com.monopolio.board.Box;
-import com.monopolio.board.boxes.City;
-import com.monopolio.board.boxes.Stations;
+import com.monopolio.board.boxes.*;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
@@ -225,30 +224,6 @@ public class Cli {
         }
     }
 
-    /**
-     * Stampa i nomi delle città a schermo.
-     */
-    /*
-    private void printBoard() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (i == 0 || i == 8 || j == 0 || j == 8) {
-                    if (i == 0) {
-                        messagePrint(gameManager.getCity(j).getNome().replace("\n", " ") + "   ");
-                    } else if (i == 8) {
-                        messagePrint(gameManager.getCity(24 - j).getNome().replace("\n", "     ") + "   ");
-                    } else if (j == 0) {
-                        System.out.println();
-                        messagePrint(gameManager.getCity(32 - i).getNome().replace("\n", " ") + "                                                                                        ");
-                    } else {
-                        messagePrint(gameManager.getCity(8 + i).getNome().replace("\n", " ") + "   \n\n\n");
-                    }
-
-                }
-            }
-        }
-    }
-    */
 
     /**
      * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
@@ -290,39 +265,67 @@ public class Cli {
         } while (!flag);
 
         gameManager.getCurrentPlayer().moveForward(d1 + d2);
+        //CITY
         if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof City) {
             City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + city.getPrice() + "\033[0m");
-
+            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + city.getPrice() + "$" + "\033[0m");
+            if (city.isOwned()) {
+                city.getPaid(gameManager.getCurrentPlayer());
+                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
+                message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+            }
+        //STATION
         } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations) {
             Stations stations = (Stations) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + stations.getPrice() + "\033[0m");
+            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + stations.getPrice() + "$" + "\033[0m");
+            if (stations.isOwned()) {
+                stations.getPaid(gameManager.getStationsOwned(gameManager.getCurrentPlayer()), gameManager.getCurrentPlayer());
+                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
+                message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+            }
         } else {
             message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + "\033[0m");
+
+            //TREASURES
+            if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Treasures) {
+                Treasures treasures = (Treasures) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                message("\033[0;36m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Treasures" + "\033[0m");
+                gameManager.extractTreasure(treasures.pickRandomIndex(), gameManager.getCurrentPlayer());
+            //PRISON
+            } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof ToPrison) {
+                ToPrison toPrison = (ToPrison)  gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " è andato in prigione per essere passato sulla casella Vai in Prigione");
+                toPrison.toPrison(gameManager.getCurrentPlayer());
+            //TAXES
+            }else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Taxes){
+                Taxes taxes = (Taxes) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato sulla casella Tassa");
+                taxes.redeemTaxes(gameManager.getCurrentPlayer());
+            }
         }
+        message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "$" + "\033[0m");
     }
 
     /**
      * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà o vendere una proprietà.
      */
     public boolean askChoose() {
-        int selection = 3;
+        int selection = 4;
         boolean flag = false;
 
-        printArr();
         do {
 
-            message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà");
+            message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute");
             messagePrint("\nSelezione -> ");
             try {
                 selection = Integer.parseInt(s.nextLine());
-                if (selection != 0 && selection != 1 && selection != 2) {
+                if (selection != 0 && selection != 1 && selection != 2 && selection != 3) {
                     messageRed("\n Hai richiesto un'azione inesistente");
                 }
             } catch (NumberFormatException e) {
                 messageRed("Non hai inserto un numero");
             }
-        } while (selection != 0 && selection != 1 && selection != 2);
+        } while (selection != 0 && selection != 1 && selection != 2 && selection != 3);
 
         switch (selection) {
             case 0:
@@ -426,6 +429,10 @@ public class Cli {
                 }
                 message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 return false;
+
+            case 3:
+                printArr();
+                return false;
         }
         return true;
     }
@@ -512,23 +519,23 @@ public class Cli {
     }
 
     public void printBoard() {
-        String[] Yellow = new String[]{" - " + "\033[0;43m" +"Traona" + "\033[0m"," - " + "\033[0;43m" + "Andalo" + "\033[0m"};
-        String[] Orange = new String[]{" - " + "\033[0;42m" + "Regoledo" + "\033[0m"," - " + "\033[0;42m" + "Talamona" + "\033[0m"," - " + "\033[0;42m" + "Morbegno" + "\033[0m"};
-        String[] White = new String[]{" - " + "\033[0;47m" + "Ardenno" + "\033[0m"," - " + "\033[0;47m" + "Ardenno" + "\033[0m"," - " + "\033[0;47m" + "Berbenno" + "\033[0m",};
-        String[] Pink = new String[]{"Castione","Castiones"};
-        String[] Purple = new String[]{"Sondrio","Chiesa","Piantedo"};
-        String[] Green = new String[]{"San Giacomo","Tirano"};
-        String[] LightBlue= new String[]{"Livigno","Sondalo","Grosio"};
-        String[] Blue = new String[]{"\033[0;44m" + "Trepalle" + "\033[0m","\033[0;44m" + "Bormio" + "\033[0m"};
+        String[] Yellow = new String[]{" - " + "\033[0;43m" + "Traona" + "\033[0m", " - " + "\033[0;43m" + "Andalo" + "\033[0m"};
+        String[] Orange = new String[]{" - " + "\033[0;42m" + "Regoledo" + "\033[0m", " - " + "\033[0;42m" + "Talamona" + "\033[0m", " - " + "\033[0;42m" + "Morbegno" + "\033[0m"};
+        String[] White = new String[]{" - " + "\033[0;47m" + "Ardenno" + "\033[0m", " - " + "\033[0;47m" + "Ardenno" + "\033[0m", " - " + "\033[0;47m" + "Berbenno" + "\033[0m",};
+        String[] Pink = new String[]{"Castione", "Castiones"};
+        String[] Purple = new String[]{"Sondrio", "Chiesa", "Piantedo"};
+        String[] Green = new String[]{"San Giacomo", "Tirano"};
+        String[] LightBlue = new String[]{"Livigno", "Sondalo", "Grosio"};
+        String[] Blue = new String[]{"\033[0;44m" + "Trepalle" + "\033[0m", "\033[0;44m" + "Bormio" + "\033[0m"};
 
-        message("Via(+200$)" + Yellow[0] + " - " + "\033[0;44m" + "Probabilità" + "\033[0m" + Yellow[1] + " - Stazione Nord" + Orange[0] + Orange[1] + Orange[2] + " - " +"\033[0;41m" + "Prigione" + "\033[0m");
+        message("Via(+200$)" + Yellow[0] + " - " + "\033[0;44m" + "Probabilità" + "\033[0m" + Yellow[1] + " - Stazione Nord" + Orange[0] + Orange[1] + Orange[2] + " - " + "\033[0;41m" + "Prigione" + "\033[0m");
         message(" ");
         message(Blue[1] + "                                                                                     " + White[0]);
         message(" ");
         message("Tasse(-200$)" + "                                                                                 " + White[1]);
         message("");
         message(Blue[0] + "                                                                                       " + White[2]);
-        
+
     }
 
 }
