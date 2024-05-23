@@ -88,6 +88,7 @@ public class Player {
     public void moveForward(int position) {
         if (this.position + position > 31) {
             this.position -= 31;
+            addMoney(200); // start
         }
         this.position += position;
     }

@@ -294,7 +294,7 @@ public class GameManager {
             // StartBox
         } else if (cities[position] instanceof StartBox) {
             StartBox startBox = (StartBox) cities[position];
-            startBox.redeemStart(player);
+            //startBox.redeemStart(player);
 
             // Stations
         } else if (cities[position] instanceof Stations) {
