@@ -8,6 +8,7 @@ import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -301,6 +302,10 @@ public class Cli {
                 Taxes taxes = (Taxes) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
                 messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato sulla casella Tassa");
                 taxes.redeemTaxes(gameManager.getCurrentPlayer());
+            }else if(gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Chances){
+                Chances chance = (Chances) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
+                gameManager.extractChance(chance.pickRandomIndex(), gameManager.getCurrentPlayer());
             }
         }
         message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "$" + "\033[0m");
@@ -315,7 +320,7 @@ public class Cli {
 
         do {
 
-            message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute");
+            message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore");
             messagePrint("\nSelezione -> ");
             try {
                 selection = Integer.parseInt(s.nextLine());
@@ -388,7 +393,8 @@ public class Cli {
                 int count = 0;
 
                 do {
-                    message("Quale proprietà vuoi vendere?");
+                    printArr();
+                    message("\nQuale proprietà vuoi vendere?");
                     messagePrint("Selezione -> ");
                     String choose = s.nextLine();
 
@@ -431,7 +437,7 @@ public class Cli {
                 return false;
 
             case 3:
-                printArr();
+                printAll();
                 return false;
         }
         return true;
@@ -464,7 +470,6 @@ public class Cli {
         System.out.println("\033[0;31m" + text + "\033[0m" + "\n");
     }
 
-    //Todo: manca il continuo degli altri player
     public void printArr() {
         for (int i = 0; i < 4; i++) {
             if (gameManager.getPlayer(i).isMyTurn()) {
@@ -515,6 +520,74 @@ public class Cli {
                         break;
                 }
             }
+        }
+    }
+
+    public void printAll(){
+        for (int i = 0; i < 4; i++) {
+                switch (i) {
+                    case 0:
+                        if (posssedute1.isEmpty()) {
+                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                        } else {
+                            if(gameManager.getPlayer(i).getName().isEmpty()){
+                                break;
+                            }else{
+                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                                for (Box box : posssedute1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                }
+                                message("\033[0;33m" + " }" + "\033[0m");
+                            }
+
+                        }
+                        break;
+                    case 1:
+                        if (posssedute2.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
+                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                        } else {
+                            if(gameManager.getPlayer(i).getName().isEmpty()){
+                                break;
+                            }else{
+                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                                for (Box box : posssedute1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                }
+                                message("\033[0;33m" + " }" + "\033[0m");
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (posssedute3.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
+                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                        } else {
+                            if(gameManager.getPlayer(i).getName().isEmpty()){
+                                break;
+                            }else{
+                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                                for (Box box : posssedute1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                }
+                                message("\033[0;33m" + " }" + "\033[0m");
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (posssedute4.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
+                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                        } else {
+                            if(gameManager.getPlayer(i).getName().isEmpty()){
+                                break;
+                            }else{
+                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                                for (Box box : posssedute1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                }
+                                message("\033[0;33m" + " }" + "\033[0m");
+                            }
+                        }
+                        break;
+                }
         }
     }
 
