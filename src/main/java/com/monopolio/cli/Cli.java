@@ -247,68 +247,94 @@ public class Cli {
      * Chiede all'utente di lanciare i dadi.
      */
     public void askDice() {
-        boolean flag = false;
+        boolean flag = false,flag2 = false;
         int d1 = 0, d2 = 0;
 
         message("\n\n-----------------------------------------------------------------------------");
         message("\033[0;32m" + "TURNO DI " + gameManager.getCurrentPlayer().getName().toUpperCase() + "\033[0m");
-        do {
-            message("\nInserire " + "si" + " per tirare i dadi");
+
+        //Todo: deve uscire dopo 1 turno fermo
+
+        if (gameManager.getCurrentPlayer().inPrison()) {
+            messageRed("\nSei in prigione! Non potrai avanzare in questo turno");
+            message("Vuoi pagare 100$ e uscire subito di prigione? (si/no)");
             messagePrint("Selezione -> ");
             String choose = s.nextLine();
-            if (choose.equals("si")) {
-                d1 = gameManager.throwDice();
-                message("\033[0;36m" + "Dado 1 -> " + d1 + "\033[0m");
-                d2 = gameManager.throwDice();
-                message("\033[0;36m" + "Dado 2 -> " + d2 + "\033[0m");
-                flag = true;
-            }
-        } while (!flag);
 
-        gameManager.getCurrentPlayer().moveForward(d1 + d2);
-        //CITY
-        if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof City) {
-            City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + city.getPrice() + "$" + "\033[0m");
-            if (city.isOwned()) {
-                city.getPaid(gameManager.getCurrentPlayer());
-                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
-                message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
-            }
-        //STATION
-        } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations) {
-            Stations stations = (Stations) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + stations.getPrice() + "$" + "\033[0m");
-            if (stations.isOwned()) {
-                stations.getPaid(gameManager.getStationsOwned(gameManager.getCurrentPlayer()), gameManager.getCurrentPlayer());
-                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
-                message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
-            }
+            do{
+                if(choose.toLowerCase().trim().equals("si")){
+                    //ESCE DI PRIGIONE
+                    message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
+                    gameManager.getCurrentPlayer().setInPrison(false);
+                    gameManager.getCurrentPlayer().removeMoney(100);
+                    askDice();
+                    flag2 = true;
+                }else if(choose.toLowerCase().trim().equals("no")){
+                    flag2 = true;
+                }
+            }while(!flag2 );
+
         } else {
-            message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + "\033[0m");
+            do {
+                message("\nInserire " + "si" + " per tirare i dadi");
+                messagePrint("Selezione -> ");
+                String choose = s.nextLine();
+                if (choose.toLowerCase().trim().equals("si")) {
+                    d1 = gameManager.throwDice();
+                    message("\033[0;36m" + "Dado 1 -> " + d1 + "\033[0m");
+                    d2 = gameManager.throwDice();
+                    message("\033[0;36m" + "Dado 2 -> " + d2 + "\033[0m");
+                    message("\033[0;36m" + "Spostamento di " + (d1 + d2) + " caselle" + "\033[0m");
+                    flag = true;
+                }
+            } while (!flag);
 
-            //TREASURES
-            if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Treasures) {
-                Treasures treasures = (Treasures) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Tesori" + "\033[0m");
-                gameManager.extractTreasure(treasures.pickRandomIndex(), gameManager.getCurrentPlayer());
-            //PRISON
-            } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof ToPrison) {
-                ToPrison toPrison = (ToPrison)  gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " è andato in prigione per essere passato sulla casella Vai in Prigione");
-                toPrison.toPrison(gameManager.getCurrentPlayer());
-            //TAXES
-            }else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Taxes){
-                Taxes taxes = (Taxes) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato sulla casella Tassa");
-                taxes.redeemTaxes(gameManager.getCurrentPlayer());
-            }else if(gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Chances){
-                Chances chance = (Chances) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
-                gameManager.extractChance(chance.pickRandomIndex(), gameManager.getCurrentPlayer());
+            gameManager.getCurrentPlayer().moveForward(d1 + d2);
+            //CITY
+            if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof City) {
+                City city = (City) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + city.getPrice() + "$" + "\033[0m");
+                if (city.isOwned()) {
+                    city.getPaid(gameManager.getCurrentPlayer());
+                    messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
+                    message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+                }
+                //STATION
+            } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations) {
+                Stations stations = (Stations) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + " -> Prezzo: " + stations.getPrice() + "$" + "\033[0m");
+                if (stations.isOwned()) {
+                    stations.getPaid(gameManager.getStationsOwned(gameManager.getCurrentPlayer()), gameManager.getCurrentPlayer());
+                    messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
+                    message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+                }
+            } else {
+                message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + "\033[0m");
+
+                //TREASURES
+                if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Treasures) {
+                    Treasures treasures = (Treasures) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                    message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Tesori" + "\033[0m");
+                    gameManager.extractTreasure(treasures.pickRandomIndex(), gameManager.getCurrentPlayer());
+                    //PRISON
+                } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof ToPrison) {
+                    ToPrison toPrison = (ToPrison) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                    messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " è andato in prigione per essere passato sulla casella Vai in Prigione");
+                    toPrison.toPrison(gameManager.getCurrentPlayer());
+                    //TAXES
+                } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Taxes) {
+                    Taxes taxes = (Taxes) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                    messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato sulla casella Tassa");
+                    taxes.redeemTaxes(gameManager.getCurrentPlayer());
+                } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Chances) {
+                    Chances chance = (Chances) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                    message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
+                    gameManager.extractChance(chance.pickRandomIndex(), gameManager.getCurrentPlayer());
+                }
             }
+            message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "$" + "\033[0m");
         }
-        message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "$" + "\033[0m");
+
     }
 
     /**
@@ -318,127 +344,159 @@ public class Cli {
         int selection = 4;
         boolean flag = false;
 
-        do {
-
-            message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore");
-            messagePrint("\nSelezione -> ");
-            try {
-                selection = Integer.parseInt(s.nextLine());
-                if (selection != 0 && selection != 1 && selection != 2 && selection != 3) {
-                    messageRed("\n Hai richiesto un'azione inesistente");
-                }
-            } catch (NumberFormatException e) {
-                messageRed("Non hai inserto un numero");
-            }
-        } while (selection != 0 && selection != 1 && selection != 2 && selection != 3);
-
-        switch (selection) {
-            case 0:
-                //SALDO NEGATIVO
-                do {
-                    if (gameManager.getCurrentPlayer().getMoney() < 0) {
-                        AlertManager.showError("Non puoi terminare il turno con il saldo in negativo");
-                        return false;
+        if (gameManager.getCurrentPlayer().inPrison()) {
+            //FINE TURNO
+            for (int i = 0; i < 4; i++) {
+                if (gameManager.getPlayer(i).isMyTurn()) {
+                    gameManager.getPlayer(i).setMyTurn(false);
+                    if (i == 3 || gameManager.getPlayer(i + 1).getName().isEmpty()) {
+                        gameManager.getPlayer(0).setMyTurn(true);
                     } else {
-                        flag = true;
+                        gameManager.getPlayer(i + 1).setMyTurn(true);
+                    } // logic to end the player's turn.
+                    break;
+                }
+            }
+        } else {
+            do {
+                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore");
+                messagePrint("\nSelezione -> ");
+                try {
+                    selection = Integer.parseInt(s.nextLine());
+                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3) {
+                        messageRed("\n Hai richiesto un'azione inesistente");
                     }
-                } while (!flag);
+                } catch (NumberFormatException e) {
+                    messageRed("Non hai inserto un numero");
+                }
+            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3);
 
-                //FINE TURNO
-                for (int i = 0; i < 4; i++) {
-                    if (gameManager.getPlayer(i).isMyTurn()) {
-                        gameManager.getPlayer(i).setMyTurn(false);
-                        if (i == 3 || gameManager.getPlayer(i + 1).getName().isEmpty()) {
-                            gameManager.getPlayer(0).setMyTurn(true);
+            switch (selection) {
+                case 0:
+                    //SALDO NEGATIVO
+                    do {
+                        if (gameManager.getCurrentPlayer().getMoney() < 0) {
+                            AlertManager.showError("Non puoi terminare il turno con il saldo in negativo");
+                            return false;
                         } else {
-                            gameManager.getPlayer(i + 1).setMyTurn(true);
-                        } // logic to end the player's turn.
-                        break;
-                    }
-                }
-
-                break;
-            case 1:
-
-                Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                if (gameManager.buyPropety()) {
-
-                    //SALVO LE PROPRIETA PER STAMPARLE
-                    for (int i = 0; i < 4; i++) {
-                        if (gameManager.getPlayer(i).isMyTurn()) {
-                            switch (i) {
-                                case 0:
-                                    posssedute1.add(box);
-                                    break;
-                                case 1:
-                                    posssedute2.add(box);
-                                    break;
-                                case 2:
-                                    posssedute3.add(box);
-                                    break;
-                                case 3:
-                                    posssedute4.add(box);
-                                    break;
-                            }
-                        }
-                    }
-                }
-
-                message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
-                return false;
-
-            case 2:
-                Box save = null;
-                flag = false;
-                int count = 0;
-
-                do {
-                    printArr();
-                    message("\nQuale proprietà vuoi vendere?");
-                    messagePrint("Selezione -> ");
-                    String choose = s.nextLine();
-
-                    //CONTROLLO ESISTENZA CITTA
-                    for (Box c : gameManager.getCities()) {
-                        if (c.getNome().replace("\n", " ").toLowerCase().equals(choose.toLowerCase())) {
-                            save = c;
-                            count++;
                             flag = true;
                         }
-                    }
+                    } while (!flag);
 
-                    if (count == 0) {
-                        messageRed("La città che hai inserito non esiste");
-                    }
-                } while (!flag);
-
-                if (gameManager.sellPropety(save)) {
-                    //RIMUOVO LE PROPRIETA PER STAMPARLE
+                    //FINE TURNO
                     for (int i = 0; i < 4; i++) {
                         if (gameManager.getPlayer(i).isMyTurn()) {
-                            switch (i) {
-                                case 0:
-                                    posssedute1.remove(save);
-                                    break;
-                                case 1:
-                                    posssedute2.remove(save);
-                                    break;
-                                case 2:
-                                    posssedute3.remove(save);
-                                    break;
-                                case 3:
-                                    posssedute4.remove(save);
-                                    break;
+                            gameManager.getPlayer(i).setMyTurn(false);
+                            if (i == 3 || gameManager.getPlayer(i + 1).getName().isEmpty()) {
+                                gameManager.getPlayer(0).setMyTurn(true);
+                            } else {
+                                gameManager.getPlayer(i + 1).setMyTurn(true);
+                            } // logic to end the player's turn.
+                            break;
+                        }
+                    }
+
+                    break;
+                case 1:
+
+                    Box box = gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
+                    if (gameManager.buyPropety()) {
+
+                        //SALVO LE PROPRIETA PER STAMPARLE
+                        for (int i = 0; i < 4; i++) {
+                            if (gameManager.getPlayer(i).isMyTurn()) {
+                                switch (i) {
+                                    case 0:
+                                        posssedute1.add(box);
+                                        break;
+                                    case 1:
+                                        posssedute2.add(box);
+                                        break;
+                                    case 2:
+                                        posssedute3.add(box);
+                                        break;
+                                    case 3:
+                                        posssedute4.add(box);
+                                        break;
+                                }
                             }
                         }
                     }
-                }
-                message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
-                return false;
 
-            case 3:
-                printAll();
-                return false;
+                    message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+                    return false;
+
+                case 2:
+                    Box save = null;
+                    flag = false;
+                    boolean flag2 = false;
+                    int count = 0;
+
+                    do {
+                        printArr();
+                        message("\nQuale proprietà vuoi vendere? (Inserire 'no' per annullare la vendita) ");
+                        messagePrint("Selezione -> ");
+
+                        String choose = s.nextLine();
+
+                        if (choose.toLowerCase().trim().equals("no")) {
+                            return false;
+                        } else {
+                            //CONTROLLO ESISTENZA CITTA
+                            for (Box c : gameManager.getCities()) {
+                                if (c.getNome().replace("\n", " ").toLowerCase().trim().equals(choose.toLowerCase().trim())) {
+                                    message("Se vendi questa città otterrai solamente la metà del prezzo d'acquisto, vuoi vendere lo stesso? (si/no)");
+                                    messagePrint("Selezione -> ");
+                                    choose = s.nextLine();
+
+                                    if (choose.toLowerCase().trim().equals("si")) {
+                                        save = c;
+                                        flag2 = true;
+                                        flag = true;
+                                    } else {
+                                        flag = true;
+                                        flag2 = false;
+                                    }
+                                    count++;
+                                }
+                            }
+
+                            if (count == 0) {
+                                messageRed("La città che hai inserito non esiste");
+                            }
+                        }
+
+                    } while (!flag);
+
+
+                    if (gameManager.sellPropety(save) && flag2) {
+                        //RIMUOVO LE PROPRIETA PER STAMPARLE
+                        for (int i = 0; i < 4; i++) {
+                            if (gameManager.getPlayer(i).isMyTurn()) {
+                                switch (i) {
+                                    case 0:
+                                        posssedute1.remove(save);
+                                        break;
+                                    case 1:
+                                        posssedute2.remove(save);
+                                        break;
+                                    case 2:
+                                        posssedute3.remove(save);
+                                        break;
+                                    case 3:
+                                        posssedute4.remove(save);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    message("\033[0;33m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+                    return false;
+
+                case 3:
+                    printAll();
+                    return false;
+            }
         }
         return true;
     }
@@ -480,7 +538,11 @@ public class Cli {
                         } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
                             for (Box box : posssedute1) {
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                if (posssedute1.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
+                                }
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
@@ -491,7 +553,11 @@ public class Cli {
                         } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
                             for (Box box : posssedute2) {
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                if (posssedute2.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
+                                }
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
@@ -502,7 +568,11 @@ public class Cli {
                         } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
                             for (Box box : posssedute3) {
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                if (posssedute3.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
+                                }
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
@@ -513,7 +583,11 @@ public class Cli {
                         } else {
                             messagePrint("\033[0;33m" + "Proprietà possedute: { " + "\033[0m");
                             for (Box box : posssedute4) {
-                                messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                                if (posssedute4.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
+                                }
                             }
                             messagePrint("\033[0;33m" + " }" + "\033[0m");
                         }
@@ -523,71 +597,87 @@ public class Cli {
         }
     }
 
-    public void printAll(){
+    public void printAll() {
         for (int i = 0; i < 4; i++) {
-                switch (i) {
-                    case 0:
-                        if (posssedute1.isEmpty()) {
-                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+            switch (i) {
+                case 0:
+                    if (posssedute1.isEmpty()) {
+                        message("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    } else {
+                        if (gameManager.getPlayer(i).getName().isEmpty()) {
+                            break;
                         } else {
-                            if(gameManager.getPlayer(i).getName().isEmpty()){
-                                break;
-                            }else{
-                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
-                                for (Box box : posssedute1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                            messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                            for (Box box : posssedute1) {
+                                if (posssedute1.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
-                                message("\033[0;33m" + " }" + "\033[0m");
                             }
+                            message("\033[0;33m" + " }" + "\033[0m");
+                        }
 
-                        }
-                        break;
-                    case 1:
-                        if (posssedute2.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
-                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    }
+                    break;
+                case 1:
+                    if (posssedute2.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
+                        message("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    } else {
+                        if (gameManager.getPlayer(i).getName().isEmpty()) {
+                            break;
                         } else {
-                            if(gameManager.getPlayer(i).getName().isEmpty()){
-                                break;
-                            }else{
-                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
-                                for (Box box : posssedute1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                            messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                            for (Box box : posssedute2) {
+                                if (posssedute2.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
-                                message("\033[0;33m" + " }" + "\033[0m");
                             }
+                            message("\033[0;33m" + " }" + "\033[0m");
                         }
-                        break;
-                    case 2:
-                        if (posssedute3.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
-                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    }
+                    break;
+                case 2:
+                    if (posssedute3.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
+                        message("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    } else {
+                        if (gameManager.getPlayer(i).getName().isEmpty()) {
+                            break;
                         } else {
-                            if(gameManager.getPlayer(i).getName().isEmpty()){
-                                break;
-                            }else{
-                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
-                                for (Box box : posssedute1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                            messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                            for (Box box : posssedute3) {
+                                if (posssedute3.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
-                                message("\033[0;33m" + " }" + "\033[0m");
                             }
+                            message("\033[0;33m" + " }" + "\033[0m");
                         }
-                        break;
-                    case 3:
-                        if (posssedute4.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
-                            message("\033[0;33m" +  gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    }
+                    break;
+                case 3:
+                    if (posssedute4.isEmpty() && !Objects.equals(gameManager.getPlayer(i).getName(), "")) {
+                        message("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { nessuna }" + "\033[0m");
+                    } else {
+                        if (gameManager.getPlayer(i).getName().isEmpty()) {
+                            break;
                         } else {
-                            if(gameManager.getPlayer(i).getName().isEmpty()){
-                                break;
-                            }else{
-                                messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
-                                for (Box box : posssedute1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + " - " + "\033[0m");
+                            messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
+                            for (Box box : posssedute4) {
+                                if (posssedute4.size() == 1) {
+                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                } else {
+                                    messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
-                                message("\033[0;33m" + " }" + "\033[0m");
                             }
+                            message("\033[0;33m" + " }" + "\033[0m");
                         }
-                        break;
-                }
+                    }
+                    break;
+            }
         }
     }
 
