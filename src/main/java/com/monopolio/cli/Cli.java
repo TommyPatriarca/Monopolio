@@ -44,7 +44,7 @@ public class Cli {
 
 
     /**
-     * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la tabella.
+     * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la griglia.
      */
     public void startCli() {
         messageRed("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
@@ -244,7 +244,7 @@ public class Cli {
     }
 
     /**
-     * Chiede all'utente di lanciare i dadi.
+     * Chiede all'utente di lanciare i dadi e verifica che non sia in prigione.
      */
     public void askDice() {
         boolean flag = false,flag2 = false;
@@ -254,7 +254,6 @@ public class Cli {
         message("\033[0;32m" + "TURNO DI " + gameManager.getCurrentPlayer().getName().toUpperCase() + "\033[0m");
 
         //Todo: deve uscire dopo 1 turno fermo
-
         if (gameManager.getCurrentPlayer().inPrison()) {
             messageRed("\nSei in prigione! Non potrai avanzare in questo turno");
             message("Vuoi pagare 100$ e uscire subito di prigione? (si/no)");
@@ -338,7 +337,7 @@ public class Cli {
     }
 
     /**
-     * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà o vendere una proprietà.
+     * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà, vendere una proprietà o visualizzare le proprietà degli altri giocatori.
      */
     public boolean askChoose() {
         int selection = 4;
@@ -528,6 +527,9 @@ public class Cli {
         System.out.println("\033[0;31m" + text + "\033[0m" + "\n");
     }
 
+    /**
+     * Stampa le proprietà possedute del giocatore a cui spetta il turno
+     */
     public void printArr() {
         for (int i = 0; i < 4; i++) {
             if (gameManager.getPlayer(i).isMyTurn()) {
@@ -597,6 +599,9 @@ public class Cli {
         }
     }
 
+    /**
+     * Stampa le proprietà di tutti i giocatori dopo la scelta dell'operazione.
+     */
     public void printAll() {
         for (int i = 0; i < 4; i++) {
             switch (i) {
@@ -681,6 +686,9 @@ public class Cli {
         }
     }
 
+    /**
+     * Stampa la griglia del gioco.
+     */
     public void printBoard() {
         String[] Yellow = new String[]{" - " + "\033[0;43m" + "Traona" + "\033[0m", " - " + "\033[0;43m" + "Andalo" + "\033[0m"};
         String[] Orange = new String[]{" - " + "\033[0;42m" + "Regoledo" + "\033[0m", " - " + "\033[0;42m" + "Talamona" + "\033[0m", " - " + "\033[0;42m" + "Morbegno" + "\033[0m"};
