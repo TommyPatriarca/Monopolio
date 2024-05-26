@@ -247,7 +247,7 @@ public class Cli {
      * Chiede all'utente di lanciare i dadi e verifica che non sia in prigione.
      */
     public void askDice() {
-        boolean flag = false,flag2 = false;
+        boolean flag = false, flag2 = false;
         int d1 = 0, d2 = 0;
 
         message("\n\n-----------------------------------------------------------------------------");
@@ -260,18 +260,18 @@ public class Cli {
             messagePrint("Selezione -> ");
             String choose = s.nextLine();
 
-            do{
-                if(choose.toLowerCase().trim().equals("si")){
+            do {
+                if (choose.toLowerCase().trim().equals("si")) {
                     //ESCE DI PRIGIONE
                     message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
                     gameManager.getCurrentPlayer().setInPrison(false);
                     gameManager.getCurrentPlayer().removeMoney(100);
                     askDice();
                     flag2 = true;
-                }else if(choose.toLowerCase().trim().equals("no")){
+                } else if (choose.toLowerCase().trim().equals("no")) {
                     flag2 = true;
                 }
-            }while(!flag2 );
+            } while (!flag2);
 
         } else {
             do {
@@ -340,7 +340,7 @@ public class Cli {
      * Chiede all'utente l'azione se vuole terminare il turno, comprare una proprietà, vendere una proprietà o visualizzare le proprietà degli altri giocatori.
      */
     public boolean askChoose() {
-        int selection = 4;
+        int selection = 5;
         boolean flag = false;
 
         if (gameManager.getCurrentPlayer().inPrison()) {
@@ -358,17 +358,17 @@ public class Cli {
             }
         } else {
             do {
-                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore");
+                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori");
                 messagePrint("\nSelezione -> ");
                 try {
                     selection = Integer.parseInt(s.nextLine());
-                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3) {
+                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4) {
                         messageRed("\n Hai richiesto un'azione inesistente");
                     }
                 } catch (NumberFormatException e) {
                     messageRed("Non hai inserto un numero");
                 }
-            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3);
+            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4);
 
             switch (selection) {
                 case 0:
@@ -494,6 +494,9 @@ public class Cli {
 
                 case 3:
                     printAll();
+                    return false;
+                case 4:
+                    printAllPosition();
                     return false;
             }
         }
@@ -685,6 +688,18 @@ public class Cli {
             }
         }
     }
+
+    /**
+     * Stampa la posizione di ogni giocatore.
+     */
+    public void printAllPosition() {
+        for (int i = 0; i < 4; i++) {
+            if (!gameManager.getPlayer(i).getName().isEmpty()) {
+                message("\033[0;36m" + "  " + gameManager.getPlayer(i).getName().toUpperCase() + " si trova nella casella: " + gameManager.getCity(gameManager.getPlayer(i).getPosition()).getNome() + "\033[0m");
+            }
+        }
+    }
+
 
     /**
      * Stampa la griglia del gioco.
