@@ -17,11 +17,6 @@ public class TreasureListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        // print selected property info (AlertManager)
-        if(game.getSelectedButton() != null) {
-            AlertManager.show("Some info about the motherfucker you selected");
-        } else {
-            AlertManager.showError("No motherfucking city selected bitch");
-        }
+
     }
 }
