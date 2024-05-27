@@ -691,10 +691,30 @@ public class GameManager {
     }
 
     public void bankrupt(int index) {
+        game.removePlayerIcons(players[index], game.getCell(getCurrentPlayer().getOldPosition()));
+
+        for(int i=0; i<4; i++) {
+            if(getPlayer(i).isMyTurn()) {
+                getPlayer(i).setMyTurn(false);
+                if(i==3 || getPlayer(i+1).getName().isEmpty()) {
+                    getPlayer(0).setMyTurn(true);
+                } else {
+                    getPlayer(i+1).setMyTurn(true);
+                }
+
+                restoreDices();
+
+                break;
+            }
+        }
+
         players[index]=new Player("");
+
         if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
             game.refreshPlayersGUI();
         }
+        
+        game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
     }
 
     public boolean hasTripletCities(Groups groups, Player player) {

@@ -36,6 +36,7 @@ public class InfoListener implements EventHandler<ActionEvent> {
                 City city = (City) box;
                 if(city.isOwned()) {
                     message += "Proprietario: " + city.getOwner().getName() +"\n";
+                    message += "Pagamento: " + city.getPayment(city.getHouseNumber()) +"$\n";
                     message += "Case: " + city.getHouseNumber() +"\n";
                 } else {
                     message += "Proprietario: nessuno\n";
