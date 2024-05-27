@@ -721,6 +721,16 @@ public class Cli {
         message("Tasse(-200$)" + "                                                                                 " + White[1]);
         message("");
         message(Blue[0] + "                                                                                       " + White[2]);
+        message("");
+        message("Stazione Ovest" + "                                                                                       " + " - Stazione Est");
+        message("");
+        message(LightBlue[0] + "                                                                                       " + Pink[0]);
+        message("");
+        message(LightBlue[1] + "                                                                                       " + "- Tesori");
+        message("");
+        message(LightBlue[2] + "                                                                                       " + Pink[1]);
+        message("");
+        message("Vai in prigione" + Green[0] + " - " + "\033[0;44m" + "Probabilità" + "\033[0m" + Green[1] + " - Stazione Sud" + Purple[0] + Purple[1] + Purple[2] + " - " + "\033[0;41m" + "Parcheggio gratuito" + "\033[0m");
 
     }
 
