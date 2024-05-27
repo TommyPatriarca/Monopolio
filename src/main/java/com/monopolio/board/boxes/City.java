@@ -28,20 +28,9 @@ public class City implements Box {
         this.payment = basePayment;
     }
 
-    /**
-     * Una funzione di questo tipo permette al giocatore di comprare un "Hotel" solo dopo aver verificato la sua disponibilità economica.
-     * @param player è il giocatore che vuole comprare l'hotel.
-     */
-    public void buyHotel(Player player){
-        if(houseNumber==4 && player.money >=hotelprice){
-            //puoi comprare l'albergo
-            player.money -=hotelprice;
-            houseNumber++;
-            payment=basePayment*(houseNumber+2);//TODO sostituire logica prezzi
-        }
-        else{
-            //non puoi comprare
-        }
+    // TODO JAVADOC
+    public int getHouseNumber() {
+        return houseNumber;
     }
 
     /**
@@ -61,6 +50,13 @@ public class City implements Box {
     }
 
     /**
+     * TODO
+     */
+    public int getHousePrice(int houseNumber){
+        return basePayment*(houseNumber+1);//TODO sostituire logica prezzi
+    }
+
+    /**
      * Permette al giocatore di comprare questa "Proprietà" solo dopo aver verificato la sua disponibilità economica.
      * @param player è il giocatore che vuole comprare questa proprietà.
      */
@@ -71,22 +67,6 @@ public class City implements Box {
         }
         else{
             //non puoi comprare
-        }
-    }
-
-    /**
-     * Permette al giocatore di vendere un "Hotel" solo nel caso in cui il giocatore lo possieda.
-     * @param player è il giocatore che vuole vendere un hotel.
-     */
-    public void sellHotel(Player player){
-        if(player.equals(owner) && houseNumber==5){
-            //puoi vendere un albergo
-            player.money +=hotelprice/2;
-            houseNumber--;
-            payment=basePayment/(houseNumber+2);//TODO sostituire logica prezzi
-        }
-        else{
-            //non puoi vendere
         }
     }
 
@@ -150,6 +130,6 @@ public class City implements Box {
     }
 
     public void getPaid(Player player) {
-        player.removeMoney(payment);
+        player.removeMoney(getPayment(houseNumber));
     }
 }
