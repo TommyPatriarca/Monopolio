@@ -695,7 +695,7 @@ public class Cli {
     public void printAllPosition() {
         for (int i = 0; i < 4; i++) {
             if (!gameManager.getPlayer(i).getName().isEmpty()) {
-                message("\033[0;36m" + "  " + gameManager.getPlayer(i).getName().toUpperCase() + " si trova nella casella: " + gameManager.getCity(gameManager.getPlayer(i).getPosition()).getNome() + "\033[0m");
+                message("\033[0;36m" + "  " + gameManager.getPlayer(i).getName().toUpperCase() + " si trova nella casella: " + gameManager.getCity(gameManager.getPlayer(i).getPosition()).getNome() + " e possiede un saldo di: " + gameManager.getPlayer(i).getMoney() + "$" + "\033[0m");
             }
         }
     }
