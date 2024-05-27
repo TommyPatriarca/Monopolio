@@ -708,11 +708,11 @@ public class Cli {
         String[] Yellow = new String[]{" - " + "\033[0;43m" + "Traona" + "\033[0m", " - " + "\033[0;43m" + "Andalo" + "\033[0m"};
         String[] Orange = new String[]{" - " + "\033[0;42m" + "Regoledo" + "\033[0m", " - " + "\033[0;42m" + "Talamona" + "\033[0m", " - " + "\033[0;42m" + "Morbegno" + "\033[0m"};
         String[] White = new String[]{" - " + "\033[0;47m" + "Ardenno" + "\033[0m", " - " + "\033[0;47m" + "Ardenno" + "\033[0m", " - " + "\033[0;47m" + "Berbenno" + "\033[0m",};
-        String[] Pink = new String[]{"Castione", "Castiones"};
-        String[] Purple = new String[]{"Sondrio", "Chiesa", "Piantedo"};
-        String[] Green = new String[]{"San Giacomo", "Tirano"};
-        String[] LightBlue = new String[]{"Livigno", "Sondalo", "Grosio"};
-        String[] Blue = new String[]{"\033[0;44m" + "Trepalle" + "\033[0m", "\033[0;44m" + "Bormio" + "\033[0m"};
+        String[] Pink = new String[]{" - " + "\033[0;45m" + "Castione" + "\033[0m", " - " + "\033[0;45m" + "Castiones" + "\033[0m"};
+        String[] Purple = new String[]{" - " + "\033[0;35m" + "Piantedo" + "\033[0m", " - " + "\033[0;35m" + "Chiesa" + "\033[0m", " - " + "\033[0;35m" + "Piantedo" + "\033[0m"};
+        String[] Green = new String[]{" - " + "\033[0;32m" + "San Giacomo" + "\033[0m", " - " + "\033[0;32m" + "Tirano" + "\033[0m"};
+        String[] LightBlue = new String[]{" - " + "\033[0;36m" + "Livigno" + "\033[0m", " - " + "\033[0;36m" + "Sondalo" + "\033[0m", "Grosio"};
+        String[] Blue = new String[]{" - " + "\033[0;37m" + "Trepalle" + "\033[0m"+ "\033[0m", "\033[0;37m" + "Bormio" + "\033[0m"};
 
         message("Via(+200$)" + Yellow[0] + " - " + "\033[0;44m" + "Probabilità" + "\033[0m" + Yellow[1] + " - Stazione Nord" + Orange[0] + Orange[1] + Orange[2] + " - " + "\033[0;41m" + "Prigione" + "\033[0m");
         message(" ");
