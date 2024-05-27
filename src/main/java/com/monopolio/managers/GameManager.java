@@ -11,6 +11,7 @@ import com.monopolio.cli.Cli;
 import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
 import com.monopolio.utils.RandUtils;
+import javafx.scene.control.Alert;
 
 public class GameManager {
     private Player[] players = new Player[4];
@@ -154,6 +155,48 @@ public class GameManager {
             if (Monopolio.isDevMode()) {
                 System.out.println("Could not handle property sell");
             }
+        }
+
+        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+            game.refreshPlayersGUI();
+        }
+
+        return false;
+    }
+
+
+
+    // Handles the player buy house
+    public boolean buyHouse(Box box) {
+        Player player = getCurrentPlayer();
+        int position = player.getPosition();
+
+        if (box instanceof City) {
+            City city = (City) box;
+            if(city.isOwned()) {
+                if(city.getOwner() == player) {
+                    if(hasTripletCities(city.getGroup(), player)) {
+                        if(player.getMoney() >= city.getHousePrice(city.getHouseNumber()+1)) {
+                            if(city.getHouseNumber() >= 5) {
+                                AlertManager.showError("Hai raggiunto il limite di case");
+                            } else {
+                                city.buyHouse(player);
+                                game.getLogManager().log(getCurrentPlayer().getName() + " ha comprato una casa a " + city.getNome());
+                            }
+                        } else {
+                            AlertManager.showError("Non hai abbastanza soldi per comprare la casa");
+                        }
+                    } else {
+                        AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
+                    }
+                } else {
+                    AlertManager.showError("Non sei il proprietario della città");
+                }
+            } else {
+                AlertManager.showError("Questa città non ha ancora un proprietario");
+            }
+        } else {
+            AlertManager.showError("Non hai selezionato una città");
         }
 
         if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
@@ -603,6 +646,8 @@ public class GameManager {
                 // Ottieni 100 monete.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $100");
+                }else{
+                    Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.addMoney(100);
                 break;
@@ -610,6 +655,8 @@ public class GameManager {
                 // Vai alla casella Partenza.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato al via");
+                }else{
+                    Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " è stato portato per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.setPosition(0);
                 break;
@@ -617,6 +664,8 @@ public class GameManager {
                 // Vai in prigione.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato in prigione");
+                }else{
+                    Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " è stato portato in prigione per essere passato sulla casella Probabilità");
                 }
                 player.setInPrison(true);
                 break;
@@ -624,6 +673,8 @@ public class GameManager {
                 // Paga 50 monete di multa.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha perso $50");
+                }else{
+                    Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " ha perso 50$ per essere passato sulla casella Probabilità");
                 }
                 player.removeMoney(50);
                 break;
@@ -631,6 +682,8 @@ public class GameManager {
                 // Avanza di tre caselle.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato avanti di 3 caselle");
+                }else{
+                    Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " è stato portato avanti di 3 caselle per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.setPosition(player.getPosition()+3);
                 break;
@@ -642,6 +695,21 @@ public class GameManager {
         if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
             game.refreshPlayersGUI();
         }
+    }
+
+    public boolean hasTripletCities(Groups groups, Player player) {
+        for(Box box : getCities()) {
+            if(box instanceof City) {
+                City city = (City) box;
+
+                if(city.getGroup() == groups) {
+                    if(city.getOwner() == null || city.getOwner() != player) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public Player getPlayer(int index) {

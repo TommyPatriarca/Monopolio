@@ -38,11 +38,11 @@ public class City implements Box {
      * @param player è il giocatore che vuole comprare la casa.
      */
     public void buyHouse(Player player){
-        if(player.money >=houseprice){
+        if(player.money >=getHousePrice(houseNumber+1)){
             //puoi comprare una casa
-            player.money -=houseprice;
+            player.money -=getHousePrice(houseNumber+1);
             houseNumber++;
-            payment=basePayment*(houseNumber+1);//TODO sostituire logica prezzi
+            payment=getPayment(houseNumber);//TODO sostituire logica prezzi
         }
         else{
             //non puoi comprare

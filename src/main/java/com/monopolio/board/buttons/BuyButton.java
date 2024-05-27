@@ -16,10 +16,10 @@ import javafx.scene.control.Button;
 public class BuyButton extends Button {
     GameManager gameManager;
 
-    public BuyButton(GameManager gameManager) {
+    public BuyButton(GameManager gameManager, Game game) {
         this.gameManager = gameManager;
         design();
-        setOnAction(new BuyListener(gameManager));
+        setOnAction(new BuyListener(gameManager, game));
     }
 
     public void design() {
