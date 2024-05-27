@@ -1,5 +1,6 @@
 package com.monopolio.managers;
 
+import com.monopolio.ui.EndGame;
 import com.monopolio.ui.Game;
 import com.monopolio.ui.Mode;
 import com.monopolio.ui.Start;

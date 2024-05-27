@@ -804,4 +804,13 @@ public class GameManager {
         }
         return 5;
     }
+
+    public boolean lastPlayer(){
+        int conta = 0;
+        for(int i=0; i<4;i++){
+            if(players[i].getName().equals("")){conta++;}
+        }
+        if (conta==3){return true;}
+        else {return false;}
+    }
 }
