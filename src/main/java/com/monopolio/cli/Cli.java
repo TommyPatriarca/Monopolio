@@ -702,7 +702,7 @@ public class Cli {
 
 
     /**
-     * Stampa la griglia del gioco.
+     * Stampa la griglia del gioco.prijnt
      */
     public void printBoard() {
         String[] Yellow = new String[]{" - " + "\033[0;43m" + "Traona" + "\033[0m", " - " + "\033[0;43m" + "Andalo" + "\033[0m"};

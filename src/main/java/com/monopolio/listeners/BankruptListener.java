@@ -2,6 +2,7 @@ package com.monopolio.listeners;
 
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
+import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,5 +19,10 @@ public class BankruptListener implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         AlertManager.showDialog("Are you sure you want to bankrupt? you will lose the game");
+        gameManager.bankrupt(gameManager.currentPlayerIndex());
     }
+
+
+
+
 }

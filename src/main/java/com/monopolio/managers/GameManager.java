@@ -637,6 +637,13 @@ public class GameManager {
         }
     }
 
+    public void bankrupt(int index) {
+        players[index]=new Player("");
+        if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
+            game.refreshPlayersGUI();
+        }
+    }
+
     public Player getPlayer(int index) {
         return players[index];
     }
@@ -699,5 +706,14 @@ public class GameManager {
 
     public void setTreasuresButton(TreasuresButton treasuresButton) {
         this.treasuresButton = treasuresButton;
+    }
+
+    public int currentPlayerIndex() {
+        for(int i=0; i<4;i++){
+            if(players[i].equals(getCurrentPlayer())){
+                return i;
+            }
+        }
+        return 5;
     }
 }

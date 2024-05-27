@@ -150,6 +150,9 @@ public class Game extends Application {
         InfoButton infoButton = new InfoButton(gameManager, this);
         toolbarBox.getChildren().add(infoButton);
 
+        BankruptButton bankruptButton = new BankruptButton(gameManager, this);
+        toolbarBox.getChildren().add(bankruptButton);
+
         //SettingsButton settingsButton = new SettingsButton(this, primaryStage);
         //toolbarBox.getChildren().add(settingsButton);
 
