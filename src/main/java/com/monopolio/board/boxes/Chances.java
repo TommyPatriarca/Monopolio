@@ -52,4 +52,8 @@ public class Chances implements Box {
     public String getNome() {
         return "Probabilità";
     }
+
+    public ArrayList<String> getChances() {
+        return chances;
+    }
 }
