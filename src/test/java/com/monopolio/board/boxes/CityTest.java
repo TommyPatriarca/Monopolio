@@ -19,20 +19,22 @@ class CityTest {
 
     @Test
     void buyHouse() {
+        int money = player.getMoney();
+        city.buyHouse(player);
+        assertEquals(money-city.getHousePrice(1), player.getMoney());
     }
 
     @Test
     void getHousePrice() {
+        assertEquals(city.getHousePrice(1),20);
+        assertEquals(city.getHousePrice(2),30);
     }
 
     @Test
     void buyPropriety() {
-        Player playerUno = new Player("BuyHouse_TEST");
-        int money = playerUno.getMoney();
-        city.buyPropriety(playerUno);
-
-        // Expected 1500-60, Actual 1440
-        assertEquals(money-city.getPrice(), playerUno.getMoney());
+        int money = player.getMoney();
+        city.buyPropriety(player);
+        assertEquals(money-city.getPrice(), player.getMoney());
     }
 
     @Test
