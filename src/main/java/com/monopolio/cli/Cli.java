@@ -130,7 +130,7 @@ public class Cli {
                     Player player2 = new Player(n2);
                     players[1] = player2;
 
-                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 3");
                     messagePrint("\nSelezione -> ");
                     String n3 = s.nextLine();
                     Player player3 = new Player(n3);
@@ -171,13 +171,13 @@ public class Cli {
                     Player player2 = new Player(n2);
                     players[1] = player2;
 
-                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 3");
                     messagePrint("\nSelezione -> ");
                     String n3 = s.nextLine();
                     Player player3 = new Player(n3);
                     players[2] = player3;
 
-                    messagePrint("\nInserisci il nome del giocatore 2");
+                    messagePrint("\nInserisci il nome del giocatore 4");
                     messagePrint("\nSelezione -> ");
                     String n4 = s.nextLine();
                     Player player4 = new Player(n4);
@@ -695,7 +695,7 @@ public class Cli {
     public void printAllPosition() {
         for (int i = 0; i < 4; i++) {
             if (!gameManager.getPlayer(i).getName().isEmpty()) {
-                message("\033[0;36m" + "  " + gameManager.getPlayer(i).getName().toUpperCase() + " si trova nella casella: " + gameManager.getCity(gameManager.getPlayer(i).getPosition()).getNome() + "\033[0m");
+                message("\033[0;36m" + "  " + gameManager.getPlayer(i).getName().toUpperCase() + " si trova nella casella: " + gameManager.getCity(gameManager.getPlayer(i).getPosition()).getNome() + " e possiede un saldo di: " + gameManager.getPlayer(i).getMoney() + "$" + "\033[0m");
             }
         }
     }
