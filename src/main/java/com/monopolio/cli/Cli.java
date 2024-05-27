@@ -256,10 +256,10 @@ public class Cli {
         //Todo: deve uscire dopo 1 turno fermo
         if (gameManager.getCurrentPlayer().inPrison()) {
 
-            if(gameManager.getCurrentPlayer().getTurnsInPrison() == 2){
+            if (gameManager.getCurrentPlayer().getTurnsInPrison() == 2) {
                 message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
                 gameManager.getCurrentPlayer().setInPrison(false);
-            }else{
+            } else {
                 messageRed("\nSei in prigione! Non potrai avanzare in questo turno");
                 message("Vuoi pagare 100$ e uscire subito di prigione? (si/no)");
                 messagePrint("Selezione -> ");
@@ -274,7 +274,7 @@ public class Cli {
                         askDice();
                         flag2 = true;
                     } else if (choose.toLowerCase().trim().equals("no")) {
-                        gameManager.getCurrentPlayer().setTurnsInPrison(gameManager.getCurrentPlayer().getTurnsInPrison()+1);
+                        gameManager.getCurrentPlayer().setTurnsInPrison(gameManager.getCurrentPlayer().getTurnsInPrison() + 1);
                         flag2 = true;
                     }
                 } while (!flag2);
@@ -718,7 +718,7 @@ public class Cli {
         String[] Purple = new String[]{" - " + "\033[0;35m" + "Piantedo" + "\033[0m", " - " + "\033[0;35m" + "Chiesa" + "\033[0m", " - " + "\033[0;35m" + "Piantedo" + "\033[0m"};
         String[] Green = new String[]{" - " + "\033[0;32m" + "San Giacomo" + "\033[0m", " - " + "\033[0;32m" + "Tirano" + "\033[0m"};
         String[] LightBlue = new String[]{" - " + "\033[0;36m" + "Livigno" + "\033[0m", " - " + "\033[0;36m" + "Sondalo" + "\033[0m", "Grosio"};
-        String[] Blue = new String[]{" - " + "\033[0;37m" + "Trepalle" + "\033[0m"+ "\033[0m", "\033[0;37m" + "Bormio" + "\033[0m"};
+        String[] Blue = new String[]{" - " + "\033[0;37m" + "Trepalle" + "\033[0m" + "\033[0m", "\033[0;37m" + "Bormio" + "\033[0m"};
 
         message("Via(+200$)" + Yellow[0] + " - " + "\033[0;44m" + "Probabilità" + "\033[0m" + Yellow[1] + " - Stazione Nord" + Orange[0] + Orange[1] + Orange[2] + " - " + "\033[0;41m" + "Prigione" + "\033[0m");
         message(" ");

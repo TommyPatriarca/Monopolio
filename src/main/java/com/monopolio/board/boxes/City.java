@@ -3,7 +3,6 @@ package com.monopolio.board.boxes;
 import com.monopolio.board.Box;
 import com.monopolio.board.Groups;
 import com.monopolio.player.Player;
-
 /**
  * La classe rappresenta una città all'interno del gioco su cui il giocatore può passare.
  */
