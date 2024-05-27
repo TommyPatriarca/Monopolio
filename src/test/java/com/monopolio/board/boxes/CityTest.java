@@ -8,10 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CityTest {
     City city = new City(Groups.YELLOW, "Traona", 60, 50, 200, 10);
+    Player player = new Player("test_name");
 
     @Test
     void getHouseNumber() {
-
+        assertEquals(city.getHouseNumber(),0);
+        city.buyHouse(player);
+        assertEquals(city.getHouseNumber(),1);
     }
 
     @Test
