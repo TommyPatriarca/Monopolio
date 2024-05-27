@@ -603,6 +603,8 @@ public class GameManager {
                 // Ottieni 100 monete.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $100");
+                }else{
+                    Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.addMoney(100);
                 break;
@@ -610,6 +612,8 @@ public class GameManager {
                 // Vai alla casella Partenza.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato al via");
+                }else{
+                    Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " è stato portato per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.setPosition(0);
                 break;
@@ -617,6 +621,8 @@ public class GameManager {
                 // Vai in prigione.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato in prigione");
+                }else{
+                    Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " è stato portato in prigione per essere passato sulla casella Probabilità");
                 }
                 player.setInPrison(true);
                 break;
@@ -624,6 +630,8 @@ public class GameManager {
                 // Paga 50 monete di multa.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha perso $50");
+                }else{
+                    Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " ha perso 50$ per essere passato sulla casella Probabilità");
                 }
                 player.removeMoney(50);
                 break;
@@ -631,6 +639,8 @@ public class GameManager {
                 // Avanza di tre caselle.
                 if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato avanti di 3 caselle");
+                }else{
+                    Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " è stato portato avanti di 3 caselle per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.setPosition(player.getPosition()+3);
                 break;

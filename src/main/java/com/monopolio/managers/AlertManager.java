@@ -44,7 +44,6 @@ public class AlertManager {
                 Button button = (Button) dialogPane.lookupButton(buttonType);
                 button.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
             });
-
             alert.showAndWait();
         }
     }

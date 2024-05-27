@@ -255,25 +255,32 @@ public class Cli {
 
         //Todo: deve uscire dopo 1 turno fermo
         if (gameManager.getCurrentPlayer().inPrison()) {
-            messageRed("\nSei in prigione! Non potrai avanzare in questo turno");
-            message("Vuoi pagare 100$ e uscire subito di prigione? (si/no)");
-            messagePrint("Selezione -> ");
-            String choose = s.nextLine();
 
-            do {
-                if (choose.toLowerCase().trim().equals("si")) {
-                    //ESCE DI PRIGIONE
-                    message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
-                    gameManager.getCurrentPlayer().setInPrison(false);
-                    gameManager.getCurrentPlayer().removeMoney(100);
-                    askDice();
-                    flag2 = true;
-                } else if (choose.toLowerCase().trim().equals("no")) {
-                    flag2 = true;
-                }
-            } while (!flag2);
+            if(gameManager.getCurrentPlayer().getTurnsInPrison() == 2){
+                message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
+                gameManager.getCurrentPlayer().setInPrison(false);
+            }else{
+                messageRed("\nSei in prigione! Non potrai avanzare in questo turno");
+                message("Vuoi pagare 100$ e uscire subito di prigione? (si/no)");
+                messagePrint("Selezione -> ");
+                String choose = s.nextLine();
 
+                do {
+                    if (choose.toLowerCase().trim().equals("si")) {
+                        //ESCE DI PRIGIONE
+                        message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
+                        gameManager.getCurrentPlayer().setInPrison(false);
+                        gameManager.getCurrentPlayer().removeMoney(100);
+                        askDice();
+                        flag2 = true;
+                    } else if (choose.toLowerCase().trim().equals("no")) {
+                        gameManager.getCurrentPlayer().setTurnsInPrison(gameManager.getCurrentPlayer().getTurnsInPrison()+1);
+                        flag2 = true;
+                    }
+                } while (!flag2);
+            }
         } else {
+            gameManager.getCurrentPlayer().setInPrison(false);
             do {
                 message("\nInserire " + "si" + " per tirare i dadi");
                 messagePrint("Selezione -> ");
@@ -327,7 +334,6 @@ public class Cli {
                     taxes.redeemTaxes(gameManager.getCurrentPlayer());
                 } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Chances) {
                     Chances chance = (Chances) gameManager.getCity(gameManager.getCurrentPlayer().getPosition());
-                    message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
                     gameManager.extractChance(chance.pickRandomIndex(), gameManager.getCurrentPlayer());
                 }
             }
