@@ -1,5 +1,8 @@
 package com.monopolio.board;
 
+/**
+ * Rappresenta i vari gruppi di città presenti nel gioco.
+ */
 public enum Groups {
     RED("/images/groups/red.png"),
     YELLOW("/images/groups/yellow.png"),
@@ -17,6 +20,9 @@ public enum Groups {
         this.path = path;
     }
 
+    /**
+     * @return il gruppo a cui appartiene una città.
+     */
     public String getPath() {
         return path;
     }

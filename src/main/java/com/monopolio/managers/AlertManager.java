@@ -12,7 +12,7 @@ import javafx.stage.StageStyle;
 import java.util.Optional;
 
 /**
- * Definisce il formato e il testo delle regole riguardanti il gioco.
+ * Rappresenta i vari tipi di messaggi che vengono utilizzati nel gioco.
  */
 public class AlertManager {
 
@@ -58,7 +58,8 @@ public class AlertManager {
     }
 
     /**
-     * Da fare
+     * Stampa a schermio un messaggio.
+     * @param string è il testo del messaggio che viene stampato.
      */
     public static void show(String string) {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
@@ -95,7 +96,7 @@ public class AlertManager {
 
 
     /**
-     * Da fare
+     * Stampa a schermo le regole del gioco.
      */
     public static void showRules() {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {

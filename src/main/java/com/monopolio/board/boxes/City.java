@@ -27,7 +27,9 @@ public class City implements Box {
         this.payment = basePayment;
     }
 
-    // TODO JAVADOC
+    /**
+     * @return il numero delle case posizionate in quella città
+     */
     public int getHouseNumber() {
         return houseNumber;
     }
@@ -48,8 +50,10 @@ public class City implements Box {
         }
     }
 
+
     /**
-     * TODO
+     * @param houseNumber è il numero delle case posizionate in questa città.
+     * @return il prezzo della case che vuoi comprare.
      */
     public int getHousePrice(int houseNumber){
         return basePayment*(houseNumber+1);//TODO sostituire logica prezzi
@@ -108,26 +112,45 @@ public class City implements Box {
         return name;
     }
 
+    /**
+     * @return il gruppo di appartenenza di questa città
+     */
     public Groups getGroup() {
         return group;
     }
 
+    /**
+     * @return il player che possiede questa città
+     */
     public Player getOwner() {
         return owner;
     }
 
+    /**
+     * @return il prezzo di questa città
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     * @return "true" se la città è posseduta da qualcuno, sennò "false".
+     */
     public boolean isOwned() {
         return owner != null;
     }
 
+    /**
+     * @param houseNumber è il numero delle case posozionate.
+     * @return il denaro che deve essere assegnato al proprietario della città.
+     */
     public int getPayment(int houseNumber) {
         return basePayment*(houseNumber+1);
     }
 
+    /**
+     * @param player è il giocatore a cui vanno tolti i soldi per essere passato sulla città.
+     */
     public void getPaid(Player player) {
         player.removeMoney(getPayment(houseNumber));
     }

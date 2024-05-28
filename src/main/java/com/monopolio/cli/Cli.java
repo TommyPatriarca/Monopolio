@@ -261,7 +261,7 @@ public class Cli {
 
 
     /**
-     * Chiede all'utente di lanciare i dadi e verifica che non sia in prigione.
+     * Chiede all'utente di lanciare i dadi e verifica che sia possibile farlo.
      */
     public void askDice() {
         boolean flag = false, flag2 = false;
@@ -810,7 +810,7 @@ public class Cli {
 
 
     /**
-     * Stampa la griglia del gioco.prijnt
+     * Stampa la griglia del gioco
      */
     public void printBoard() {
         String[] Yellow = new String[]{" - " + "\033[0;43m" + "       Traona      " + "\033[0m", " - " + "\033[0;43m" + "       Andalo      " + "\033[0m"};

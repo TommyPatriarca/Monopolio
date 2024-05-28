@@ -57,18 +57,30 @@ public class Stations implements Box {
         }
     }
 
+    /**
+     * @return il player che possiede questa stazione.
+     */
     public Player getOwner() {
         return owner;
     }
 
+    /**
+     * @return il prezzo di questa stazione.
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     * @return "true" se la stazione è posseduta da qualcuno, sennò "false".
+     */
     public boolean isOwned() {
         return owner != null;
     }
 
+    /**
+     * @param player è il giocatore a cui vanno tolti i soldi per essere passato sulla stazione.
+     */
     public void getPaid(int stationsOwned, Player player) {
         player.removeMoney(basePayment*stationsOwned);
     }
@@ -92,6 +104,9 @@ public class Stations implements Box {
         }
     }
 
+    /**
+     * @return il prezzo base da pagare per essere passato sulla stazione.
+     */
     public int getBasePayment() {
         return basePayment;
     }
