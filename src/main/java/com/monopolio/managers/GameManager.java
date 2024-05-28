@@ -175,22 +175,47 @@ public class GameManager {
                 if(city.getOwner() == player) {
                     if(hasTripletCities(city.getGroup(), player)) {
                         if(city.getHouseNumber() <= 0) {
-                            AlertManager.showError("Non hai piu case da vendere");
+                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                                AlertManager.showError("Non hai piu case da vendere");
+                            }else{
+                                Cli.messageRed("Non hai piu case da vendere");
+                            }
                         } else {
                             city.sellHouse(player);
-                            game.getLogManager().log(getCurrentPlayer().getName() + " ha venduto una casa a " + city.getNome());
+                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                                game.getLogManager().log(getCurrentPlayer().getName() + " ha venduto una casa a " + city.getNome());
+                            }else{
+                                Cli.messageRed("Casa a" + city.getNome() + " con successo");
+                            }
                         }
                     } else {
-                        AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
+                        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                            AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
+                        }else{
+                            Cli.messageRed("Non poessiedi tutte le proprietà di questo gruppo");
+                        }
                     }
                 } else {
-                    AlertManager.showError("Non sei il proprietario della città");
+                    if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                        AlertManager.showError("Non sei il proprietario della città");
+                    }else{
+                        Cli.messageRed("Non sei il proprietario della città");
+                    }
                 }
             } else {
-                AlertManager.showError("Questa città non ha ancora un proprietario");
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                    AlertManager.showError("Questa città non ha ancora un proprietario");
+                }else{
+                    Cli.messageRed("Questa città non ha ancora un proprietario");
+                }
             }
         } else {
-            AlertManager.showError("Non hai selezionato una città");
+            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                AlertManager.showError("Non hai selezionato una città");
+            }else{
+                Cli.messageRed("Non hai selezionato una città");
+            }
+
         }
 
         if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
@@ -212,22 +237,46 @@ public class GameManager {
                     if(hasTripletCities(city.getGroup(), player)) {
                         if(player.getMoney() >= city.getHousePrice(city.getHouseNumber()+1)) {
                             if(city.getHouseNumber() >= 5) {
-                                AlertManager.showError("Hai raggiunto il limite di case");
+                                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                                    AlertManager.showError("Hai raggiunto il limite di case");
+                                }else{
+                                    Cli.messageRed("Hai raggiunto il massimo di case disponibili per quella città");
+                                }
                             } else {
                                 city.buyHouse(player);
-                                game.getLogManager().log(getCurrentPlayer().getName() + " ha comprato una casa a " + city.getNome());
+                                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                                    game.getLogManager().log(getCurrentPlayer().getName() + " ha comprato una casa a " + city.getNome());
+                                }else{
+                                    Cli.message("\033[0;33m" + "Casa comprata con successo a " + city.getNome() + "\033[0m");
+                                }
                             }
                         } else {
-                            AlertManager.showError("Non hai abbastanza soldi per comprare la casa");
+                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                                AlertManager.showError("Non hai abbastanza soldi per comprare la casa");
+                            }else{
+                                Cli.messageRed("Non hai abbastanza soldi per comprare la casa");
+                            }
                         }
                     } else {
-                        AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
+                        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                            AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
+                        }else{
+                            Cli.messageRed("Non poessiedi tutte le proprietà di questo gruppo");
+                        }
                     }
                 } else {
-                    AlertManager.showError("Non sei il proprietario della città");
+                    if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                        AlertManager.showError("Non sei il proprietario della città");
+                    }else{
+                        Cli.messageRed("Non sei il proprietario della città");
+                    }
                 }
             } else {
-                AlertManager.showError("Questa città non ha ancora un proprietario");
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                    AlertManager.showError("Questa città non ha ancora un proprietario");
+                }else{
+                    Cli.messageRed("Questa città non ha ancora un proprietario");
+                }
             }
         } else {
             AlertManager.showError("Non hai selezionato una città");
