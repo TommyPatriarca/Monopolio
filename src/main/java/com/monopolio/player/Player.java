@@ -129,10 +129,17 @@ public class Player {
         return myTurn;
     }
 
+    /**
+     * @return il numero di turni da cui il giocatore si trova in prigione.
+     */
     public int getTurnsInPrison() {
         return turnInPrison;
     }
 
+    /**
+     * Assegna il numero di turni da cui il giocatore è in prigione.
+     * @param turnInPrison è il numero di turni da il player è in prigione.
+     */
     public void setTurnsInPrison(int turnInPrison) {
         this.turnInPrison = turnInPrison;
     }

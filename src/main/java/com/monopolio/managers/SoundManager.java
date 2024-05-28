@@ -28,6 +28,9 @@ public class SoundManager {
 
     }
 
+    /**
+     * Rappresenta il suono dell'errore e si sente nel gioco quando si vuole utilizzare un'opzione invalida.
+     */
     public static void error() {
         try {
             InputStream file = SoundManager.class.getResourceAsStream("/audio/error.wav");
@@ -41,6 +44,9 @@ public class SoundManager {
 
     }
 
+    /**
+     * Rappresenta il suono dei dadi quando vengono lanciati.
+     */
     public static void dices() {
         try {
             InputStream file = SoundManager.class.getResourceAsStream("/audio/dice.wav");
@@ -54,6 +60,9 @@ public class SoundManager {
 
     }
 
+    /**
+     * Raoppresenta il suono dei "Tesori" quando vengono estratti.
+     */
     public static void treasure() {
         try {
             InputStream file = SoundManager.class.getResourceAsStream("/audio/treasure.wav");

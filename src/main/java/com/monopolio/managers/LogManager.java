@@ -12,6 +12,9 @@ import javafx.scene.text.Font;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * TODO
+ */
 public class LogManager {
     private Label logLabel;
     private Queue<String> logQueue;

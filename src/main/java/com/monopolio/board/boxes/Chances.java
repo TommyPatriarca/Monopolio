@@ -48,11 +48,17 @@ public class Chances implements Box {
     }
 
 
+    /**
+     * @return il nome di questa casella.
+     */
     @Override
     public String getNome() {
         return "Probabilità";
     }
 
+    /**
+     * @return l'array che contiene le probabilità
+     */
     public ArrayList<String> getChances() {
         return chances;
     }
