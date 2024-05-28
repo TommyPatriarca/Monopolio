@@ -711,32 +711,32 @@ public class Cli {
      * Stampa la griglia del gioco.prijnt
      */
     public void printBoard() {
-        String[] Yellow = new String[]{" - " + "\033[0;43m" + "Traona" + "\033[0m", " - " + "\033[0;43m" + "Andalo" + "\033[0m"};
-        String[] Orange = new String[]{" - " + "\033[0;42m" + "Regoledo" + "\033[0m", " - " + "\033[0;42m" + "Talamona" + "\033[0m", " - " + "\033[0;42m" + "Morbegno" + "\033[0m"};
-        String[] White = new String[]{" - " + "\033[0;47m" + "Ardenno" + "\033[0m", " - " + "\033[0;47m" + "Ardenno" + "\033[0m", " - " + "\033[0;47m" + "Berbenno" + "\033[0m",};
-        String[] Pink = new String[]{" - " + "\033[0;45m" + "Castione" + "\033[0m", " - " + "\033[0;45m" + "Castiones" + "\033[0m"};
-        String[] Purple = new String[]{" - " + "\033[0;35m" + "Piantedo" + "\033[0m", " - " + "\033[0;35m" + "Chiesa" + "\033[0m", " - " + "\033[0;35m" + "Piantedo" + "\033[0m"};
-        String[] Green = new String[]{" - " + "\033[0;32m" + "San Giacomo" + "\033[0m", " - " + "\033[0;32m" + "Tirano" + "\033[0m"};
-        String[] LightBlue = new String[]{" - " + "\033[0;36m" + "Livigno" + "\033[0m", " - " + "\033[0;36m" + "Sondalo" + "\033[0m", " - " + "\033[0;36m" + "Grosio" + "\033[0m"};
-        String[] Blue = new String[]{" - " + "\033[0;37m" + "Trepalle" + "\033[0m" + "\033[0m", " - " +"\033[0;37m" + "Bormio" + "\033[0m"};
+        String[] Yellow = new String[]{" - " + "\033[0;43m" + "       Traona      " + "\033[0m", " - " + "\033[0;43m" + "       Andalo      " + "\033[0m"};
+        String[] Orange = new String[]{" - " + "\033[48;5;208m" + "      Regoledo     " + "\033[0m", " - " + "\033[48;5;208m" + "     Talamona      " + "\033[0m", " - " + "\033[48;5;208m" + "      Morbegno     " + "\033[0m"};
+        String[] White = new String[]{" - " + "\033[0;47m" + "      Ardenno      " + "\033[0m", " - " + "\033[0;47m" + "      Ardenno      " + "\033[0m", " - " + "\033[0;47m" + "     Berbennu      " + "\033[0m",};
+        String[] Pink = new String[]{" - " + "\033[48;5;213m" + "     Castion      " + "\033[0m", " - " + "\033[48;5;213m" + "     Castiones    " + "\033[0m"};
+        String[] Purple = new String[]{" - " + "\033[0;45m" + "      Sondrio      " + "\033[0m", " - " + "\033[0;45m" + "      Chiesa       " + "\033[0m", " - " + "\033[0;45m" + "      Piantedo     " + "\033[0m"};
+        String[] Green = new String[]{" - " + "\033[0;42m" + "    San Giacomo    " + "\033[0m", " - " + "\033[0;42m" + "       Tirano      " + "\033[0m"};
+        String[] LightBlue = new String[]{" - " + "\033[48;5;123m" + "      Livigno      " + "\033[0m", " - " + "\033[48;5;123m" + "      Sondalo      " + "\033[0m", " - " + "\033[48;5;123m" + "       Grosio      " + "\033[0m"};
+        String[] Blue = new String[]{" - " + "\033[0;44m" + "      Trepalle     " + "\033[0m" + "\033[0m", " - " +"\033[0;44m" + "       Bormio      " + "\033[0m"};
 
-        message(" - Via(+200$)" +"  "+ Yellow[0] +"  "+ " - " + "\033[0;44m" + "Probabilità" + "\033[0m" +"  "+ Yellow[1] +"  "+ " - Stazione Nord" +"  "+ Orange[0] +"  "+ Orange[1] +"  "+ Orange[2] +"  "+ " - " + "\033[0;41m" + "Prigione" + "\033[0m");
-        message(" ");message("");
-        message(Blue[1] + "                                                                                                     " + White[0]);
-        message(" ");message("");
-        message(" - Tasse(-200$)" + "                                                                                               " + White[1]);
-        message("");message("");
-        message(Blue[0] + "                                                                                                   " + White[2]);
-        message("");message("");
-        message(" - Stazione Ovest" + "                                                                                            " + " - Stazione Est");
-        message("");message("");
-        message(LightBlue[0] + "                                                                                                   " + Pink[0]);
-        message("");message("");
-        message(LightBlue[1] + "                                                                                                   " + "- Tesori");
-        message("");message("");
-        message(LightBlue[2] + "                                                                                                 " + Pink[1]);
-        message("");message("");
-        message(" - Vai in prigione" + Green[0] + " - " + "\033[0;44m" + " - Probabilità" + "\033[0m" + Green[1] + " - Stazione Sud" + Purple[0] + Purple[1] + Purple[2] + " - " + "\033[0;41m" + "Parcheggio gratuito" + "\033[0m");
+        message(" -     Via(+200$)     " + Yellow[0] + " - " + "\033[0;44m" + "    Probabilità    " + "\033[0m" + Yellow[1] + " -    Stazione Nord   " + Orange[0] + Orange[1] + Orange[2] + " - " + "\033[0;41m" + "     Prigione      " + "\033[0m");
+        message(" ");message("");message("");
+        message(Blue[1] + "                                                                                                                                                          " + White[0]);
+        message(" ");message("");message("");
+        message(" - Tasse(-200$)" + "                                                                                                                                                                 " + White[1]);
+        message("");message("");message("");
+        message(Blue[0] + "                                                                                                                                                          " + White[2]);
+        message("");message("");message("");
+        message(" -   Stazione Ovest    " + "                                                                                                                                                         " + " -    Stazione Est    ");
+        message("");message("");message("");
+        message(LightBlue[0] + "                                                                                                                                                          " + Pink[0]);
+        message("");message("");message("");
+        message(LightBlue[1] + "                                                                                                                                                           " + "- Tesori");
+        message("");message("");message("");
+        message(LightBlue[2] + "                                                                                                                                                          " + Pink[1]);
+        message("");message("");message("");
+        message(" -   Vai in prigione  " + Green[0] + " - " + "\033[0;44m" + "    Probabilità    " + "\033[0m" + Green[1] + " -    Stazione Sud    " + Purple[0] + Purple[1] + Purple[2] + " - " + "\033[0;41m" + "Parcheggio gratuito" + "\033[0m");
 
     }
 
