@@ -151,6 +151,9 @@ public class Game extends Application {
         BankruptButton bankruptButton = new BankruptButton(gameManager, this);
         toolbarBox.getChildren().add(bankruptButton);
 
+        LeaveButton leaveButton = new LeaveButton(gameManager, this);
+        toolbarBox.getChildren().add(leaveButton);
+
         //SettingsButton settingsButton = new SettingsButton(this, primaryStage);
         //toolbarBox.getChildren().add(settingsButton);
 
