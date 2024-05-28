@@ -484,7 +484,7 @@ public class GameManager {
                 setCity(number, new City(Groups.RED, "Ardenno", 140, 50, 200, 10));
                 break;
             case 10:
-                setCity(number, new City(Groups.RED, "Ardenno", 140, 50, 200, 10));
+                setCity(number, new City(Groups.RED, "Villapinta", 140, 50, 200, 10));
                 break;
             case 11:
                 setCity(number, new City(Groups.RED, "Berbenno", 140, 50, 200, 10));
@@ -499,7 +499,7 @@ public class GameManager {
                 setCity(number, new Treasures());
                 break;
             case 15:
-                setCity(number, new City(Groups.PINK, "Castiones", 160, 50, 200, 10));
+                setCity(number, new City(Groups.PINK, "Albosaggia", 160, 50, 200, 10));
                 break;
             case 16:
                 setCity(number, new Parking());
@@ -511,7 +511,7 @@ public class GameManager {
                 setCity(number, new City(Groups.PURPLE, "Chiesa", 180, 50, 200, 10));
                 break;
             case 19:
-                setCity(number, new City(Groups.PURPLE, "Piantedo", 220, 50, 200, 10));
+                setCity(number, new City(Groups.PURPLE, "Caspoggio", 220, 50, 200, 10));
                 break;
             case 20:
                 setCity(number, new Stations(Stations.StationTypes.SUD, 200, 50));

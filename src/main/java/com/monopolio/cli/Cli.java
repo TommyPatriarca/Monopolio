@@ -815,9 +815,9 @@ public class Cli {
     public void printBoard() {
         String[] Yellow = new String[]{" - " + "\033[0;43m" + "       Traona      " + "\033[0m", " - " + "\033[0;43m" + "       Andalo      " + "\033[0m"};
         String[] Orange = new String[]{" - " + "\033[48;5;208m" + "      Regoledo     " + "\033[0m", " - " + "\033[48;5;208m" + "     Talamona      " + "\033[0m", " - " + "\033[48;5;208m" + "      Morbegno     " + "\033[0m"};
-        String[] White = new String[]{" - " + "\033[0;47m" + "      Ardenno      " + "\033[0m", " - " + "\033[0;47m" + "      Ardenno      " + "\033[0m", " - " + "\033[0;47m" + "     Berbennu      " + "\033[0m",};
-        String[] Pink = new String[]{" - " + "\033[48;5;213m" + "     Castion      " + "\033[0m", " - " + "\033[48;5;213m" + "     Castiones    " + "\033[0m"};
-        String[] Purple = new String[]{" - " + "\033[0;45m" + "      Sondrio      " + "\033[0m", " - " + "\033[0;45m" + "      Chiesa       " + "\033[0m", " - " + "\033[0;45m" + "      Piantedo     " + "\033[0m"};
+        String[] White = new String[]{" - " + "\033[0;47m" + "      Ardenno      " + "\033[0m", " - " + "\033[0;47m" + "     Villapinta     " + "\033[0m", " - " + "\033[0;47m" + "     Berbenno      " + "\033[0m",};
+        String[] Pink = new String[]{" - " + "\033[48;5;213m" + "     Castione      " + "\033[0m", " - " + "\033[48;5;213m" + "     Albosaggia    " + "\033[0m"};
+        String[] Purple = new String[]{" - " + "\033[0;45m" + "      Sondrio      " + "\033[0m", " - " + "\033[0;45m" + "      Chiesa       " + "\033[0m", " - " + "\033[0;45m" + "     Caspoggio     " + "\033[0m"};
         String[] Green = new String[]{" - " + "\033[0;42m" + "    San Giacomo    " + "\033[0m", " - " + "\033[0;42m" + "       Tirano      " + "\033[0m"};
         String[] LightBlue = new String[]{" - " + "\033[48;5;123m" + "      Livigno      " + "\033[0m", " - " + "\033[48;5;123m" + "      Sondalo      " + "\033[0m", " - " + "\033[48;5;123m" + "       Grosio      " + "\033[0m"};
         String[] Blue = new String[]{" - " + "\033[0;44m" + "      Trepalle     " + "\033[0m" + "\033[0m", " - " + "\033[0;44m" + "       Bormio      " + "\033[0m"};
