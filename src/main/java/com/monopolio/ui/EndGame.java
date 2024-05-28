@@ -24,7 +24,6 @@ import java.util.Objects;
 public class EndGame extends Application {
     private Cli cli = new Cli();
 
-    Image img;
     Image bkg;
     int selection;
     Stage stage;
@@ -32,6 +31,10 @@ public class EndGame extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
     private boolean victory;
+
+    public EndGame(boolean victory) {
+        this.victory = victory;
+    }
 
     @Override
     public void start(Stage stage) {
