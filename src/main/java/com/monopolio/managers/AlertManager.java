@@ -4,9 +4,12 @@ import com.monopolio.Monopolio;
 import com.monopolio.cli.Cli;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.Optional;
 
 /**
  * Definisce il formato e il testo delle regole riguardanti il gioco.
@@ -15,8 +18,10 @@ public class AlertManager {
 
     /**
      * Da fare
+     *
+     * @return
      */
-    public static void showDialog(String string) {
+    public static boolean showDialog(String string) {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             //alert.initOwner(primaryStage); // Imposta la finestra genitore
@@ -44,8 +49,12 @@ public class AlertManager {
                 Button button = (Button) dialogPane.lookupButton(buttonType);
                 button.setStyle("-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 10;");
             });
-            alert.showAndWait();
+
+            Optional<ButtonType> result = alert.showAndWait();
+            return result.get() == ButtonType.OK;
         }
+
+        return false;
     }
 
     /**

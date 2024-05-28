@@ -164,7 +164,41 @@ public class GameManager {
         return false;
     }
 
+    // Handles the player buy house
+    public boolean sellHouse(Box box) {
+        Player player = getCurrentPlayer();
+        int position = player.getPosition();
 
+        if (box instanceof City) {
+            City city = (City) box;
+            if(city.isOwned()) {
+                if(city.getOwner() == player) {
+                    if(hasTripletCities(city.getGroup(), player)) {
+                        if(city.getHouseNumber() <= 0) {
+                            AlertManager.showError("Non hai piu case da vendere");
+                        } else {
+                            city.sellHouse(player);
+                            game.getLogManager().log(getCurrentPlayer().getName() + " ha venduto una casa a " + city.getNome());
+                        }
+                    } else {
+                        AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
+                    }
+                } else {
+                    AlertManager.showError("Non sei il proprietario della città");
+                }
+            } else {
+                AlertManager.showError("Questa città non ha ancora un proprietario");
+            }
+        } else {
+            AlertManager.showError("Non hai selezionato una città");
+        }
+
+        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+            game.refreshPlayersGUI();
+        }
+
+        return false;
+    }
 
     // Handles the player buy house
     public boolean buyHouse(Box box) {
@@ -691,8 +725,6 @@ public class GameManager {
     }
 
     public void bankrupt(int index) {
-        game.removePlayerIcons(players[index], game.getCell(getCurrentPlayer().getOldPosition()));
-
         for(int i=0; i<4; i++) {
             if(getPlayer(i).isMyTurn()) {
                 getPlayer(i).setMyTurn(false);
@@ -702,7 +734,9 @@ public class GameManager {
                     getPlayer(i+1).setMyTurn(true);
                 }
 
-                restoreDices();
+                if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
+                    restoreDices();
+                }
 
                 break;
             }
@@ -711,10 +745,10 @@ public class GameManager {
         players[index]=new Player("");
 
         if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
+            game.removePlayerIcons(players[index], game.getCell(getCurrentPlayer().getOldPosition()));
             game.refreshPlayersGUI();
+            game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
         }
-        
-        game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
     }
 
     public boolean hasTripletCities(Groups groups, Player player) {

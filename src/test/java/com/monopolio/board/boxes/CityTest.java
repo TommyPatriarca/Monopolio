@@ -2,6 +2,7 @@ package com.monopolio.board.boxes;
 
 import com.monopolio.board.Groups;
 import com.monopolio.player.Player;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,6 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class CityTest {
     City city = new City(Groups.YELLOW, "Traona", 60, 50, 200, 10);
     Player player = new Player("test_name");
+    Player player2 = new Player("test_name2");
+
+    @BeforeEach
+    void init() {
+        city = new City(Groups.YELLOW, "Traona", 60, 50, 200, 10);
+        player = new Player("test_name");
+        player2 = new Player("test_name2");
+    }
 
     @Test
     void getHouseNumber() {
@@ -39,10 +48,18 @@ class CityTest {
 
     @Test
     void sellHouse() {
+        city.buyHouse(player);
+        int money = player.getMoney();
+        city.sellHouse(player);
+        assertEquals(money + (city.getHousePrice(1)/2) ,player.getMoney());
     }
 
     @Test
     void sellPropriety() {
+        city.buyPropriety(player);
+        int money = player.getMoney();
+        city.sellPropriety(player);
+        assertEquals(money + (city.getPrice()/2),player.getMoney());
     }
 
     @Test
@@ -75,10 +92,7 @@ class CityTest {
     }
 
     @Test
-    void getPayment() {
-    }
-
-    @Test
     void getPaid() {
+
     }
 }

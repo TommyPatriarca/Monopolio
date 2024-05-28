@@ -40,6 +40,7 @@ public class Game extends Application {
     private BorderPane root;
     private Button[] buttons = new Button[32];
     private BuyButton buyButton = new BuyButton(gameManager, this);
+    private SellButton sellButton = new SellButton(this, gameManager);
     private Button selectedButton = null;
     private int selectedButtonIndex = 0;
 
@@ -117,9 +118,6 @@ public class Game extends Application {
 
         // buy button
         gridPane.add(buyButton, 2, 7);
-
-        // sell button
-        SellButton sellButton = new SellButton(this, gameManager);
         gridPane.add(sellButton, 6, 7);
 
         // grid pane add dice 0 a (2,2)
@@ -198,7 +196,7 @@ public class Game extends Application {
         }
 
         // Aggiungi listener alla casella
-        button.setOnAction(new BoxListener(buyButton, gameManager, this, button, number));
+        button.setOnAction(new BoxListener(buyButton, sellButton, gameManager, this, button, number));
 
         // Creazione della StackPane e aggiunta del pulsante
         StackPane cell = new StackPane();

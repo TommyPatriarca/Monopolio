@@ -76,7 +76,7 @@ public class City implements Box {
     public void sellHouse(Player player){
         if(player.equals(owner) && houseNumber>0 && houseNumber < 5){
             //puoi vendere una casa
-            player.money +=houseprice/2;
+            player.money += getHousePrice(houseNumber)/2;
             houseNumber--;
             payment=basePayment/(houseNumber+1);//TODO sostituire logica prezzi
         }
