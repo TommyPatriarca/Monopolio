@@ -47,22 +47,31 @@ class CityTest {
 
     @Test
     void getNome() {
+        assertEquals(player.getName(),"test_name");
     }
 
     @Test
     void getGroup() {
+        assertEquals(city.getGroup(),Groups.YELLOW);
     }
 
     @Test
     void getOwner() {
+        assertNull(city.getOwner());
+        city.buyPropriety(player);
+        assertEquals(city.getOwner(),player);
     }
 
     @Test
     void getPrice() {
+        assertEquals(city.getPrice(),60);
     }
 
     @Test
     void isOwned() {
+        assertFalse(city.isOwned());
+        city.buyPropriety(player);
+        assertTrue(city.isOwned());
     }
 
     @Test
