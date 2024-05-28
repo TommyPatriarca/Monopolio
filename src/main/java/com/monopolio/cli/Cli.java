@@ -364,17 +364,17 @@ public class Cli {
             }
         } else {
             do {
-                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori");
+                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori \n[104] Dichiara Bancarotta");
                 messagePrint("\nSelezione -> ");
                 try {
                     selection = Integer.parseInt(s.nextLine());
-                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4) {
+                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 104) {
                         messageRed("\n Hai richiesto un'azione inesistente");
                     }
                 } catch (NumberFormatException e) {
                     messageRed("Non hai inserto un numero");
                 }
-            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4);
+            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 104);
 
             switch (selection) {
                 case 0:
@@ -504,6 +504,10 @@ public class Cli {
                 case 4:
                     printAllPosition();
                     return false;
+                case 104:
+                    messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha dichiarato bancarotta e si è ritirato");
+                    gameManager.bankrupt(gameManager.currentPlayerIndex());
+                    return true;
             }
         }
         return true;

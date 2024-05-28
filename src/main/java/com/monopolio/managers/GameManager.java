@@ -734,7 +734,9 @@ public class GameManager {
                     getPlayer(i+1).setMyTurn(true);
                 }
 
-                restoreDices();
+                if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
+                    restoreDices();
+                }
 
                 break;
             }
