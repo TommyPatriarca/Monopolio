@@ -74,7 +74,7 @@ public class City implements Box {
      * @param player è il giocatore che vuole vendere una casa.
      */
     public void sellHouse(Player player){
-        if(player.equals(owner) && houseNumber>0 && houseNumber < 5){
+        if(player.equals(owner) && houseNumber > 0 && houseNumber <= 5){
             //puoi vendere una casa
             player.money += getHousePrice(houseNumber)/2;
             houseNumber--;

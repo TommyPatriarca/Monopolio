@@ -701,6 +701,7 @@ public class GameManager {
                 }else{
                     Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " è stato portato in prigione per essere passato sulla casella Probabilità");
                 }
+                player.setPosition(8);
                 player.setInPrison(true);
                 break;
             case 3:
