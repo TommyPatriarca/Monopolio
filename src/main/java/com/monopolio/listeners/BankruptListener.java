@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 public class BankruptListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
     private Game game;
-    private EndGame endGame = new EndGame();
 
     public BankruptListener(GameManager gameManager, Game game) {
         this.gameManager = gameManager;
@@ -25,7 +24,8 @@ public class BankruptListener implements EventHandler<ActionEvent> {
         if(!AlertManager.showDialog("Are you sure you want to bankrupt? you will lose the game")) return;
         gameManager.bankrupt(gameManager.currentPlayerIndex());
         if(gameManager.lastPlayer()){
-
+            EndGame endGame = new EndGame(true);
+            endGame.start(new Stage());
         }
     }
 
