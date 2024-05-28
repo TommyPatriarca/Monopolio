@@ -1,6 +1,7 @@
 package com.monopolio.listeners;
 
 import com.monopolio.Monopolio;
+import com.monopolio.board.boxes.City;
 import com.monopolio.board.buttons.DiceButton;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
@@ -23,7 +24,11 @@ public class SellListener implements EventHandler<ActionEvent> {
         if(game.getSelectedButton() == null) {
             AlertManager.showError("Non ci sono proprietà selezionate");
         } else {
-            gameManager.sellPropety(gameManager.getCity(game.getSelectedButtonIndex()));
+            if(gameManager.getCity(game.getSelectedButtonIndex()) instanceof City && ((City) gameManager.getCity(game.getSelectedButtonIndex())).getHouseNumber() >= 1) {
+                gameManager.sellHouse(gameManager.getCity(game.getSelectedButtonIndex()));
+            } else {
+                gameManager.sellPropety(gameManager.getCity(game.getSelectedButtonIndex()));
+            }
         }
     }
 }

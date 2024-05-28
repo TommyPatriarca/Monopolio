@@ -22,7 +22,7 @@ public class BankruptListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        AlertManager.showDialog("Are you sure you want to bankrupt? you will lose the game");
+        if(!AlertManager.showDialog("Are you sure you want to bankrupt? you will lose the game")) return;
         gameManager.bankrupt(gameManager.currentPlayerIndex());
         if(gameManager.lastPlayer()){
 

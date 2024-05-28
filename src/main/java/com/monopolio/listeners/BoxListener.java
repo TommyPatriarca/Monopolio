@@ -3,6 +3,7 @@ package com.monopolio.listeners;
 import com.monopolio.Monopolio;
 import com.monopolio.board.boxes.City;
 import com.monopolio.board.buttons.BuyButton;
+import com.monopolio.board.buttons.SellButton;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.ui.Game;
@@ -12,12 +13,13 @@ import javafx.scene.control.Button;
 
 public class BoxListener implements EventHandler<ActionEvent> {
     private BuyButton buyButton;
+    private SellButton sellButton;
     private GameManager gameManager;
     private Game game;
     private Button button;
     private int index;
 
-    public BoxListener(BuyButton buyButton, GameManager gameManager, Game game, Button button, int index) {
+    public BoxListener(BuyButton buyButton, SellButton sellButton, GameManager gameManager, Game game, Button button, int index) {
         this.gameManager = gameManager;
         this.buyButton = buyButton;
         this.game = game;
