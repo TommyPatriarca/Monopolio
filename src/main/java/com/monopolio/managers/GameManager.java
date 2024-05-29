@@ -105,7 +105,7 @@ public class GameManager implements Serializable {
     }
 
     /**
-     *
+     * Gestisce la vendita delle proprietà.
      * @param box è la casella che si vuole vendere.
      * @return "true" se la proprietà è stata venduta, "false" se la proprietà non può essere venduta.
      */
@@ -195,7 +195,7 @@ public class GameManager implements Serializable {
     }
 
     /**
-     *
+     * Gestisce la vendita delle case.
      * @param box è la casella che si vuole vendere.
      * @return "true" se la casa è stata venduta, "false" se la casa non può essere venduta.
      */
@@ -260,7 +260,7 @@ public class GameManager implements Serializable {
     }
 
     /**
-     *
+     * Gestisce l'acquisto delle case.
      * @param box è la casella che si vuole comprare.
      * @return "true" se la casa è stata comprata, "false" se la casa non può essere comprata.
      */
@@ -328,7 +328,7 @@ public class GameManager implements Serializable {
     }
 
     /**
-     *
+     * Gestisce l'acquisto delle proprietà.
      * @return "true" se la proprietà è stata comprata, "false" se la proprietà non può essere comprata.
      */
     public boolean buyPropety() {
@@ -680,8 +680,8 @@ public class GameManager implements Serializable {
 
     /**
      * Permette di visualizziare quali stazioni il giocatore possiede.
-     * @param player si riferisce al giocatore 
-     * @return
+     * @param player si riferisce al giocatore.
+     * @return la stazione posseduta dal giocatore.
      */
     public int getStationsOwned(Player player) {
         // City
@@ -698,6 +698,10 @@ public class GameManager implements Serializable {
         return stations;
     }
 
+    /**
+     * @param index è il numero della proprietà.
+     * @return il numero del player che possiede la proprietà.
+     */
     public int getPropertyOwnerIndex(int index) {
         // City
         if (cities[index] instanceof City) {
@@ -725,6 +729,10 @@ public class GameManager implements Serializable {
         return -1;
     }
 
+    /**
+     * Gestisce il tiro dei dadi.
+     * @return il valore che il dado assume dopo il suo tiro.
+     */
     public int throwDice() {
         return RandUtils.Integer(1, 4);
     }
@@ -750,6 +758,8 @@ public class GameManager implements Serializable {
 
     /**
      * Gestisce il comportamento associato ad un tesoro.
+     * @param index è il numero del tesoro.
+     * @param player indica il gicoatore che pesca la carta tesoro.
      */
     public void extractTreasure(int index, Player player) {
         switch (index) {
@@ -793,6 +803,8 @@ public class GameManager implements Serializable {
 
     /**
      * Gestisce il comportamento associato ad una probabilità.
+     * @param index è il numero della probabilità.
+     * @param player indica il gicoatore che pesca la carta tesoro.
      */
     public void extractChance(int index, Player player) {
         switch (index) {
@@ -845,6 +857,10 @@ public class GameManager implements Serializable {
         }
     }
 
+    /**
+     * Gestisce la bancarotta.
+     * @param index indica il numero del giocatore che sceglie l'opzione bancarotta.
+     */
     public void bankrupt(int index) {
         for (int i = 0; i < 4; i++) {
             if (getPlayer(i).isMyTurn()) {
@@ -872,6 +888,12 @@ public class GameManager implements Serializable {
         }
     }
 
+    /**
+     * Gestisce il caso in cui un player possieda 3 città.
+     * @param groups sono le città con lo stesso colore.
+     * @param player indica il giocatore che possiede tali città.
+     * @return "true" se il giocatore possiede 3 città dello stesso colore, "false" se non possiede un gruppo di città.
+     */
     public boolean hasTripletCities(Groups groups, Player player) {
         for (Box box : getCities()) {
             if (box instanceof City) {
@@ -887,46 +909,86 @@ public class GameManager implements Serializable {
         return true;
     }
 
+    /**
+     * @param index è il numero del giocatore.
+     * @return il nome del giocatore.
+     */
     public Player getPlayer(int index) {
         return players[index];
     }
 
+    /**
+     * @return il nome di tutti i player.
+     */
     public Player[] getPlayers() {
         return players;
     }
 
+    /**
+     * @param index indica il numero della città.
+     * @return la città a cui corrisponde tale numero.
+     */
     public Box getCity(int index) {
         return cities[index];
     }
 
+    /**
+     * @return tutte le città.
+     */
     public Box[] getCities() {
         return cities;
     }
 
+    /**
+     * @param index indica il numero del dado.
+     * @return il dado a cui corrisponde tale numero.
+     */
     public DiceButton getDice(int index) {
         return dices[index];
     }
 
+    /**
+     * @return entrambi i dadi.
+     */
     public DiceButton[] getDices() {
         return dices;
     }
 
+    /**
+     * @return il bottone delle probabilità.
+     */
     public ChancesButton getChancesButton() {
         return chancesButton;
     }
 
+    /**
+     * @return il bottone dei tesori.
+     */
     public TreasuresButton getTreasuresButton() {
         return treasuresButton;
     }
 
+    /**
+     * Permette di settare il player in uno slot.
+     * @param index è il numero attribuito al player.
+     * @param player indica il nome del giocatore.
+     */
     public void setPlayer(int index, Player player) {
         this.players[index] = player;
     }
 
+    /**
+     * Permette di settare tutti i player.
+     * @param players si riferisce al nome dei giocatori.
+     */
     public void setPlayers(Player[] players) {
         this.players = players;
     }
 
+    /**
+     * Permette di settare le città.
+     * @param cities si riferisce ai nomi della città.
+     */
     public void setCities(Box[] cities) {
         this.cities = cities;
     }
