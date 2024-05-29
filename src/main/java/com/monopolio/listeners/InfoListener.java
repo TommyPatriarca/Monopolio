@@ -11,6 +11,9 @@ import com.monopolio.ui.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * Gestisce il click del bottone "Informazioni" e stampa le informazioni.
+ */
 public class InfoListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
     private Game game;
@@ -20,6 +23,10 @@ public class InfoListener implements EventHandler<ActionEvent> {
         this.game = game;
     }
 
+    /**
+     * Dopo il click del bottone stampa tutte le informazioni.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         // print selected property info (AlertManager)

@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
+/**
+ * Gestisce la bancarotta selezionata dai giocatori, rimuovendili dal gioco.
+ */
 public class BankruptListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
     private Game game;
@@ -20,6 +23,10 @@ public class BankruptListener implements EventHandler<ActionEvent> {
         this.sceneManager = sceneManager;
     }
 
+    /**
+     * Aspetta un click del tasto "bancarotta" e se è rimasto solo un giocatore dichiara la vincita.
+     * @param actionEvent è l'evento che corrisponde al click del bottone.
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         if(!AlertManager.showDialog("Are you sure you want to bankrupt? you will lose the game")) return;

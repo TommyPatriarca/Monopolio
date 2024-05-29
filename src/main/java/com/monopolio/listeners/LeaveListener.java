@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
+
 public class LeaveListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
     private SceneManager sceneManager;

@@ -11,6 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+/**
+ * Gestisce i click di ogni bottone presente nel gioco con interfaccia GUI.
+ */
 public class BoxListener implements EventHandler<ActionEvent> {
     private BuyButton buyButton;
     private SellButton sellButton;
@@ -27,6 +30,10 @@ public class BoxListener implements EventHandler<ActionEvent> {
         this.index = index;
     }
 
+    /**
+     * Imposta la grafica dei bottoni e ciò che li rappresenta.
+     * @param event (obbligatorio da inserire visto l'override).
+     */
     @Override
     public void handle(ActionEvent event) {
         if(game.getSelectedButton() != null && game.getSelectedButton() == button) {

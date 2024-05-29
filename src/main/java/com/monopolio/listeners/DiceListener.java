@@ -12,6 +12,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
+/**
+ * Gestisce il lancio dei dadi dopo il click della casella "Dice".
+ */
 public class DiceListener implements EventHandler<ActionEvent> {
     private DiceButton dice;
     private Game game;
@@ -23,6 +26,10 @@ public class DiceListener implements EventHandler<ActionEvent> {
         this.game = game;
     }
 
+    /**
+     * Dopo il click della casella "Dice" estrae il numero e controlla i vari casi in cui i dadi non possono essere tirati.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         // Logica per la gestione dei dadi
