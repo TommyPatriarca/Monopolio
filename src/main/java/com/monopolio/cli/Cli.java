@@ -272,10 +272,10 @@ public class Cli {
 
         //Todo: deve uscire dopo 1 turno fermo
         if (gameManager.getCurrentPlayer().inPrison()) {
-
             if (gameManager.getCurrentPlayer().getTurnsInPrison() == 2) {
                 message("\033[0;32m" + gameManager.getCurrentPlayer().getName().toUpperCase() + " è uscito di prigione" + "\033[0m");
                 gameManager.getCurrentPlayer().setInPrison(false);
+                askDice();
             } else {
                 messageRed("\nSei in prigione! Non potrai avanzare in questo turno");
                 message("Vuoi pagare 100$ e uscire subito di prigione? (si/no)");
@@ -298,6 +298,7 @@ public class Cli {
             }
         } else {
             gameManager.getCurrentPlayer().setInPrison(false);
+
             do {
                 message("\nInserire " + "si" + " per tirare i dadi");
                 messagePrint("Selezione -> ");
@@ -320,7 +321,7 @@ public class Cli {
                 if (city.isOwned()) {
                     city.getPaid(gameManager.getCurrentPlayer());
                     messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
-                    message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+                    //message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 }
                 //STATION
             } else if (gameManager.getCity(gameManager.getCurrentPlayer().getPosition()) instanceof Stations) {
@@ -329,7 +330,7 @@ public class Cli {
                 if (stations.isOwned()) {
                     stations.getPaid(gameManager.getStationsOwned(gameManager.getCurrentPlayer()), gameManager.getCurrentPlayer());
                     messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha pagato per essere passato su una proprietà già acquistata");
-                    message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
+                    //message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "\033[0m");
                 }
             } else {
                 message("\033[0;36m" + "Posizione attuale: " + gameManager.getCity(gameManager.getCurrentPlayer().getPosition()).getNome().replace("\n", " ") + "\033[0m");
@@ -356,7 +357,6 @@ public class Cli {
             }
             message("\033[0;36m" + "Saldo attuale: " + gameManager.getCurrentPlayer().getMoney() + "$" + "\033[0m");
         }
-
     }
 
     /**
@@ -381,17 +381,17 @@ public class Cli {
             }
         } else {
             do {
-                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori \n[104] Dichiara Bancarotta");
+                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori \n[5] Visualizza Griglia di gioco \n[104] Dichiara Bancarotta");
                 messagePrint("\nSelezione -> ");
                 try {
                     selection = Integer.parseInt(s.nextLine());
-                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 104) {
+                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 104) {
                         messageRed("\n Hai richiesto un'azione inesistente");
                     }
                 } catch (NumberFormatException e) {
                     messageRed("Non hai inserto un numero");
                 }
-            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 104);
+            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 104);
 
             switch (selection) {
                 case 0:
@@ -602,6 +602,9 @@ public class Cli {
                 case 4:
                     printAllPosition();
                     return false;
+                case 5:
+                    printBoard();
+                    return false;
                 case 104:
                     messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha dichiarato bancarotta e si è ritirato");
                     gameManager.bankrupt(gameManager.currentPlayerIndex());
@@ -726,6 +729,13 @@ public class Cli {
                             messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
                             for (Box box : posssedute1) {
                                 if (posssedute1.size() == 1) {
+                                    if(box instanceof City){
+                                        City city = (City) box;
+                                        if(city.getHouseNumber() > 0){
+                                            messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "+" + city.getHouseNumber() + " case" + "\033[0m");
+                                        }
+                                    }
+
                                     messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
                                 } else {
                                     messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
@@ -746,7 +756,12 @@ public class Cli {
                             messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
                             for (Box box : posssedute2) {
                                 if (posssedute2.size() == 1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                    if(box instanceof City){
+                                        City city = (City) box;
+                                        if(city.getHouseNumber() > 0){
+                                            messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "+" + city.getHouseNumber() + " case" + "\033[0m");
+                                        }
+                                    }
                                 } else {
                                     messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
@@ -765,7 +780,12 @@ public class Cli {
                             messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
                             for (Box box : posssedute3) {
                                 if (posssedute3.size() == 1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                    if(box instanceof City){
+                                        City city = (City) box;
+                                        if(city.getHouseNumber() > 0){
+                                            messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "+" + city.getHouseNumber() + " case" + "\033[0m");
+                                        }
+                                    }
                                 } else {
                                     messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
@@ -784,7 +804,12 @@ public class Cli {
                             messagePrint("\033[0;33m" + gameManager.getPlayer(i).getName().toUpperCase() + " possiede: { " + "\033[0m");
                             for (Box box : posssedute4) {
                                 if (posssedute4.size() == 1) {
-                                    messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "\033[0m");
+                                    if(box instanceof City){
+                                        City city = (City) box;
+                                        if(city.getHouseNumber() > 0){
+                                            messagePrint("\033[0;33m" + box.getNome().replace("\n", " ") + "+" + city.getHouseNumber() + " case" + "\033[0m");
+                                        }
+                                    }
                                 } else {
                                     messagePrint("\033[0;33m" + "  " + box.getNome().replace("\n", " ") + "\033[0m");
                                 }
