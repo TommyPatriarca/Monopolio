@@ -1,6 +1,5 @@
 package com.monopolio.board.buttons;
 
-import com.monopolio.listeners.ChanceListener;
 import com.monopolio.managers.GameManager;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
@@ -30,7 +29,6 @@ public class ChancesButton extends Button {
     public ChancesButton(GameManager gameManager, Game game) {
         setDefault();
         design();
-        setOnAction(new ChanceListener(gameManager, game));
     }
 
     public void setDefault() {
