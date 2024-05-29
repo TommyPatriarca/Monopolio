@@ -39,7 +39,7 @@ public class City implements Box {
      * @param player è il giocatore che vuole comprare la casa.
      */
     public void buyHouse(Player player){
-        if(player.money >=getHousePrice(houseNumber+1)){
+        if(owner == player && player.money >=getHousePrice(houseNumber+1)){
             //puoi comprare una casa
             player.money -=getHousePrice(houseNumber+1);
             houseNumber++;
@@ -80,7 +80,7 @@ public class City implements Box {
     public void sellHouse(Player player){
         if(player.equals(owner) && houseNumber > 0 && houseNumber <= 5){
             //puoi vendere una casa
-            player.money += getHousePrice(houseNumber)/2;
+            player.addMoney(getHousePrice(houseNumber)/2);
             houseNumber--;
             payment=basePayment/(houseNumber+1);//TODO sostituire logica prezzi
         }
@@ -152,6 +152,8 @@ public class City implements Box {
      * @param player è il giocatore a cui vanno tolti i soldi per essere passato sulla città.
      */
     public void getPaid(Player player) {
-        player.removeMoney(getPayment(houseNumber));
+        if(owner != player) {
+            player.removeMoney(getPayment(houseNumber));
+        }
     }
 }
