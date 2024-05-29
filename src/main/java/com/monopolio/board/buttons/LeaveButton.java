@@ -19,14 +19,14 @@ import java.util.Objects;
 
 public class LeaveButton extends Button {
 
-    public LeaveButton(GameManager gameManager, Game game)
+    public LeaveButton(GameManager gameManager)
     {
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quit.png")),50,50,true,true);
         // Crea le ImageView per le immagini
         ImageView icon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
-        setOnAction(new LeaveListener(gameManager, game));
+        setOnAction(new LeaveListener(gameManager));
         setGraphic(icon);
     }
 

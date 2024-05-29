@@ -23,7 +23,7 @@ public class BuyButton extends Button {
     }
 
     public void design() {
-        setPrefSize(110, 50);
+        setPrefSize(100, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setText("Compra");

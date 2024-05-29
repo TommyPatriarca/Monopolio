@@ -86,8 +86,8 @@ public class Game extends Application {
         // Creazione del GridPane per il gioco
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
+        gridPane.setHgap(3);
+        gridPane.setVgap(3);
 
         // Aggiunta bottoni al perimetro del GridPane
         for (int i = 0; i < 9; i++) {
@@ -151,7 +151,7 @@ public class Game extends Application {
         BankruptButton bankruptButton = new BankruptButton(gameManager, this);
         toolbarBox.getChildren().add(bankruptButton);
 
-        LeaveButton leaveButton = new LeaveButton(gameManager, this);
+        LeaveButton leaveButton = new LeaveButton(gameManager);
         toolbarBox.getChildren().add(leaveButton);
 
         //SettingsButton settingsButton = new SettingsButton(this, primaryStage);
@@ -184,7 +184,7 @@ public class Game extends Application {
 
         // Creazione del pulsante con l'immagine di sfondo
         Button button = new Button(gameManager.getCity(number).getNome());
-        button.setPrefSize(110, 110);
+        button.setPrefSize(100, 100);
         button.setBackground(new Background(new BackgroundFill(Color.web("#001845FF"), new CornerRadii(10), Insets.EMPTY)));
         button.setTextFill(Color.WHITE);
         button.setStyle(button.getStyle() + "-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
@@ -223,7 +223,7 @@ public class Game extends Application {
         Player[] players = gameManager.getPlayers();
         ImageView[] icons = new ImageView[4];
         int index = 0;
-        int iconSize = 100;
+        int iconSize = 90;
         int j = 0;
 
         for (Player player : players) {
@@ -249,7 +249,7 @@ public class Game extends Application {
     public void removePlayerIcons(Player player, StackPane cell) {
         Player[] players = gameManager.getPlayers();
         Image playerImage = null;
-        int iconSize = 100;
+        int iconSize = 90;
         int j = 0;
 
         // Find the image for the specified player

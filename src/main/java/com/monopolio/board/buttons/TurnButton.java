@@ -29,7 +29,7 @@ public class TurnButton extends Button {
 
 
     public void design() {
-        setPrefSize(110, 50);
+        setPrefSize(100, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#dd0426"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setText("FINISCI TURNO");

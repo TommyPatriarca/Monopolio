@@ -2,7 +2,6 @@ package com.monopolio.board.buttons;
 
 import com.monopolio.listeners.DiceListener;
 import com.monopolio.managers.GameManager;
-import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
 import com.monopolio.utils.RandUtils;
 import javafx.geometry.Insets;
@@ -13,7 +12,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-
 import java.util.Objects;
 
 public class DiceButton extends Button {
@@ -26,8 +24,6 @@ public class DiceButton extends Button {
 
     public DiceButton(GameManager gameManager, Game game) {
         this.game = game;
-        //verde 38b000
-        //rosso dd0426
         setDefault();
         design();
         setOnAction(new DiceListener(this, gameManager, game));
@@ -42,21 +38,21 @@ public class DiceButton extends Button {
     }
 
     public void design() {
-        setPrefSize(110, 110);
+        setPrefSize(100, 100);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setStyle("-fx-cursor: hand; -fx-background-radius: 15; -fx-background-color: #38b000; -fx-font-weight: bold;");
     }
 
     public void colorRed() {
-        setPrefSize(110, 110);
+        setPrefSize(100, 100);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setStyle("-fx-cursor: hand; -fx-background-radius: 15; -fx-background-color: #dd0426; -fx-font-weight: bold;");
     }
 
     public void colorGreen() {
-        setPrefSize(110, 110);
+        setPrefSize(100, 100);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setStyle("-fx-cursor: hand; -fx-background-radius: 15; -fx-border-width: 2px; -fx-background-color: #38b000; -fx-font-weight: bold;");

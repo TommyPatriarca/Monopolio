@@ -41,7 +41,7 @@ public class TreasuresButton extends Button {
     }
 
     public void design() {
-        setPrefSize(110, 110);
+        setPrefSize(100, 100);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setStyle(getStyle() + "-fx-cursor: hand; -fx-background-color: #1081F9; -fx-text-fill: white; -fx-background-radius: 15;");

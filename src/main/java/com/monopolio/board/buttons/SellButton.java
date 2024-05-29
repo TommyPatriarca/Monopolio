@@ -1,9 +1,7 @@
 package com.monopolio.board.buttons;
 
-import com.monopolio.listeners.BuyListener;
 import com.monopolio.listeners.SellListener;
 import com.monopolio.managers.GameManager;
-import com.monopolio.player.Player;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -23,7 +21,7 @@ public class SellButton extends Button {
     }
 
     public void design() {
-        setPrefSize(110, 50);
+        setPrefSize(100, 50);
         setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
         setTextFill(Color.WHITE);
         setText("Vendi");

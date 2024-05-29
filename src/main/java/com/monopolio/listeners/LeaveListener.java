@@ -12,11 +12,9 @@ import javafx.stage.Stage;
 
 public class LeaveListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
-    private Game game;
 
-    public LeaveListener(GameManager gameManager, Game game) {
+    public LeaveListener(GameManager gameManager) {
         this.gameManager = gameManager;
-        this.game = game;
     }
 
     @Override
