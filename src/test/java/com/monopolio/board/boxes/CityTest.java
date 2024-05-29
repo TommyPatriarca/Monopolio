@@ -93,6 +93,8 @@ class CityTest {
 
     @Test
     void getPaid() {
-
+        int money = player.getMoney();
+        city.getPaid(player);
+        assertEquals(money-city.getPayment(city.getHouseNumber()), player.getMoney());
     }
 }
