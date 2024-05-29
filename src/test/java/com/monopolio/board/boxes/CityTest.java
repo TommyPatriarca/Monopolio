@@ -8,15 +8,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CityTest {
-    City city = new City(Groups.YELLOW, "Traona", 60, 50, 200, 10);
-    Player player = new Player("test_name");
-    Player player2 = new Player("test_name2");
+    private City city;
+    private Player player;
 
     @BeforeEach
     void init() {
         city = new City(Groups.YELLOW, "Traona", 60, 50, 200, 10);
         player = new Player("test_name");
-        player2 = new Player("test_name2");
     }
 
     @Test
@@ -28,15 +26,25 @@ class CityTest {
 
     @Test
     void buyHouse() {
+        city.buyPropriety(player);
         int money = player.getMoney();
+        int houses = city.getHouseNumber();
         city.buyHouse(player);
         assertEquals(money-city.getHousePrice(1), player.getMoney());
+        assertEquals(houses+1, city.getHouseNumber());
+        player.removeMoney(1480);
+        money = player.getMoney();
+        city.buyHouse(player);
+        assertEquals(money, player.getMoney());
     }
 
     @Test
     void getHousePrice() {
         assertEquals(city.getHousePrice(1),20);
         assertEquals(city.getHousePrice(2),30);
+        assertEquals(city.getHousePrice(3),40);
+        assertEquals(city.getHousePrice(4),50);
+        assertEquals(city.getHousePrice(5),60);
     }
 
     @Test
@@ -44,14 +52,19 @@ class CityTest {
         int money = player.getMoney();
         city.buyPropriety(player);
         assertEquals(money-city.getPrice(), player.getMoney());
+        player.removeMoney(1420);
+        money = player.getMoney();
+        city.buyPropriety(player);
+        assertEquals(money, player.getMoney());
     }
 
     @Test
     void sellHouse() {
+        city.buyPropriety(player);
         city.buyHouse(player);
         int money = player.getMoney();
         city.sellHouse(player);
-        assertEquals(money + (city.getHousePrice(1)/2) ,player.getMoney());
+        assertEquals(money + (city.getHousePrice(1)/2) , player.getMoney());
     }
 
     @Test
@@ -77,6 +90,8 @@ class CityTest {
         assertNull(city.getOwner());
         city.buyPropriety(player);
         assertEquals(city.getOwner(),player);
+        city.sellPropriety(player);
+        assertNull(city.getOwner());
     }
 
     @Test
@@ -89,6 +104,8 @@ class CityTest {
         assertFalse(city.isOwned());
         city.buyPropriety(player);
         assertTrue(city.isOwned());
+        city.sellPropriety(player);
+        assertFalse(city.isOwned());
     }
 
     @Test
@@ -96,5 +113,9 @@ class CityTest {
         int money = player.getMoney();
         city.getPaid(player);
         assertEquals(money-city.getPayment(city.getHouseNumber()), player.getMoney());
+        city.buyPropriety(player);
+        money = player.getMoney();
+        city.getPaid(player);
+        assertEquals(money, player.getMoney());
     }
 }
