@@ -21,27 +21,7 @@ public class Cli {
     private ArrayList<Box> posssedute2 = new ArrayList<Box>();
     private ArrayList<Box> posssedute3 = new ArrayList<Box>();
     private ArrayList<Box> posssedute4 = new ArrayList<Box>();
-
-    /**
-     * Chiede con quale tipologia di interfaccia si vuole utilizzare il gioco.
-     *
-     * @return il nbumero intero corrispondente alla scelta.
-     */
-    public int askInterface() {
-        int selection = 0;
-        do {
-            messagePrint("Benvenuto!\nCon che tipo di interfaccia vuoi giocare?\n[1] CLI\n[2] GUI");
-            messagePrint("\nSelezione -> ");
-            try {
-                selection = Integer.parseInt(s.nextLine());
-            } catch (NumberFormatException e) {
-                messageRed("Non hai inserto un numero");
-            }
-        } while (selection != 1 && selection != 2);
-
-        return selection;
-    }
-
+    private Player[] players = new Player[4];
 
     /**
      * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la griglia.
@@ -61,7 +41,6 @@ public class Cli {
     public void askName() {
         int nPlayer = 0;
         boolean flag2, flag;
-        Player[] players = new Player[4];
 
         do {
             messagePrint("Quanti giocatori vogliono giocare? ( mininimo -> 2 massimo -> 4)");
@@ -882,5 +861,4 @@ public class Cli {
         message(" -   Vai in prigione  " + Green[0] + " - " + "\033[0;44m" + "    Probabilità    " + "\033[0m" + Green[1] + " -    Stazione Sud    " + Purple[0] + Purple[1] + Purple[2] + " - " + "\033[0;41m" + "Parcheggio gratuito" + "\033[0m");
 
     }
-
 }
