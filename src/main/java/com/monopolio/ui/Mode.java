@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.*;
 import java.util.Objects;
 
 /**
@@ -172,7 +173,13 @@ public class Mode extends Application {
         // bottone listener per il caricamento del gioco
         loadGameButton.setOnAction(event -> {
             SoundManager.play();
-
+            try {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.ser"));
+                sceneManager = (SceneManager) in.readObject();
+                sceneManager.restartGameScreen(modeStage);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

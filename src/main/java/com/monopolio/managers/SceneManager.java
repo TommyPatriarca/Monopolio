@@ -6,10 +6,13 @@ import com.monopolio.ui.Mode;
 import com.monopolio.ui.Start;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
+
 /**
  * Definisce quale schermata del gioco deve essere avviata.
  */
-public class SceneManager {
+public class SceneManager implements Serializable {
+    private Game game;
     private Stage stage;
 
     public SceneManager(Stage stage) {
@@ -40,9 +43,17 @@ public class SceneManager {
      * @param playerNames è l'array contenente i nomi dei giocatori.
      */
     public void showGameScreen(Stage settings, String[] playerNames) {
-        Game game = new Game(playerNames);
+        game = new Game(this, playerNames);
         applySettings(settings);
         game.start(stage);
+    }
+
+    /**
+     * TODO
+     * @param settings
+     */
+    public void restartGameScreen(Stage settings) {
+        game.restart(stage);
     }
 
     /**

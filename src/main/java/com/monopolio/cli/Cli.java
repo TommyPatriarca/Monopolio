@@ -7,6 +7,7 @@ import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 /**
  * Classe che permette l'interazione tramite linea di comando con l'utente.
  */
-public class Cli {
+public class Cli implements Serializable {
     private Scanner s = new Scanner(System.in);
     private GameManager gameManager = new GameManager();
     private ArrayList<Box> posssedute1 = new ArrayList<Box>();

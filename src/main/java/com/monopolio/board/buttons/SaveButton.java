@@ -4,6 +4,7 @@ import com.monopolio.listeners.InfoListener;
 import com.monopolio.listeners.SaveListener;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
+import com.monopolio.managers.SceneManager;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -18,14 +19,14 @@ import java.util.Objects;
 
 public class SaveButton extends Button {
 
-    public SaveButton(GameManager gameManager, Game game)
+    public SaveButton(SceneManager sceneManager)
     {
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/info.png")),50,50,true,true);
         // Crea le ImageView per le immagini
         ImageView icon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
-        setOnAction(new SaveListener(gameManager, game));
+        setOnAction(new SaveListener(sceneManager));
         setGraphic(icon);
     }
 

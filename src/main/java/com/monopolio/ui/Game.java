@@ -4,6 +4,7 @@ import com.monopolio.board.boxes.*;
 import com.monopolio.board.buttons.*;
 import com.monopolio.managers.GameManager;
 import com.monopolio.managers.LogManager;
+import com.monopolio.managers.SceneManager;
 import com.monopolio.player.Player;
 import com.monopolio.listeners.BoxListener;
 import javafx.application.Application;
@@ -25,12 +26,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Game extends Application {
+public class Game extends Application implements Serializable {
+    private SceneManager sceneManager;
     private GameManager gameManager = new GameManager(this);
     private Image img;
     private ImageView view;
@@ -46,7 +49,7 @@ public class Game extends Application {
 
     private LogManager logManager;
 
-    public Game(String[] playerNames) {
+    public Game(SceneManager sceneManager, String[] playerNames) {
         cells = new StackPane[32];
         // Creazione degli oggetti Player basati sui nomi dei giocatori
         for (int i = 0; i < 4; i++) {
@@ -62,6 +65,17 @@ public class Game extends Application {
         logItems = FXCollections.observableArrayList();
         logListView = new ListView<>(logItems);
         logListView.setPrefWidth(200);
+
+        this.sceneManager = sceneManager;
+    }
+
+    public void restart(Stage primaryStage) {
+        // Creazione della scena
+        Scene scene = new Scene(root, 800, 600);
+        // Impostazioni finestra
+        primaryStage.setTitle("Monopolio - Gioco");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     @Override
@@ -148,7 +162,7 @@ public class Game extends Application {
         InfoButton infoButton = new InfoButton(gameManager, this);
         toolbarBox.getChildren().add(infoButton);
 
-        SaveButton saveButton = new SaveButton(gameManager,this);
+        SaveButton saveButton = new SaveButton(sceneManager);
         toolbarBox.getChildren().add(saveButton);
 
         BankruptButton bankruptButton = new BankruptButton(gameManager, this);

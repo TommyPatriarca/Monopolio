@@ -37,7 +37,17 @@ public class TurnListener implements EventHandler<ActionEvent> {
             if(gameManager.getPlayer(i).isMyTurn()) {
                 gameManager.getPlayer(i).setMyTurn(false);
                 if(i==3 || gameManager.getPlayer(i+1).getName().isEmpty()) {
-                    gameManager.getPlayer(0).setMyTurn(true);
+                    if(gameManager.getPlayer(0).getName().isEmpty()) {
+                        if(gameManager.getPlayer(1).getName().isEmpty()) {
+                            if(!gameManager.getPlayer(2).getName().isEmpty()) {
+                                gameManager.getPlayer(2).setMyTurn(true);
+                            }
+                        } else {
+                            gameManager.getPlayer(1).setMyTurn(true);
+                        }
+                    } else {
+                        gameManager.getPlayer(0).setMyTurn(true);
+                    }
                 } else {
                     gameManager.getPlayer(i+1).setMyTurn(true);
                 } // logic to end the player's turn.

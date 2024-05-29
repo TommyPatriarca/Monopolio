@@ -787,7 +787,7 @@ public class GameManager implements Serializable {
                     getPlayer(i+1).setMyTurn(true);
                 }
 
-                if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
+                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI){
                     restoreDices();
                 }
 
@@ -795,13 +795,13 @@ public class GameManager implements Serializable {
             }
         }
 
-        players[index]=new Player("");
-
         if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
-            game.removePlayerIcons(players[index], game.getCell(getCurrentPlayer().getOldPosition()));
+            game.removePlayerIcons(players[index], game.getCell(players[index].getOldPosition()));
             game.refreshPlayersGUI();
             game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
         }
+
+        players[index] = new Player("");
     }
 
     public boolean hasTripletCities(Groups groups, Player player) {
