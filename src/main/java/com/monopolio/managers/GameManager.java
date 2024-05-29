@@ -430,6 +430,7 @@ public class GameManager implements Serializable {
             Stations station = (Stations) cities[position];
             if (station.isOwned() && station.getOwner() != player) {
                 station.getPaid(getStationsOwned(player),player);
+                station.getOwner().addMoney(station.getBasePayment());
                 game.getLogManager().log(player.getName() + "ha pagato $"+getStationsOwned(player)*station.getBasePayment() + " a " + station.getOwner().getName());
             }
 
