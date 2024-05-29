@@ -165,10 +165,10 @@ public class Game extends Application implements Serializable {
         SaveButton saveButton = new SaveButton(sceneManager);
         toolbarBox.getChildren().add(saveButton);
 
-        BankruptButton bankruptButton = new BankruptButton(gameManager, this);
+        BankruptButton bankruptButton = new BankruptButton(gameManager, this, sceneManager);
         toolbarBox.getChildren().add(bankruptButton);
 
-        LeaveButton leaveButton = new LeaveButton(gameManager);
+        LeaveButton leaveButton = new LeaveButton(gameManager, sceneManager);
         toolbarBox.getChildren().add(leaveButton);
 
         //SettingsButton settingsButton = new SettingsButton(this, primaryStage);

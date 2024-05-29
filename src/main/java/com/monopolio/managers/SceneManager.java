@@ -70,4 +70,7 @@ public class SceneManager implements Serializable {
         stage.setX(settings.getX());
         stage.setY(settings.getY());
     }
+    public void closePane(){
+        stage.close();
+    }
 }

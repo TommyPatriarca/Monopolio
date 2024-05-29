@@ -5,6 +5,7 @@ import com.monopolio.listeners.InfoListener;
 import com.monopolio.listeners.LeaveListener;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
+import com.monopolio.managers.SceneManager;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -19,14 +20,14 @@ import java.util.Objects;
 
 public class LeaveButton extends Button {
 
-    public LeaveButton(GameManager gameManager)
+    public LeaveButton(GameManager gameManager, SceneManager sceneManager)
     {
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quit.png")),50,50,true,true);
         // Crea le ImageView per le immagini
         ImageView icon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
-        setOnAction(new LeaveListener(gameManager));
+        setOnAction(new LeaveListener(gameManager,sceneManager));
         setGraphic(icon);
     }
 
