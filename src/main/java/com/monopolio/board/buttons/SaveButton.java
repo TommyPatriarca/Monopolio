@@ -22,7 +22,7 @@ public class SaveButton extends Button {
     public SaveButton(SceneManager sceneManager)
     {
         design();
-        Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/info.png")),50,50,true,true);
+        Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/save.png")),50,50,true,true);
         // Crea le ImageView per le immagini
         ImageView icon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
