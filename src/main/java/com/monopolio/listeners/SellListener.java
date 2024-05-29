@@ -10,6 +10,9 @@ import com.monopolio.ui.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * Gestisce il click del bottone che permette di vendere oggetti (case e città).
+ */
 public class SellListener implements EventHandler<ActionEvent> {
     private Game game;
     private GameManager gameManager;
@@ -19,6 +22,10 @@ public class SellListener implements EventHandler<ActionEvent> {
         this.game = game;
     }
 
+    /**
+     * Se viene selezionata una proprietà e tutte le condizioni sono verificate permette di vendere.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         if(game.getSelectedButton() == null) {

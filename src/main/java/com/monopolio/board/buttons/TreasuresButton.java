@@ -1,6 +1,5 @@
 package com.monopolio.board.buttons;
 
-import com.monopolio.listeners.TreasureListener;
 import com.monopolio.managers.GameManager;
 import com.monopolio.ui.Game;
 import javafx.geometry.Insets;
@@ -29,7 +28,6 @@ public class TreasuresButton extends Button {
     public TreasuresButton(GameManager gameManager, Game game) {
         setDefault();
         design();
-        setOnAction(new TreasureListener(gameManager, game));
     }
 
     public void setDefault() {

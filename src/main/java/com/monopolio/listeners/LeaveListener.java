@@ -8,7 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
-
+/**
+ * Gestisce il click del bottone per terminare a tutti la partita.
+ */
 public class LeaveListener implements EventHandler<ActionEvent> {
     private GameManager gameManager;
     private SceneManager sceneManager;
@@ -18,6 +20,10 @@ public class LeaveListener implements EventHandler<ActionEvent> {
         this.sceneManager = sceneManager;
     }
 
+    /**
+     * Dopo il click del bottone termina a tutti la partita.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         if(!AlertManager.showDialog("Are you sure you want to end the game?")) return;
