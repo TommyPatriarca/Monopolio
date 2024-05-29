@@ -13,7 +13,9 @@ import com.monopolio.ui.Game;
 import com.monopolio.utils.RandUtils;
 import javafx.scene.control.Alert;
 
-public class GameManager {
+import java.io.Serializable;
+
+public class GameManager implements Serializable {
     private Player[] players = new Player[4];
     private Box[] cities = new Box[32]; // 0-31
     private DiceButton[] dices = new DiceButton[2];
@@ -403,6 +405,7 @@ public class GameManager {
             City city = (City) cities[position];
             if (city.isOwned() && city.getOwner() != player) {
                 city.getPaid(player);
+                city.getOwner().addMoney(city.getPayment(city.getHouseNumber()));
             } else {
                 // Buy or Auction, smh
             }
