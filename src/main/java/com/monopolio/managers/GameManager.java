@@ -15,6 +15,9 @@ import javafx.scene.control.Alert;
 
 import java.io.Serializable;
 
+/**
+ * Gestisce tutta la logica del gioco.
+ */
 public class GameManager implements Serializable {
     private Player[] players = new Player[4];
     private Box[] cities = new Box[32]; // 0-31
@@ -36,6 +39,9 @@ public class GameManager implements Serializable {
         this.game = game;
     }
 
+    /**
+     * Inizializza le posizioni dei player a 0.
+     */
     public void startGame() {
         for (Player player : players) {
             player.setOldPosition(0);
@@ -44,6 +50,10 @@ public class GameManager implements Serializable {
         players[0].setMyTurn(true);
     }
 
+    /**
+     * Cerca il giocatore attuale.
+     * @return il giocatore attuale.
+     */
     public Player getCurrentPlayer() {
         for (Player player : players) {
             if (player.isMyTurn()) {
@@ -53,10 +63,17 @@ public class GameManager implements Serializable {
         return null;
     }
 
+    /**
+     * @return il valore del dado tirato.
+     */
     public int getDicesRoll() {
         return getDice(0).getValue() + getDice(1).getValue();
     }
 
+    /**
+     * Controlla se il numero uscito su entrambi i dadi è uguale.
+     * @return il numero uscito sui dadi, "false" se il numero sui 2 dadi è diverso.
+     */
     public boolean isDoubleDices() {
         if (areDicesRolled()) {
             return getDice(0).getValue() == getDice(1).getValue();
@@ -64,6 +81,10 @@ public class GameManager implements Serializable {
         return false;
     }
 
+    /**
+     * Controlla se i dadi sono stati tirati.
+     * @return "false" se i dadi non sono stati tirati, "true" se i dadi sono stati tirati
+     */
     public boolean areDicesRolled() {
         boolean rolled = true;
         for (DiceButton dice : dices) {
@@ -74,13 +95,20 @@ public class GameManager implements Serializable {
         return rolled;
     }
 
+    /**
+     * Resetta i dadi ad ogni turno.
+     */
     public void restoreDices() {
         for (DiceButton dice : dices) {
             dice.enable();
         }
     }
 
-    // Handles the player sell propety
+    /**
+     *
+     * @param box è la casella che si vuole vendere.
+     * @return "true" se la proprietà è stata venduta, "false" se la proprietà non può essere venduta.
+     */
     public boolean sellPropety(Box box) {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
@@ -166,55 +194,59 @@ public class GameManager implements Serializable {
         return false;
     }
 
-    // Handles the player buy house
+    /**
+     *
+     * @param box è la casella che si vuole vendere.
+     * @return "true" se la casa è stata venduta, "false" se la casa non può essere venduta.
+     */
     public boolean sellHouse(Box box) {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
 
         if (box instanceof City) {
             City city = (City) box;
-            if(city.isOwned()) {
-                if(city.getOwner() == player) {
-                    if(hasTripletCities(city.getGroup(), player)) {
-                        if(city.getHouseNumber() <= 0) {
-                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+            if (city.isOwned()) {
+                if (city.getOwner() == player) {
+                    if (hasTripletCities(city.getGroup(), player)) {
+                        if (city.getHouseNumber() <= 0) {
+                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                                 AlertManager.showError("Non hai piu case da vendere");
-                            }else{
+                            } else {
                                 Cli.messageRed("Non hai piu case da vendere");
                             }
                         } else {
                             city.sellHouse(player);
-                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                                 game.getLogManager().log(getCurrentPlayer().getName() + " ha venduto una casa a " + city.getNome());
-                            }else{
+                            } else {
                                 Cli.messageRed("Casa a" + city.getNome() + " con successo");
                             }
                         }
                     } else {
-                        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                             AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
-                        }else{
+                        } else {
                             Cli.messageRed("Non poessiedi tutte le proprietà di questo gruppo");
                         }
                     }
                 } else {
-                    if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                    if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                         AlertManager.showError("Non sei il proprietario della città");
-                    }else{
+                    } else {
                         Cli.messageRed("Non sei il proprietario della città");
                     }
                 }
             } else {
-                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     AlertManager.showError("Questa città non ha ancora un proprietario");
-                }else{
+                } else {
                     Cli.messageRed("Questa città non ha ancora un proprietario");
                 }
             }
         } else {
-            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                 AlertManager.showError("Non hai selezionato una città");
-            }else{
+            } else {
                 Cli.messageRed("Non hai selezionato una città");
             }
 
@@ -227,56 +259,60 @@ public class GameManager implements Serializable {
         return false;
     }
 
-    // Handles the player buy house
+    /**
+     *
+     * @param box è la casella che si vuole comprare.
+     * @return "true" se la casa è stata comprata, "false" se la casa non può essere comprata.
+     */
     public boolean buyHouse(Box box) {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
 
         if (box instanceof City) {
             City city = (City) box;
-            if(city.isOwned()) {
-                if(city.getOwner() == player) {
-                    if(hasTripletCities(city.getGroup(), player)) {
-                        if(player.getMoney() >= city.getHousePrice(city.getHouseNumber()+1)) {
-                            if(city.getHouseNumber() >= 5) {
-                                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+            if (city.isOwned()) {
+                if (city.getOwner() == player) {
+                    if (hasTripletCities(city.getGroup(), player)) {
+                        if (player.getMoney() >= city.getHousePrice(city.getHouseNumber() + 1)) {
+                            if (city.getHouseNumber() >= 5) {
+                                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                                     AlertManager.showError("Hai raggiunto il limite di case");
-                                }else{
+                                } else {
                                     Cli.messageRed("Hai raggiunto il massimo di case disponibili per quella città");
                                 }
                             } else {
                                 city.buyHouse(player);
-                                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                                     game.getLogManager().log(getCurrentPlayer().getName() + " ha comprato una casa a " + city.getNome());
-                                }else{
+                                } else {
                                     Cli.message("\033[0;33m" + "Casa comprata con successo a " + city.getNome() + "\033[0m");
                                 }
                             }
                         } else {
-                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                            if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                                 AlertManager.showError("Non hai abbastanza soldi per comprare la casa");
-                            }else{
+                            } else {
                                 Cli.messageRed("Non hai abbastanza soldi per comprare la casa");
                             }
                         }
                     } else {
-                        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                             AlertManager.showError("Non poessiedi tutte le proprietà di questo gruppo");
-                        }else{
+                        } else {
                             Cli.messageRed("Non poessiedi tutte le proprietà di questo gruppo");
                         }
                     }
                 } else {
-                    if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                    if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                         AlertManager.showError("Non sei il proprietario della città");
-                    }else{
+                    } else {
                         Cli.messageRed("Non sei il proprietario della città");
                     }
                 }
             } else {
-                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null){
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     AlertManager.showError("Questa città non ha ancora un proprietario");
-                }else{
+                } else {
                     Cli.messageRed("Questa città non ha ancora un proprietario");
                 }
             }
@@ -291,7 +327,10 @@ public class GameManager implements Serializable {
         return false;
     }
 
-    // Handles the player buy propety
+    /**
+     *
+     * @return "true" se la proprietà è stata comprata, "false" se la proprietà non può essere comprata.
+     */
     public boolean buyPropety() {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
@@ -387,8 +426,9 @@ public class GameManager implements Serializable {
         return false;
     }
 
-
-    // Handles the player position once dices are rolled
+    /**
+     * Gestisce la posizione dei player dopo aver tiarto i dadi.
+     */
     public void handleMovement() {
         Player player = getCurrentPlayer();
         int position = player.getPosition();
@@ -429,9 +469,9 @@ public class GameManager implements Serializable {
         } else if (cities[position] instanceof Stations) {
             Stations station = (Stations) cities[position];
             if (station.isOwned() && station.getOwner() != player) {
-                station.getPaid(getStationsOwned(player),player);
+                station.getPaid(getStationsOwned(player), player);
                 station.getOwner().addMoney(station.getBasePayment());
-                game.getLogManager().log(player.getName() + "ha pagato $"+getStationsOwned(player)*station.getBasePayment() + " a " + station.getOwner().getName());
+                game.getLogManager().log(player.getName() + "ha pagato $" + getStationsOwned(player) * station.getBasePayment() + " a " + station.getOwner().getName());
             }
 
             // Taxes
@@ -455,6 +495,10 @@ public class GameManager implements Serializable {
         }
     }
 
+    /**
+     * Inizializza le città.
+     * @param number serve per indicare il numero delle vare città.
+     */
     public void initCity(int number) {
         switch (number) {
             case 0:
@@ -561,12 +605,20 @@ public class GameManager implements Serializable {
         }
     }
 
+    /**
+     * Colora il bordo della casella che si vuole vendere.
+     */
     private void sellOutline() {
         game.getButton(game.getSelectedButtonIndex()).setStyle("-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
         game.setSelectedButton(null);
         game.setSelectedButtonIndex(0);
     }
 
+    /**
+     * Colora il bordo della casella che si vuole comprare.
+     * @param player serve per memorizzare quale giocatore ha comprato quella casella
+     * @param position indica il numero della casella che si vuole comprare.
+     */
     public void buyOutline(Player player, int position) {
         for (int i = 0; i < getPlayers().length; i++) {
             if (getPlayer(i) == player) {
@@ -594,6 +646,11 @@ public class GameManager implements Serializable {
         }
     }
 
+    /**
+     * Controlla se la prorietà è posseduta da qualcuno.
+     * @param index è il numero della proprietà che si vuole controllare.
+     * @return "true" se è posseduta da qualcuno, "false" se nessuno la possiede.
+     */
     public boolean isPropertyOwned(int index) {
         // City
         if (cities[index] instanceof City) {
@@ -605,6 +662,10 @@ public class GameManager implements Serializable {
         return false;
     }
 
+    /**
+     * @param index indica il numero della proprietà da cui si vuole ricavare il possessore.
+     * @return il nome del giocatore che possiede tale proprietà.
+     */
     public Player getPropertyOwner(int index) {
         // City
         if (cities[index] instanceof City) {
@@ -617,10 +678,15 @@ public class GameManager implements Serializable {
         return null;
     }
 
+    /**
+     * Permette di visualizziare quali stazioni il giocatore possiede.
+     * @param player si riferisce al giocatore 
+     * @return
+     */
     public int getStationsOwned(Player player) {
         // City
         int stations = 0;
-        for(Box city : getCities()) {
+        for (Box city : getCities()) {
             if (city instanceof Stations) {
                 Stations station = (Stations) city;
                 if (station.isOwned() && station.getOwner() == player) {
@@ -666,6 +732,7 @@ public class GameManager implements Serializable {
 
     /**
      * Controlla se i nomi dei giocatori inseriti sono doppi.
+     *
      * @param players è l'insieme dei giocatori.
      * @return "true" se ci sono dei nomi dupplicati, " false" se non ci sono numeri duplicati.
      */
@@ -688,35 +755,35 @@ public class GameManager implements Serializable {
         switch (index) {
             case 0:
                 // Ottieni 100 monete.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $20");
                 }
                 player.addMoney(20);
                 break;
             case 1:
                 // Vai alla casella Partenza.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $50");
                 }
                 player.addMoney(50);
                 break;
             case 2:
                 // Vai in prigione.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $100");
                 }
                 player.addMoney(100);
                 break;
             case 3:
                 // Paga 50 monete di multa.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $150");
                 }
                 player.addMoney(150);
                 break;
             case 4:
                 // Avanza di tre caselle.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $200");
                 }
                 player.addMoney(200);
@@ -731,27 +798,27 @@ public class GameManager implements Serializable {
         switch (index) {
             case 0:
                 // Ottieni 100 monete.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha ottenuto $100");
-                }else{
+                } else {
                     Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " ha ottenuto un premio per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.addMoney(100);
                 break;
             case 1:
                 // Vai alla casella Partenza.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato al via");
-                }else{
+                } else {
                     Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " è stato portato per essere passato sulla casella Probabilità" + "\033[0m");
                 }
                 player.setPosition(0);
                 break;
             case 2:
                 // Vai in prigione.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato in prigione");
-                }else{
+                } else {
                     Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " è stato portato in prigione per essere passato sulla casella Probabilità");
                 }
                 player.setPosition(8);
@@ -759,36 +826,36 @@ public class GameManager implements Serializable {
                 break;
             case 3:
                 // Paga 50 monete di multa.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + "ha perso $50");
-                }else{
+                } else {
                     Cli.messageRed(getCurrentPlayer().getName().toUpperCase() + " ha perso 50$ per essere passato sulla casella Probabilità");
                 }
                 player.removeMoney(50);
                 break;
             case 4:
                 // Avanza di tre caselle.
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI && game != null) {
                     game.getLogManager().log(getCurrentPlayer().getName() + " è stato portato avanti di 3 caselle");
-                }else{
+                } else {
                     Cli.message("\033[0;32m" + getCurrentPlayer().getName().toUpperCase() + " è stato portato avanti di 3 caselle per essere passato sulla casella Probabilità" + "\033[0m");
                 }
-                player.setPosition(player.getPosition()+3);
+                player.setPosition(player.getPosition() + 3);
                 break;
         }
     }
 
     public void bankrupt(int index) {
-        for(int i=0; i<4; i++) {
-            if(getPlayer(i).isMyTurn()) {
+        for (int i = 0; i < 4; i++) {
+            if (getPlayer(i).isMyTurn()) {
                 getPlayer(i).setMyTurn(false);
-                if(i==3 || getPlayer(i+1).getName().isEmpty()) {
+                if (i == 3 || getPlayer(i + 1).getName().isEmpty()) {
                     getPlayer(0).setMyTurn(true);
                 } else {
-                    getPlayer(i+1).setMyTurn(true);
+                    getPlayer(i + 1).setMyTurn(true);
                 }
 
-                if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI){
+                if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
                     restoreDices();
                 }
 
@@ -798,7 +865,7 @@ public class GameManager implements Serializable {
 
         players[index] = new Player("");
 
-        if(Monopolio.getInterfaceType()== InterfaceManager.InterfaceType.GUI){
+        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
             game.removePlayerIcons(players[index], game.getCell(players[index].getOldPosition()));
             game.refreshPlayersGUI();
             game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
@@ -806,12 +873,12 @@ public class GameManager implements Serializable {
     }
 
     public boolean hasTripletCities(Groups groups, Player player) {
-        for(Box box : getCities()) {
-            if(box instanceof City) {
+        for (Box box : getCities()) {
+            if (box instanceof City) {
                 City city = (City) box;
 
-                if(city.getGroup() == groups) {
-                    if(city.getOwner() == null || city.getOwner() != player) {
+                if (city.getGroup() == groups) {
+                    if (city.getOwner() == null || city.getOwner() != player) {
                         return false;
                     }
                 }
@@ -885,20 +952,25 @@ public class GameManager implements Serializable {
     }
 
     public int currentPlayerIndex() {
-        for(int i=0; i<4;i++){
-            if(players[i].equals(getCurrentPlayer())){
+        for (int i = 0; i < 4; i++) {
+            if (players[i].equals(getCurrentPlayer())) {
                 return i;
             }
         }
         return 5;
     }
 
-    public boolean lastPlayer(){
+    public boolean lastPlayer() {
         int conta = 0;
-        for(int i=0; i<4;i++){
-            if(players[i].getName().equals("")){conta++;}
+        for (int i = 0; i < 4; i++) {
+            if (players[i].getName().equals("")) {
+                conta++;
+            }
         }
-        if (conta==3){return true;}
-        else {return false;}
+        if (conta == 3) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
