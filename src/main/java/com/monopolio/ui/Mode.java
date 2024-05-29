@@ -1,5 +1,6 @@
 package com.monopolio.ui;
 
+import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.SoundManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.utils.FontUtils;
@@ -173,6 +174,9 @@ public class Mode extends Application {
         // bottone listener per il caricamento del gioco
         loadGameButton.setOnAction(event -> {
             SoundManager.play();
+
+            if(!AlertManager.showDialog("Questa funzione non è ancora funzionante, il programma darà degli errori")) return;
+
             try {
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.ser"));
                 sceneManager = (SceneManager) in.readObject();

@@ -1,5 +1,6 @@
 package com.monopolio.listeners;
 
+import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.managers.SceneManager;
 import com.monopolio.ui.Game;
@@ -19,6 +20,8 @@ public class SaveListener implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
+        if(!AlertManager.showDialog("Questa funzione non è ancora funzionante, il programma darà degli errori")) return;
+
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("file.ser"));
             out.writeObject(sceneManager);
