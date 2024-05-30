@@ -879,12 +879,15 @@ public class GameManager implements Serializable {
             }
         }
 
+        if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
+            game.removePlayerIcons(players[index], game.getCell(players[index].getOldPosition()));
+            game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
+        }
+
         players[index] = new Player("");
 
         if (Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {
-            game.removePlayerIcons(players[index], game.getCell(players[index].getOldPosition()));
             game.refreshPlayersGUI();
-            game.getLogManager().setMainLog("E' il turno del giocatore: " + getCurrentPlayer().getName());
         }
     }
 
