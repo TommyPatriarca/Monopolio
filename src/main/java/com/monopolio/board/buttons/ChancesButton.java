@@ -13,6 +13,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
+/**
+ * Gestisce il bottone probabilità.
+ */
 public class ChancesButton extends Button {
     // TODO: recode for the chances.
 
@@ -31,6 +34,9 @@ public class ChancesButton extends Button {
         design();
     }
 
+    /**
+     * Imposta un'immagine predefinita per il pulsante probabilità.
+     */
     public void setDefault() {
         img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/chances.png")));
         view = new ImageView(img);
@@ -39,6 +45,9 @@ public class ChancesButton extends Button {
         setGraphic(view);
     }
 
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(100, 100);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
@@ -46,11 +55,16 @@ public class ChancesButton extends Button {
         setStyle(getStyle() + "-fx-cursor: hand; -fx-background-color: #f77f00; -fx-text-fill: white; -fx-background-radius: 15;");
     }
 
-
+    /**
+     * @return l'immagine associata al pulsante delle probabilità.
+     */
     public ImageView getView() {
         return view;
     }
 
+    /**
+     * @return il valore associato al bottone delle probabilità.
+     */
     public int getValue() {
         return value;
     }

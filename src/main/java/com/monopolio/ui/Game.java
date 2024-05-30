@@ -32,6 +32,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Gestisce l'interfaccia grafica e la logica del gioco.
+ */
 public class Game extends Application implements Serializable {
     private SceneManager sceneManager;
     private GameManager gameManager = new GameManager(this);
@@ -69,6 +72,10 @@ public class Game extends Application implements Serializable {
         this.sceneManager = sceneManager;
     }
 
+    /**
+     * Permette il riavvio del gioco.
+     * @param primaryStage rappresenta la finestra principale dell'applicazione.
+     */
     public void restart(Stage primaryStage) {
         // Creazione della scena
         Scene scene = new Scene(root, 800, 600);
@@ -78,6 +85,10 @@ public class Game extends Application implements Serializable {
         primaryStage.show();
     }
 
+    /**
+     * Avvia il gioco.
+     * @param primaryStage rappresenta la finestra principale dell'applicazione.
+     */
     @Override
     public void start(Stage primaryStage) {
         // Initialize log manager with a label for displaying logs
@@ -196,6 +207,12 @@ public class Game extends Application implements Serializable {
         logManager.setMainLog("E' il turno del giocatore: " + gameManager.getCurrentPlayer().getName());
     }
 
+    /**
+     * Crea una singola cella del gioco nella griglia.
+     * @param number rappresenta il numero della casella nel tabellone di gioco.
+     * @param i (non viene utilizzato).
+     * @return la cella.
+     */
     private StackPane createCell(int number, int i) {
         gameManager.initCity(number);
 
@@ -236,6 +253,11 @@ public class Game extends Application implements Serializable {
         return cell;
     }
 
+    /**
+     * Crea le icone dei giocatori.
+     * @param number si riferisce al numero del giocatore
+     * @return l'icona per ogni giocatore
+     */
     public ImageView[] createPlayerIcons(int number) {
         Player[] players = gameManager.getPlayers();
         ImageView[] icons = new ImageView[4];
@@ -263,6 +285,11 @@ public class Game extends Application implements Serializable {
         return Arrays.stream(icons).filter(Objects::nonNull).toArray(ImageView[]::new);
     }
 
+    /**
+     * Rimuove le icone dei giocatori.
+     * @param player è il nome del giocatore da cui si vuole rimuovere l'icona.
+     * @param cell indica la cella in cui il giocatore si trova.
+     */
     public void removePlayerIcons(Player player, StackPane cell) {
         Player[] players = gameManager.getPlayers();
         Image playerImage = null;
@@ -305,7 +332,12 @@ public class Game extends Application implements Serializable {
         }
     }
 
-    // Helper method to compare images more thoroughly
+    /**
+     * Confronta due immagini pixel per pixel per determinare se sono identiche.
+     * @param img1 è la prima immagine da confrontare.
+     * @param img2 è la seconda immagine da confrontare.
+     * @return "true" se le immagini sono identiche pixel per pixel, "false" se non lo sono.
+     */
     private boolean compareImages(Image img1, Image img2) {
         if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) {
             return false;
@@ -325,7 +357,10 @@ public class Game extends Application implements Serializable {
         return true;
     }
 
-
+    /**
+     * Imposta l'immagine.
+     * @param button è il bottono su cui viene settata l'immagine.
+     */
     private void setImage(Button button) {
         view = new ImageView(img);
         view.setFitHeight(20);
@@ -333,30 +368,54 @@ public class Game extends Application implements Serializable {
         button.setGraphic(view);
     }
 
+    /**
+     * @param index si riferisce al numero della cella.
+     * @return la cella con tale numero.
+     */
     public StackPane getCell(int index) {
         return cells[index];
     }
 
+    /**
+     * @return tutte le celle.
+     */
     public StackPane[] getCells() {
         return cells;
     }
 
+    /**
+     * @return ritorna il bottone selezionato.
+     */
     public Button getSelectedButton() {
         return selectedButton;
     }
 
+    /**
+     * Imposta il bottone selezionato
+     * @param selectedButton è il bottone.
+     */
     public void setSelectedButton(Button selectedButton) {
         this.selectedButton = selectedButton;
     }
 
+    /**
+     * @return il numero del bottone selezionato.
+     */
     public int getSelectedButtonIndex() {
         return selectedButtonIndex;
     }
 
+    /**
+     * Imposta il valore del bottone selzionato.
+     * @param selectedButtonIndex è il valore del bottone selezionato.
+     */
     public void setSelectedButtonIndex(int selectedButtonIndex) {
         this.selectedButtonIndex = selectedButtonIndex;
     }
 
+    /**
+     * Aggiorna l'interfaccia grafica dei giocatori.
+     */
     public void refreshPlayersGUI() {
         VBox playerNamesBox = new VBox();
         playerNamesBox.setAlignment(Pos.TOP_LEFT);
@@ -399,10 +458,17 @@ public class Game extends Application implements Serializable {
         root.setLeft(playerNamesBox);
     }
 
+    /**
+     * @param index è il numero del bottone.
+     * @return il bottone.
+     */
     public Button getButton(int index) {
         return buttons[index];
     }
 
+    /**
+     * @return i log.
+     */
     public LogManager getLogManager() {
         return logManager;
     }

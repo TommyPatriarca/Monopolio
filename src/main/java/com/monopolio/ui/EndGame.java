@@ -21,6 +21,9 @@ import javafx.util.Duration;
 
 import java.util.Objects;
 
+/**
+ * Gestisce la schermata di fine gioco.
+ */
 public class EndGame extends Application {
     private Cli cli = new Cli();
 
@@ -36,6 +39,10 @@ public class EndGame extends Application {
         this.victory = victory;
     }
 
+    /**
+     * Avvia la schermata.
+     * @param stage rappresenta la finestra principale del gioco.
+     */
     @Override
     public void start(Stage stage) {
         this.stage = stage;
@@ -78,7 +85,10 @@ public class EndGame extends Application {
         stage.show();
     }
 
-    // Metodo per creare la barra del titolo personalizzata
+    /**
+     * Crea barra del titolo personalizzata.
+     * @return la barra personalizzata.
+     */
     private HBox createCustomTitleBar() {
         HBox titleBar = new HBox();
         titleBar.setStyle("-fx-background-color: transparent; -fx-padding: 10px;");
@@ -108,7 +118,11 @@ public class EndGame extends Application {
         return titleBar;
     }
 
-    // Metodo per creare un bottone
+    /**
+     * Creare un bottone.
+     * @param text si riferisce al testo che verrà visualizzato sul bottone.
+     * @return il bottone.
+     */
     private Button createButton(String text) {
         Button button = new Button(text);
         button.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-width: 150px; -fx-pref-height: 40px; -fx-background-radius: 20px; -fx-border-radius: 20px;");
@@ -131,22 +145,34 @@ public class EndGame extends Application {
         return button;
     }
 
-    // Metodo per gestire la selezione GUI
+    /**
+     * Gestisce la selezione di restart.
+     */
     private void handleRestartSelection() {
         Monopolio.setInterfaceType(InterfaceManager.InterfaceType.GUI);
         stage.close();
         monopolio.start(new Stage());
     }
 
+    /**
+     * Gestisce la selezione di exit.
+     */
     private void handleExitSelection() {
         System.out.println("EXIT selezionato");
         System.exit(0);
     }
 
+    /**
+     * @return la selezione scelta.
+     */
     public int getSelection() {
         return selection;
     }
 
+    /**
+     * Avvia l'applicazione.
+     * @param args contiene gli argomenti della riga di comando passati all'applicazione JavaFX.
+     */
     public void start(String[] args) {
         launch(args);
     }

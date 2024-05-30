@@ -15,6 +15,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
+/**
+ * Gestisce bottone delle info.
+ */
 public class InfoButton extends Button {
 
     public InfoButton(GameManager gameManager, Game game)
@@ -28,7 +31,9 @@ public class InfoButton extends Button {
         setGraphic(icon);
     }
 
-
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(50, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));

@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
+/**
+ * Gestisce bottone salva.
+ */
 public class SaveButton extends Button {
 
     public SaveButton(SceneManager sceneManager)
@@ -30,7 +33,9 @@ public class SaveButton extends Button {
         setGraphic(icon);
     }
 
-
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(50, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));

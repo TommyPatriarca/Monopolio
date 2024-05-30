@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Gestisce il pulsante turno.
+ */
 public class TurnButton extends Button {
     private GameManager gameManager;
     private Game game;
@@ -27,7 +30,9 @@ public class TurnButton extends Button {
         setOnAction(new TurnListener(gameManager, game));
     }
 
-
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(100, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#dd0426"), new CornerRadii(10), Insets.EMPTY)));

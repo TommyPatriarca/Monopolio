@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * TODO
+ * Gestisce e visualizza i log della Gui.
  */
 public class LogManager {
     private Label logLabel;
@@ -34,11 +34,19 @@ public class LogManager {
         logLabel.setTextFill(Color.WHITE); // Modifica il colore del testo se necessario
     }
 
+    /**
+     * Imposta messaggio principale.
+     * @param mainLog è il messaggio principale.
+     */
     public void setMainLog(String mainLog) {
         this.mainLog = mainLog;
         updateLabelText();
     }
 
+    /**
+     * Aggiunge un nuovo messaggio alla coda.
+     * @param message è il messaggio nuovo da aggiungere.
+     */
     public void log(String message) {
         logQueue.offer(message);
 
@@ -48,6 +56,9 @@ public class LogManager {
         updateLabelText();
     }
 
+    /**
+     * Combina il messaggio principale con i messaggi recenti.
+     */
     private void updateLabelText() {
         StringBuilder sb = new StringBuilder();
 

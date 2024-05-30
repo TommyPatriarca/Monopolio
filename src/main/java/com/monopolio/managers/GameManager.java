@@ -996,26 +996,52 @@ public class GameManager implements Serializable {
         this.cities = cities;
     }
 
+    /**
+     * Permette il settaggio di una singola città.
+     * @param index è il numero attribuito alla città.
+     * @param city è il nome della città.
+     */
     public void setCity(int index, Box city) {
         this.cities[index] = city;
     }
 
+    /**
+     * Imposta il dado.
+     * @param index si riferisce al numero del dado.
+     * @param dice è il dado.
+     */
     public void setDice(int index, DiceButton dice) {
         this.dices[index] = dice;
     }
 
+    /**
+     * Permette di impostare i dadi.
+     * @param dices sono i dadi.
+     */
     public void setDices(DiceButton[] dices) {
         this.dices = dices;
     }
 
+    /**
+     * Imposta il bottone per le probabilità.
+     * @param chancesButton è il bottone.
+     */
     public void setChancesButton(ChancesButton chancesButton) {
         this.chancesButton = chancesButton;
     }
 
+    /**
+     * Setta il bottone per i tesori.
+     * @param treasuresButton è il bottone.
+     */
     public void setTreasuresButton(TreasuresButton treasuresButton) {
         this.treasuresButton = treasuresButton;
     }
 
+    /**
+     * Individa il numero del giocatore attuale.
+     * @return il numero del giocatore attuale.
+     */
     public int currentPlayerIndex() {
         for (int i = 0; i < 4; i++) {
             if (players[i].equals(getCurrentPlayer())) {
@@ -1025,6 +1051,10 @@ public class GameManager implements Serializable {
         return 5;
     }
 
+    /**
+     * Permette di individuare l'ultimo giocatore.
+     * @return "true" se è l'utlimo giocatore in partita, "false" se ci sono ancora altri giocatori.
+     */
     public boolean lastPlayer() {
         int conta = 0;
         for (int i = 0; i < 4; i++) {

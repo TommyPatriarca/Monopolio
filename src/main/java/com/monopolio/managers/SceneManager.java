@@ -49,8 +49,8 @@ public class SceneManager implements Serializable {
     }
 
     /**
-     * TODO
-     * @param settings
+     * Resetta la schermata di gioco.
+     * @param settings sono le impostazioni della finestra.
      */
     public void restartGameScreen(Stage settings) {
         game.restart(stage);
@@ -70,6 +70,10 @@ public class SceneManager implements Serializable {
         stage.setX(settings.getX());
         stage.setY(settings.getY());
     }
+
+    /**
+     * Chiude il pannello.
+     */
     public void closePane(){
         stage.close();
     }

@@ -31,8 +31,4 @@ public class LeaveListener implements EventHandler<ActionEvent> {
             sceneManager.closePane();
             endGame.start(new Stage());
     }
-
-
-
-
 }

@@ -17,9 +17,9 @@ import java.util.Optional;
 public class AlertManager {
 
     /**
-     * Da fare
-     *
-     * @return
+     * Gestisce la finestra dell'alert.
+     * @param string è ciò che stampa l'alert
+     * @return "true" se è stato schiacciato il bottone ok, "false" se è stato schiacciato il bottone annulla
      */
     public static boolean showDialog(String string) {
         if(Monopolio.getInterfaceType() == InterfaceManager.InterfaceType.GUI) {

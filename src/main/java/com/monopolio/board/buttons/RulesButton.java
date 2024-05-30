@@ -13,6 +13,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
+/**
+ * Gestisce bottone regole.
+ */
 public class RulesButton extends Button {
     private Game game;
 
@@ -28,7 +31,9 @@ public class RulesButton extends Button {
         setGraphic(icon);
     }
 
-
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(50, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));

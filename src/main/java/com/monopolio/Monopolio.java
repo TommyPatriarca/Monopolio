@@ -26,23 +26,40 @@ public class Monopolio extends Application {
         sceneManager.showModeScreen();
     }
 
+    /**
+     * Accesso principale all'avvio del programmma.
+     * @param args array di stringhe che rappresenta gli argomenti passati al programma dalla riga di comando quando viene avviato.
+     */
     public static void main(String[] args) {
         Selection selection = new Selection();
         selection.start(args);
     }
 
+    /**
+     * @return com'è stata avviata l'applicazione ("true" se in modalità sviluppatore, "false" se in modalità normale).
+     */
     public static boolean isDevMode() {
         return devMode;
     }
 
+    /**
+     * @return il tipo di interfaccia.
+     */
     public static InterfaceManager.InterfaceType getInterfaceType() {
         return interfaceType;
     }
 
+    /**
+     * Imposta il tipo d'interfaccia.
+     * @param interfaceType rappresenta il tipo d'interfaccia.
+     */
     public static void setInterfaceType(InterfaceManager.InterfaceType interfaceType) {
         Monopolio.interfaceType = interfaceType;
     }
 
+    /**
+     * @return la Cli.
+     */
     public Cli getCli() {
         return cli;
     }

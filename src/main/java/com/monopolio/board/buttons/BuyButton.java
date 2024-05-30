@@ -13,6 +13,10 @@ import javafx.scene.control.Button;
 
 
 // TODO fare in modo che il botone compri cio che si puo acquistare, ad esempio se nessuno ha quel terreno premendolo lo acquisti altrimenti se è tuo acquisti una casa
+
+/**
+ * Gestisce il bottone compra.
+ */
 public class BuyButton extends Button {
     GameManager gameManager;
 
@@ -22,6 +26,9 @@ public class BuyButton extends Button {
         setOnAction(new BuyListener(gameManager, game));
     }
 
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(100, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));

@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Gestisce bottone impostazioni.
+ */
 public class SettingsButton extends VBox {
     private Game game;
     private Stage primaryStage;
@@ -38,6 +41,9 @@ public class SettingsButton extends VBox {
         setSpacing(5);
     }
 
+    /**
+     * Disattiva i bottoni del sub-menù.
+     */
     private void toggleSubButtons() {
         if (subButtonsContainer.getChildren().isEmpty()) {
             addSubButtons();
@@ -46,6 +52,9 @@ public class SettingsButton extends VBox {
         }
     }
 
+    /**
+     * Attiva i pulsanti del sub-menù.
+     */
     private void addSubButtons() {
         Button rulesButton = createSubButton("Rules", event -> AlertManager.showRules());
         Button soundButton = createSubButton("Sound", event -> {});
@@ -55,10 +64,19 @@ public class SettingsButton extends VBox {
         subButtonsContainer.getChildren().addAll(rulesButton, soundButton, graphicsButton, languageButton);
     }
 
+    /**
+     * Rimuove i bottoni del sub-menù.
+     */
     private void removeSubButtons() {
         subButtonsContainer.getChildren().clear();
     }
 
+    /**
+     * Crea i bottoni del sub-menù.
+     * @param text indica ciò che verrà scritto sul pulsante.
+     * @param handler gestisce gli eventi di quando il bottone viene premuto.
+     * @return il bottone.
+     */
     private Button createSubButton(String text, javafx.event.EventHandler<javafx.event.ActionEvent> handler) {
         Button button = new Button(text);
         button.setPrefWidth(100);
@@ -66,6 +84,9 @@ public class SettingsButton extends VBox {
         return button;
     }
 
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setBackground(new Background(new BackgroundFill(Color.web("#1081F9"), new CornerRadii(10), Insets.EMPTY)));
         setPadding(new Insets(5));

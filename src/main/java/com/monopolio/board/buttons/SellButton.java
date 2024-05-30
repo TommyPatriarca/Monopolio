@@ -11,6 +11,10 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 // TODO stessa cosa del BuyButton
+
+/**
+ * Gestisce bottone vendita.
+ */
 public class SellButton extends Button {
     private Game game;
 
@@ -20,6 +24,9 @@ public class SellButton extends Button {
         design();
     }
 
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(100, 50);
         setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));

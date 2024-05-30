@@ -13,6 +13,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
+/**
+ * Gestisce bottone muta.
+ */
 public class MuteButton extends Button {
     private boolean muted = false;
     private ImageView playIcon;
@@ -34,6 +37,9 @@ public class MuteButton extends Button {
         setOnAction(new MuteListener(this));
     }
 
+    /**
+     * Permette di attiavare/disattivare l'audio di gioco.
+     */
     public void toggle() {
         muted = !muted;
 
@@ -56,6 +62,9 @@ public class MuteButton extends Button {
         }
     }
 
+    /**
+     * Imposta stile bottone.
+     */
     public void design() {
         setPrefSize(50, 50);
         setBackground(new Background(new BackgroundFill(Color.web("#001233FF"), new CornerRadii(10), Insets.EMPTY)));
