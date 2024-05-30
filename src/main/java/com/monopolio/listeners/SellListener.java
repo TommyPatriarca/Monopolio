@@ -31,6 +31,7 @@ public class SellListener implements EventHandler<ActionEvent> {
         if(game.getSelectedButton() == null) {
             AlertManager.showError("Non ci sono proprietà selezionate");
         } else {
+            game.refreshPlayersGUI();
             if(gameManager.getCity(game.getSelectedButtonIndex()) instanceof City && ((City) gameManager.getCity(game.getSelectedButtonIndex())).getHouseNumber() >= 1) {
                 gameManager.sellHouse(gameManager.getCity(game.getSelectedButtonIndex()));
             } else {

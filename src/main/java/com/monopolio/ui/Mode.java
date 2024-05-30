@@ -161,8 +161,8 @@ public class Mode extends Application {
         modeStage.setTitle("Selezione modalità");
         modeStage.setScene(scene);
         modeStage.setMaximized(true);
-        modeStage.setMinHeight(800);
-        modeStage.setMinWidth(800);
+        modeStage.setMinHeight(1000);
+        modeStage.setMinWidth(1200);
         modeStage.show();
 
         // bottone listener per il nuovo gioco

@@ -1,5 +1,7 @@
 package com.monopolio.player;
 
+import com.monopolio.ui.Game;
+
 /**
  * Rappresenta il giocatore all' interno del gioco.
  */

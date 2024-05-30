@@ -32,6 +32,7 @@ public class BuyListener implements EventHandler<ActionEvent> {
                 gameManager.buyHouse(gameManager.getCity(game.getSelectedButtonIndex()));
             } else {
                 gameManager.buyPropety();
+                game.refreshPlayersGUI();
             }
         } else {
             AlertManager.showError("Non hai ancora finito di tirare i dadi!");
