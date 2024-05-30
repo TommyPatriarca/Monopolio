@@ -31,6 +31,7 @@ public class SongManager {
         if (!muted) {
             clip.setFramePosition(0); // Riavvia dall'inizio
             clip.start();
+            clip.loop(100);
         }
     }
 
@@ -40,6 +41,7 @@ public class SongManager {
     public void mute() {
         clip.stop();
         muted = true;
+        clip.loop(100);
     }
 
     /**
@@ -48,6 +50,7 @@ public class SongManager {
     public void unmute() {
         muted = false;
         clip.start();
+        clip.loop(100);
     }
 
     /**
