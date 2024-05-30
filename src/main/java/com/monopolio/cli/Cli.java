@@ -44,7 +44,7 @@ public class Cli implements Serializable {
         boolean flag2, flag;
 
         do {
-            messagePrint("Quanti giocatori vogliono giocare? ( mininimo -> 2 massimo -> 4)");
+            messagePrint("Quanti giocatori vogliono giocare? ( minimo -> 2 massimo -> 4)");
             messagePrint("\nSelezione -> ");
             try {
                 nPlayer = Integer.parseInt(s.nextLine());
