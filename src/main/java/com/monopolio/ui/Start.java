@@ -172,8 +172,8 @@ public class Start extends Application {
         // Impostazioni finestra
         primaryStage.setTitle("Selezione giocatori");
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(800);
-        primaryStage.setMinWidth(800);
+        primaryStage.setMinHeight(1000);
+        primaryStage.setMinWidth(1200);
         primaryStage.show();
 
         // Aggiungi un listener al pulsante Start per verificare i nomi duplicati
