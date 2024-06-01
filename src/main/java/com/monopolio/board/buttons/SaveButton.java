@@ -22,14 +22,14 @@ import java.util.Objects;
  */
 public class SaveButton extends Button {
 
-    public SaveButton(SceneManager sceneManager)
+    public SaveButton(GameManager gameManager)
     {
         design();
         Image playImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/save.png")),50,50,true,true);
         // Crea le ImageView per le immagini
         ImageView icon = new ImageView(playImage);
         // Imposta l'icona di default a playIcon
-        setOnAction(new SaveListener(sceneManager));
+        setOnAction(new SaveListener(gameManager));
         setGraphic(icon);
     }
 

@@ -1068,4 +1068,8 @@ public class GameManager implements Serializable {
             return false;
         }
     }
+
+    public void saveGame() {
+
+    }
 }

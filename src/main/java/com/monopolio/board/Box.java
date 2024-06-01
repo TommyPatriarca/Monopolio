@@ -1,5 +1,7 @@
 package com.monopolio.board;
 
-public interface Box {
+import java.io.Serializable;
+
+public interface Box extends Serializable {
     String getNome();
 }

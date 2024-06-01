@@ -2,10 +2,12 @@ package com.monopolio.player;
 
 import com.monopolio.ui.Game;
 
+import java.io.Serializable;
+
 /**
  * Rappresenta il giocatore all' interno del gioco.
  */
-public class Player {
+public class Player implements Serializable {
     private final String name;
     public int money = 1500;
     private int position = 0;

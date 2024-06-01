@@ -15,10 +15,10 @@ import java.io.ObjectOutputStream;
  * Gestisce il click per il salvataggio della partita.
  */
 public class SaveListener implements EventHandler<ActionEvent> {
-    private SceneManager sceneManager;
+    private GameManager gameManager;
 
-    public SaveListener(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
+    public SaveListener(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     /**
@@ -31,7 +31,7 @@ public class SaveListener implements EventHandler<ActionEvent> {
 
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("file.ser"));
-            out.writeObject(sceneManager);
+            out.writeObject(gameManager);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -28,7 +28,7 @@ public class Cli implements Serializable {
      * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la griglia.
      */
     public void startCli() {
-        messageRed("\n------------------------------------- MONOPOLIO --------------------------------------------\n\n");
+        messageRed("\n------------------------------------- MONOPOLIO --------------------------------------------\n");
         askName();
         initBoard();
         printBoard();
