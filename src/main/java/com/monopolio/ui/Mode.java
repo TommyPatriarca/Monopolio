@@ -1,8 +1,10 @@
 package com.monopolio.ui;
 
+import com.monopolio.board.Box;
 import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.SoundManager;
 import com.monopolio.managers.SceneManager;
+import com.monopolio.player.Player;
 import com.monopolio.utils.FontUtils;
 import javafx.application.Application;
 import javafx.scene.effect.Glow;
@@ -178,11 +180,14 @@ public class Mode extends Application {
             if(!AlertManager.showDialog("Questa funzione non è ancora funzionante, il programma darà degli errori")) return;
 
             try {
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.ser"));
-                sceneManager = (SceneManager) in.readObject();
-                sceneManager.restartGameScreen(modeStage);
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream("file.ser"));
+                Player[] players = (Player[]) in.readObject();
+                Box[] cities = (Box[]) in.readObject();
+                in.close();
+
+                sceneManager.restartGameScreen(modeStage, players, cities);
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
     }

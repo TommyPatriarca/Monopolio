@@ -28,13 +28,6 @@ public class SaveListener implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         if(!AlertManager.showDialog("Questa funzione non è ancora funzionante, il programma darà degli errori")) return;
-
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("file.ser"));
-            out.writeObject(gameManager);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        gameManager.saveGame();
     }
 }

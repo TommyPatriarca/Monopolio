@@ -1,5 +1,7 @@
 package com.monopolio.managers;
 
+import com.monopolio.board.Box;
+import com.monopolio.player.Player;
 import com.monopolio.ui.EndGame;
 import com.monopolio.ui.Game;
 import com.monopolio.ui.Mode;
@@ -52,7 +54,9 @@ public class SceneManager implements Serializable {
      * Resetta la schermata di gioco.
      * @param settings sono le impostazioni della finestra.
      */
-    public void restartGameScreen(Stage settings) {
+    public void restartGameScreen(Stage settings, Player[] players, Box[] cities) {
+        game = new Game(this, players, cities);
+        applySettings(settings);
         game.restart(stage);
     }
 

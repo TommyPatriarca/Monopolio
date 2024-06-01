@@ -13,6 +13,9 @@ import com.monopolio.ui.Game;
 import com.monopolio.utils.RandUtils;
 import javafx.scene.control.Alert;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -37,6 +40,78 @@ public class GameManager implements Serializable {
         chancesButton = new ChancesButton(this, game);
         treasuresButton = new TreasuresButton(this, game);
         this.game = game;
+    }
+
+    // Load game
+    public GameManager(Game game, Player[] players, Box[] cities) {
+        this.players = players;
+        this.cities = cities;
+        chancesButton = new ChancesButton(this, game);
+        treasuresButton = new TreasuresButton(this, game);
+        this.game = game;
+    }
+
+    // per il load game
+    public void refreshOutlines() {
+        for(int j = 0; j < getCities().length; j++) {
+            if(getCity(j) instanceof City) {
+                City city = (City) getCity(j);
+                if(city.isOwned()) {
+                    for(int i = 0; i < 4; i++) {
+                        if (getPlayer(i) == city.getOwner()) {
+                            switch (i) {
+                                case 0:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: green; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                                case 1:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: yellow; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                                case 2:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: cyan; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                                case 3:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: purple; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+
+                                default:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            } else if(getCity(j) instanceof Stations) {
+                Stations stations = (Stations) getCity(j);
+                if(stations.isOwned()) {
+                    for(int i = 0; i < 4; i++) {
+                        if (getPlayer(i) == stations.getOwner()) {
+                            switch (i) {
+                                case 0:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: green; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                                case 1:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: yellow; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                                case 2:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: cyan; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                                case 3:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-color: purple; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+
+                                default:
+                                    game.getButton(j).setStyle("-fx-cursor: hand; -fx-border-radius: 10; -fx-border-width: 2px; -fx-font-weight: bold;");
+                                    break;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1070,6 +1145,13 @@ public class GameManager implements Serializable {
     }
 
     public void saveGame() {
-
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("file.ser"));
+            out.writeObject(players);
+            out.writeObject(cities);
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
