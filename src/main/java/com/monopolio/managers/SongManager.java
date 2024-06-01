@@ -41,7 +41,6 @@ public class SongManager {
     public void mute() {
         clip.stop();
         muted = true;
-        clip.loop(100);
     }
 
     /**
