@@ -42,6 +42,12 @@ public class GameManager implements Serializable {
         this.game = game;
     }
 
+    // Load game - cli
+    public GameManager(Player[] players, Box[] cities) {
+        this.players = players;
+        this.cities = cities;
+    }
+
     // Load game
     public GameManager(Game game, Player[] players, Box[] cities) {
         this.players = players;
