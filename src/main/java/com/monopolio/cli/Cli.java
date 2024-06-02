@@ -794,8 +794,9 @@ public class Cli implements Serializable {
         }
     }
 
+
     /**
-     * Stampa la posizione di ogni giocatore.
+     * Stampa la griglia del gioco
      */
     public void printAllPosition() {
         for (int i = 0; i < 4; i++) {
@@ -805,53 +806,102 @@ public class Cli implements Serializable {
         }
     }
 
-
     /**
      * Stampa la griglia del gioco
      */
     public void printBoard() {
-        String[] Yellow = new String[]{" - " + "\033[0;43m" + "       Traona      " + "\033[0m", " - " + "\033[0;43m" + "       Andalo      " + "\033[0m"};
-        String[] Orange = new String[]{" - " + "\033[48;5;208m" + "      Regoledo     " + "\033[0m", " - " + "\033[48;5;208m" + "     Talamona      " + "\033[0m", " - " + "\033[48;5;208m" + "      Morbegno     " + "\033[0m"};
-        String[] White = new String[]{" - " + "\033[0;47m" + "      Ardenno      " + "\033[0m", " - " + "\033[0;47m" + "     Villapinta     " + "\033[0m", " - " + "\033[0;47m" + "     Berbenno      " + "\033[0m",};
-        String[] Pink = new String[]{" - " + "\033[48;5;213m" + "     Castione      " + "\033[0m", " - " + "\033[48;5;213m" + "     Albosaggia    " + "\033[0m"};
-        String[] Purple = new String[]{" - " + "\033[0;45m" + "      Sondrio      " + "\033[0m", " - " + "\033[0;45m" + "      Chiesa       " + "\033[0m", " - " + "\033[0;45m" + "     Caspoggio     " + "\033[0m"};
-        String[] Green = new String[]{" - " + "\033[0;42m" + "    San Giacomo    " + "\033[0m", " - " + "\033[0;42m" + "       Tirano      " + "\033[0m"};
-        String[] LightBlue = new String[]{" - " + "\033[48;5;123m" + "      Livigno      " + "\033[0m", " - " + "\033[48;5;123m" + "      Sondalo      " + "\033[0m", " - " + "\033[48;5;123m" + "       Grosio      " + "\033[0m"};
-        String[] Blue = new String[]{" - " + "\033[0;44m" + "      Trepalle     " + "\033[0m" + "\033[0m", " - " + "\033[0;44m" + "       Bormio      " + "\033[0m"};
+        String[] playerMarkers = new String[32];
+        for (int i = 0; i < playerMarkers.length; i++) {
+            playerMarkers[i] = "";
+        }
+        String[] playerColors = new String[]{"\033[0;31m", "\033[0;32m", "\033[0;33m", "\033[0;34m"};
+        for (int i = 0; i < 4; i++) {
+            if (!gameManager.getPlayer(i).getName().isEmpty()) {
+                int position = gameManager.getPlayer(i).getPosition();
+                playerMarkers[position] += playerColors[i] + " x " + "\033[0m";
+            }
+        }
 
-        message(" -     Via(+200$)     " + Yellow[0] + " - " + "\033[0;44m" + "    Probabilità    " + "\033[0m" + Yellow[1] + " -    Stazione Nord   " + Orange[0] + Orange[1] + Orange[2] + " - " + "\033[0;41m" + "     Prigione      " + "\033[0m");
-        message(" ");
-        message("");
-        message("");
-        message(Blue[1] + "                                                                                                                                                          " + White[0]);
-        message(" ");
-        message("");
-        message("");
-        message(" - Tasse(-200$)" + "                                                                                                                                                                 " + White[1]);
-        message("");
-        message("");
-        message("");
-        message(Blue[0] + "                                                                                                                                                          " + White[2]);
-        message("");
-        message("");
-        message("");
-        message(" -   Stazione Ovest    " + "                                                                                                                                                         " + " -    Stazione Est    ");
-        message("");
-        message("");
-        message("");
-        message(LightBlue[0] + "                                                                                                                                                          " + Pink[0]);
-        message("");
-        message("");
-        message("");
-        message(LightBlue[1] + "                                                                                                                                                           " + "- Tesori");
-        message("");
-        message("");
-        message("");
-        message(LightBlue[2] + "                                                                                                                                                          " + Pink[1]);
-        message("");
-        message("");
-        message("");
-        message(" -   Vai in prigione  " + Green[0] + " - " + "\033[0;44m" + "    Probabilità    " + "\033[0m" + Green[1] + " -    Stazione Sud    " + Purple[0] + Purple[1] + Purple[2] + " - " + "\033[0;41m" + "Parcheggio gratuito" + "\033[0m");
+        String[] Yellow = new String[]{
+                " - " + "\033[0;43m" + "         Traona         " + "\033[0m" + "    " + playerMarkers[1],
+                " - " + "\033[0;43m" + "         Andalo         " + "\033[0m" + "    " + playerMarkers[3]
+        };
+        String[] Orange = new String[]{
+                " - " + "\033[48;5;208m" + "         Regoledo       " + "\033[0m" + "    " + playerMarkers[5],
+                " - " + "\033[48;5;208m" + "        Talamona        " + "\033[0m" + "    " + playerMarkers[6],
+                " - " + "\033[48;5;208m" + "         Morbegno       " + "\033[0m" + "    " + playerMarkers[7]
+        };
+        String[] White = new String[]{
+                " - " + "\033[0;47m" + "         Ardenno        " + "\033[0m" + "    " + playerMarkers[9],
+                " - " + "\033[0;47m" + "        Villapinta      " + "\033[0m" + "    " + playerMarkers[10],
+                " - " + "\033[0;47m" + "        Berbenno        " + "\033[0m" + "    " + playerMarkers[11]
+        };
+        String[] Pink = new String[]{
+                " - " + "\033[48;5;213m" + "         Castione       " + "\033[0m" + "    " + playerMarkers[15],
+                " - " + "\033[48;5;213m" + "        Albosaggia      " + "\033[0m" + "    " + playerMarkers[19]
+        };
+        String[] Purple = new String[]{
+                " - " + "\033[0;45m" + "         Sondrio        " + "\033[0m" + "    " + playerMarkers[19],
+                " - " + "\033[0;45m" + "         Chiesa         " + "\033[0m" + "    " + playerMarkers[18],
+                " - " + "\033[0;45m" + "        Caspoggio       " + "\033[0m" + "    " + playerMarkers[17]
+        };
+        String[] Green = new String[]{
+                " - " + "\033[0;42m" + "       San Giacomo      " + "\033[0m" + "    " + playerMarkers[23],
+                " - " + "\033[0;42m" + "         Tirano         " + "\033[0m" + "    " + playerMarkers[21]
+        };
+        String[] LightBlue = new String[]{
+                " - " + "\033[48;5;123m" + "         Livigno        " + "\033[0m" + "    " + playerMarkers[27],
+                " - " + "\033[48;5;123m" + "         Sondalo        " + "\033[0m" + "    " + playerMarkers[26],
+                " - " + "\033[48;5;123m" + "         Grosio         " + "\033[0m" + "    " + playerMarkers[25]
+        };
+        String[] Blue = new String[]{
+                " - " + "\033[0;44m" + "        Trepalle        " + "\033[0m" + "    " + playerMarkers[29],
+                " - " + "\033[0;44m" + "         Bormio         " + "\033[0m" + "    " + playerMarkers[31]
+        };
+        String[] Stations = new String[]{
+                " - " + "\033[0;44m" + "     Stazione Nord      " + "\033[0m" + "    " + playerMarkers[4],
+                " - " + "\033[0;44m" + "      Stazione Est      " + "\033[0m" + "    " + playerMarkers[12],
+                " - " + "\033[0;44m" + "      Stazione Sud      " + "\033[0m" + "    " + playerMarkers[20],
+                " - " + "\033[0;44m" + "     Stazione Ovest     " + "\033[0m" + "    " + playerMarkers[28]
+        };
+        String[] Special = new String[]{
+                " - " + "\033[0;44m" + "           Via          " + "\033[0m" + "    " + playerMarkers[0],
+                " - " + "\033[0;44m" + "      Probabilità       " + "\033[0m" + "    " + playerMarkers[2],
+                " - " + "\033[0;44m" + "      Probabilità       " + "\033[0m" + "    " + playerMarkers[22],
+                " - " + "\033[0;44m" + "         Tasse          " + "\033[0m" + "    " + playerMarkers[30],
+                " - " + "\033[0;44m" + "       Imprevisti       " + "\033[0m" + "    " + playerMarkers[14],
+                " - " + "\033[0;44m" + "        Prigione        " + "\033[0m" + "    " + playerMarkers[8],
+                " - " + "\033[0;44m" + "       Parcheggio       " + "\033[0m" + "    " + playerMarkers[16],
+                " - " + "\033[0;44m" + "     Vai in Prigione    " + "\033[0m" + "    " + playerMarkers[24]
+        };
 
+
+
+        message(Special[0] + Yellow[0] + Special[1] + Yellow[1] +Stations[0] + Orange[0] + Orange[1] + Orange[2] +Special[5]);
+        message(" ");
+        message(" ");
+        message(Blue[1] + "                                                                                                                                            " + White[0]);
+        message(" ");
+        message(" ");
+        message(Special[3] + "                                                                                                                                            "+ White[1]);
+        message(" ");
+        message(" ");
+        message(Blue[0] + "                                                                                                                      " + White[2]);
+        message(" ");
+        message(" ");
+        message(Stations[3] + "                                                                                                                                            " + Stations[1]);
+        message(" ");
+        message(" ");
+        message(LightBlue[0] + "                                                                                                                                            " + Pink[0]);
+        message(" ");
+        message(" ");
+        message(LightBlue[1] + "                                                                                                                                            " + Special[4]);
+        message(" ");
+        message(" ");
+        message(LightBlue[2] + "                                                                                                                                            " + Pink[1]);
+        message(" ");
+        message(" ");
+        message(Special[7] + Green[0] + Special[2] + Green[1] + Stations[2] + Purple[0] + Purple[1] + Purple[2] + Special[6]);
     }
+
 }
