@@ -6,6 +6,9 @@ import com.monopolio.managers.AlertManager;
 import com.monopolio.managers.GameManager;
 import com.monopolio.player.Player;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -31,9 +34,16 @@ public class Cli implements Serializable {
         askName();
         initBoard();
         printBoard();
-        handle();
-
+        handle(false);
     }
+
+    public void loadCli() {
+        messageRed("\n------------------------------------- MONOPOLIO --------------------------------------------\n");
+        printBoard();
+        handle(true);
+    }
+
+
     public void gameSelection(){
         int selection = 0;
         messagePrint("[0] Carica partita\n[1] Nuova partita");
@@ -44,8 +54,21 @@ public class Cli implements Serializable {
             messageRed("Non hai inserto un numero");
         }
         switch (selection){
-            case 0: gameManager = new GameManager(players, );printBoard();
-            case 1: gameManager = new GameManager();startCli();
+            case 0:
+                try {
+                    ObjectInputStream in = new ObjectInputStream(new FileInputStream("file.ser"));
+                    Player[] players = (Player[]) in.readObject();
+                    Box[] cities = (Box[]) in.readObject();
+                    in.close();
+
+                    gameManager = new GameManager(players, cities);
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                loadCli();
+                break;
+            case 1: gameManager = new GameManager(); startCli();
+            break;
         }
 
 
@@ -224,10 +247,12 @@ public class Cli implements Serializable {
     /**
      * Chiama tutte le funzioni che permettono lo svolgimento del gioco.
      */
-    public void handle() {
+    public void handle(boolean load) {
         boolean flag = false;
 
-        gameManager.startGame();
+        if(load) {
+            initBoard();
+        }
 
         while (true) {
             int count = 0;
