@@ -1,6 +1,5 @@
 package com.monopolio.cli;
 
-import com.monopolio.Monopolio;
 import com.monopolio.board.Box;
 import com.monopolio.board.boxes.*;
 import com.monopolio.managers.AlertManager;
@@ -17,12 +16,12 @@ import java.util.Scanner;
  */
 public class Cli implements Serializable {
     private Scanner s = new Scanner(System.in);
-    private GameManager gameManager = new GameManager();
     private ArrayList<Box> posssedute1 = new ArrayList<Box>();
     private ArrayList<Box> posssedute2 = new ArrayList<Box>();
     private ArrayList<Box> posssedute3 = new ArrayList<Box>();
     private ArrayList<Box> posssedute4 = new ArrayList<Box>();
     private Player[] players = new Player[4];
+    private GameManager gameManager;
 
     /**
      * Stampa a schermo il titolo del programma e successivamente chiama le funzioni per inizializzare e stampare la griglia.
@@ -33,6 +32,22 @@ public class Cli implements Serializable {
         initBoard();
         printBoard();
         handle();
+
+    }
+    public void gameSelection(){
+        int selection = 0;
+        messagePrint("[0] Carica partita\n[1] Nuova partita");
+        messagePrint("\nSelezione -> ");
+        try {
+             selection = Integer.parseInt(s.nextLine());
+        } catch (NumberFormatException e) {
+            messageRed("Non hai inserto un numero");
+        }
+        switch (selection){
+            case 0: gameManager = new GameManager(players, );printBoard();
+            case 1: gameManager = new GameManager();startCli();
+        }
+
 
     }
 
@@ -357,23 +372,23 @@ public class Cli implements Serializable {
                         gameManager.getPlayer(0).setMyTurn(true);
                     } else {
                         gameManager.getPlayer(i + 1).setMyTurn(true);
-                    } // logic to end the player's turn.
+                    }
                     break;
                 }
             }
         } else {
             do {
-                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori \n[5] Visualizza Griglia di gioco \n[104] Dichiara Bancarotta");
+                message("\nQuale azione vuoi eseguire ?\n[0] Termina Turno\n[1] Compra Proprietà\n[2] Vendi Proprietà \n[3] Visualizza Proprietà Possedute da ogni giocatore \n[4] Visualizza Posizione di tutti i giocatori \n[5] Visualizza Griglia di gioco \n[6] Salva partita \n[104] Dichiara Bancarotta");
                 messagePrint("\nSelezione -> ");
                 try {
                     selection = Integer.parseInt(s.nextLine());
-                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 104) {
+                    if (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 6 && selection != 104) {
                         messageRed("\n Hai richiesto un'azione inesistente");
                     }
                 } catch (NumberFormatException e) {
                     messageRed("Non hai inserto un numero");
                 }
-            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 104);
+            } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 6 && selection != 104);
 
             switch (selection) {
                 case 0:
@@ -395,7 +410,7 @@ public class Cli implements Serializable {
                                 gameManager.getPlayer(0).setMyTurn(true);
                             } else {
                                 gameManager.getPlayer(i + 1).setMyTurn(true);
-                            } // logic to end the player's turn.
+                            }
                             break;
                         }
                     }
@@ -586,6 +601,10 @@ public class Cli implements Serializable {
                     return false;
                 case 5:
                     printBoard();
+                    return false;
+                case 6:
+                    messagePrint(" Gioco salvato con successo");
+                    gameManager.saveGame();
                     return false;
                 case 104:
                     messageRed(gameManager.getCurrentPlayer().getName().toUpperCase() + " ha dichiarato bancarotta e si è ritirato");
@@ -796,7 +815,7 @@ public class Cli implements Serializable {
 
 
     /**
-     * Stampa la griglia del gioco
+     * Stampa la posizione dei player del gioco
      */
     public void printAllPosition() {
         for (int i = 0; i < 4; i++) {
@@ -812,7 +831,7 @@ public class Cli implements Serializable {
     public void printBoard() {
         String[] playerMarkers = new String[32];
         for (int i = 0; i < playerMarkers.length; i++) {
-            playerMarkers[i] = "";
+            playerMarkers[i] = "   ";
         }
         String[] playerColors = new String[]{"\033[0;31m", "\033[0;32m", "\033[0;33m", "\033[0;34m"};
         for (int i = 0; i < 4; i++) {
@@ -823,56 +842,56 @@ public class Cli implements Serializable {
         }
 
         String[] Yellow = new String[]{
-                " - " + "\033[0;43m" + "         Traona         " + "\033[0m" + "    " + playerMarkers[1],
-                " - " + "\033[0;43m" + "         Andalo         " + "\033[0m" + "    " + playerMarkers[3]
+                " - " + "\033[0;43m" + "      Traona     " + "\033[0m" + "" + playerMarkers[1],
+                " - " + "\033[0;43m" + "      Andalo     " + "\033[0m" + "" + playerMarkers[3]
         };
         String[] Orange = new String[]{
-                " - " + "\033[48;5;208m" + "         Regoledo       " + "\033[0m" + "    " + playerMarkers[5],
-                " - " + "\033[48;5;208m" + "        Talamona        " + "\033[0m" + "    " + playerMarkers[6],
-                " - " + "\033[48;5;208m" + "         Morbegno       " + "\033[0m" + "    " + playerMarkers[7]
+                " - " + "\033[48;5;208m" + "      Regoledo   " + "\033[0m" + "" + playerMarkers[5],
+                " - " + "\033[48;5;208m" + "     Talamona    " + "\033[0m" + "" + playerMarkers[6],
+                " - " + "\033[48;5;208m" + "      Morbegno   " + "\033[0m" + "" + playerMarkers[7]
         };
         String[] White = new String[]{
-                " - " + "\033[0;47m" + "         Ardenno        " + "\033[0m" + "    " + playerMarkers[9],
-                " - " + "\033[0;47m" + "        Villapinta      " + "\033[0m" + "    " + playerMarkers[10],
-                " - " + "\033[0;47m" + "        Berbenno        " + "\033[0m" + "    " + playerMarkers[11]
+                " - " + "\033[0;47m" + "      Ardenno    " + "\033[0m" + "" + playerMarkers[9],
+                " - " + "\033[0;47m" + "     Villapinta  " + "\033[0m" + "" + playerMarkers[10],
+                " - " + "\033[0;47m" + "     Berbenno    " + "\033[0m" + "" + playerMarkers[11]
         };
         String[] Pink = new String[]{
-                " - " + "\033[48;5;213m" + "         Castione       " + "\033[0m" + "    " + playerMarkers[15],
-                " - " + "\033[48;5;213m" + "        Albosaggia      " + "\033[0m" + "    " + playerMarkers[19]
+                " - " + "\033[48;5;213m" + "      Castione   " + "\033[0m" + "" + playerMarkers[15],
+                " - " + "\033[48;5;213m" + "     Albosaggia  " + "\033[0m" + "" + playerMarkers[19]
         };
         String[] Purple = new String[]{
-                " - " + "\033[0;45m" + "         Sondrio        " + "\033[0m" + "    " + playerMarkers[19],
-                " - " + "\033[0;45m" + "         Chiesa         " + "\033[0m" + "    " + playerMarkers[18],
-                " - " + "\033[0;45m" + "        Caspoggio       " + "\033[0m" + "    " + playerMarkers[17]
+                " - " + "\033[0;45m" + "      Sondrio    " + "\033[0m" + "" + playerMarkers[19],
+                " - " + "\033[0;45m" + "      Chiesa     " + "\033[0m" + "" + playerMarkers[18],
+                " - " + "\033[0;45m" + "     Caspoggio   " + "\033[0m" + "" + playerMarkers[17]
         };
         String[] Green = new String[]{
-                " - " + "\033[0;42m" + "       San Giacomo      " + "\033[0m" + "    " + playerMarkers[23],
-                " - " + "\033[0;42m" + "         Tirano         " + "\033[0m" + "    " + playerMarkers[21]
+                " - " + "\033[0;42m" + "    San Giacomo  " + "\033[0m" + "" + playerMarkers[23],
+                " - " + "\033[0;42m" + "      Tirano     " + "\033[0m" + "" + playerMarkers[21]
         };
         String[] LightBlue = new String[]{
-                " - " + "\033[48;5;123m" + "         Livigno        " + "\033[0m" + "    " + playerMarkers[27],
-                " - " + "\033[48;5;123m" + "         Sondalo        " + "\033[0m" + "    " + playerMarkers[26],
-                " - " + "\033[48;5;123m" + "         Grosio         " + "\033[0m" + "    " + playerMarkers[25]
+                " - " + "\033[48;5;123m" + "      Livigno    " + "\033[0m" + "" + playerMarkers[27],
+                " - " + "\033[48;5;123m" + "      Sondalo    " + "\033[0m" + "" + playerMarkers[26],
+                " - " + "\033[48;5;123m" + "      Grosio     " + "\033[0m" + "" + playerMarkers[25]
         };
         String[] Blue = new String[]{
-                " - " + "\033[0;44m" + "        Trepalle        " + "\033[0m" + "    " + playerMarkers[29],
-                " - " + "\033[0;44m" + "         Bormio         " + "\033[0m" + "    " + playerMarkers[31]
+                " - " + "\033[0;44m" + "     Trepalle    " + "\033[0m" + "" + playerMarkers[29],
+                " - " + "\033[0;44m" + "      Bormio     " + "\033[0m" + "" + playerMarkers[31]
         };
         String[] Stations = new String[]{
-                " - " + "\033[0;44m" + "     Stazione Nord      " + "\033[0m" + "    " + playerMarkers[4],
-                " - " + "\033[0;44m" + "      Stazione Est      " + "\033[0m" + "    " + playerMarkers[12],
-                " - " + "\033[0;44m" + "      Stazione Sud      " + "\033[0m" + "    " + playerMarkers[20],
-                " - " + "\033[0;44m" + "     Stazione Ovest     " + "\033[0m" + "    " + playerMarkers[28]
+                " - " + "\033[0;44m" + "  Stazione Nord  " + "\033[0m" + "" + playerMarkers[4],
+                " - " + "\033[0;44m" + "   Stazione Est  " + "\033[0m" + "" + playerMarkers[12],
+                " - " + "\033[0;44m" + "   Stazione Sud  " + "\033[0m" + "" + playerMarkers[20],
+                " - " + "\033[0;44m" + "  Stazione Ovest " + "\033[0m" + "" + playerMarkers[28]
         };
         String[] Special = new String[]{
-                " - " + "\033[0;44m" + "           Via          " + "\033[0m" + "    " + playerMarkers[0],
-                " - " + "\033[0;44m" + "      Probabilità       " + "\033[0m" + "    " + playerMarkers[2],
-                " - " + "\033[0;44m" + "      Probabilità       " + "\033[0m" + "    " + playerMarkers[22],
-                " - " + "\033[0;44m" + "         Tasse          " + "\033[0m" + "    " + playerMarkers[30],
-                " - " + "\033[0;44m" + "       Imprevisti       " + "\033[0m" + "    " + playerMarkers[14],
-                " - " + "\033[0;44m" + "        Prigione        " + "\033[0m" + "    " + playerMarkers[8],
-                " - " + "\033[0;44m" + "       Parcheggio       " + "\033[0m" + "    " + playerMarkers[16],
-                " - " + "\033[0;44m" + "     Vai in Prigione    " + "\033[0m" + "    " + playerMarkers[24]
+                " - " + "\033[0;44m" + "       Via       " + "\033[0m" + "" + playerMarkers[0],
+                " - " + "\033[0;44m" + "    Probabilità  " + "\033[0m" + "" + playerMarkers[2],
+                " - " + "\033[0;44m" + "    Probabilità  " + "\033[0m" + "" + playerMarkers[22],
+                " - " + "\033[0;44m" + "      Tasse      " + "\033[0m" + "" + playerMarkers[30],
+                " - " + "\033[0;44m" + "    Imprevisti   " + "\033[0m" + "" + playerMarkers[14],
+                " - " + "\033[0;44m" + "     Prigione    " + "\033[0m" + "" + playerMarkers[8],
+                " - " + "\033[0;44m" + "    Parcheggio   " + "\033[0m" + "" + playerMarkers[16],
+                " - " + "\033[0;44m" + " Vai in Prigione " + "\033[0m" + "" + playerMarkers[24]
         };
 
 
@@ -880,25 +899,25 @@ public class Cli implements Serializable {
         message(Special[0] + Yellow[0] + Special[1] + Yellow[1] +Stations[0] + Orange[0] + Orange[1] + Orange[2] +Special[5]);
         message(" ");
         message(" ");
-        message(Blue[1] + "                                                                                                                                            " + White[0]);
+        message(Blue[1] + "                                                                                                                                                                          " + White[0]);
         message(" ");
         message(" ");
-        message(Special[3] + "                                                                                                                                            "+ White[1]);
+        message(Special[3] + "                                                                                                                                                                          "+ White[1]);
         message(" ");
         message(" ");
-        message(Blue[0] + "                                                                                                                      " + White[2]);
+        message(Blue[0] + "                                                                                                                                                                        " + White[2]);
         message(" ");
         message(" ");
-        message(Stations[3] + "                                                                                                                                            " + Stations[1]);
+        message(Stations[3] + "                                                                                                                                                                          " + Stations[1]);
         message(" ");
         message(" ");
-        message(LightBlue[0] + "                                                                                                                                            " + Pink[0]);
+        message(LightBlue[0] + "                                                                                                                                                                          " + Pink[0]);
         message(" ");
         message(" ");
-        message(LightBlue[1] + "                                                                                                                                            " + Special[4]);
+        message(LightBlue[1] + "                                                                                                                                                                          " + Special[4]);
         message(" ");
         message(" ");
-        message(LightBlue[2] + "                                                                                                                                            " + Pink[1]);
+        message(LightBlue[2] + "                                                                                                                                                                          " + Pink[1]);
         message(" ");
         message(" ");
         message(Special[7] + Green[0] + Special[2] + Green[1] + Stations[2] + Purple[0] + Purple[1] + Purple[2] + Special[6]);

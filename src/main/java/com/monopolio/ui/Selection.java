@@ -152,7 +152,7 @@ public class Selection extends Application {
     private void handleCliSelection() {
         Monopolio.setInterfaceType(InterfaceManager.InterfaceType.CLI);
         stage.close();
-        monopolio.getCli().startCli();
+        monopolio.getCli().gameSelection();
     }
 
     /**
