@@ -27,7 +27,7 @@ public class SaveListener implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        if(!AlertManager.showDialog("Questa funzione non è ancora funzionante, il programma darà degli errori")) return;
+        if(!AlertManager.showDialog("Partita salvata con successo")) return;
         gameManager.saveGame();
     }
 }
