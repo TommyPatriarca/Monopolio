@@ -121,6 +121,7 @@ public class Cli implements Serializable {
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
                         gameManager.setPlayer(0, player1);
+                        gameManager.getPlayer(0).setMyTurn(true);
                         gameManager.setPlayer(1, player2);
                         gameManager.setPlayer(2, player3);
                         gameManager.setPlayer(3, player4);
@@ -162,6 +163,7 @@ public class Cli implements Serializable {
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
                         gameManager.setPlayer(0, player1);
+                        gameManager.getPlayer(0).setMyTurn(true);
                         gameManager.setPlayer(1, player2);
                         gameManager.setPlayer(2, player3);
                         gameManager.setPlayer(3, player4);
@@ -206,6 +208,7 @@ public class Cli implements Serializable {
                     //SE I NOMI SONO DUPLICATI
                     if (flag2 == false) {
                         gameManager.setPlayer(0, player1);
+                        gameManager.getPlayer(0).setMyTurn(true);
                         gameManager.setPlayer(1, player2);
                         gameManager.setPlayer(2, player3);
                         gameManager.setPlayer(3, player4);
