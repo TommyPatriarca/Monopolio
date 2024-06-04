@@ -177,7 +177,7 @@ public class Mode extends Application {
         loadGameButton.setOnAction(event -> {
             SoundManager.play();
 
-            if(!AlertManager.showDialog("Questa funzione non è ancora funzionante, il programma darà degli errori")) return;
+            if(!AlertManager.showDialog("Caricare la partita?")) return;
 
             try {
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream("file.ser"));
